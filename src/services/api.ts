@@ -10,7 +10,10 @@ import type {
 } from "@/types/content";
 
 const BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ||
   process.env.NEXT_PUBLIC_API_BASE?.replace(/\/$/, "") ||
+  process.env.API_BASE_URL?.replace(/\/$/, "") ||
+  process.env.API_BASE?.replace(/\/$/, "") ||
   "http://localhost:5001/api/v1";
 // Base query with credentials
 const rawBaseQuery = fetchBaseQuery({

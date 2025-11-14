@@ -30,7 +30,10 @@ import {
 } from "@/services/admin.news";
 
 const BASE =
+  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ||
   process.env.NEXT_PUBLIC_API_BASE?.replace(/\/$/, "") ||
+  process.env.API_BASE_URL?.replace(/\/$/, "") ||
+  process.env.API_BASE?.replace(/\/$/, "") ||
   "http://localhost:5001/api/v1";
 
 const slugifyLocal = (s: string) =>
@@ -452,7 +455,9 @@ export default function NewsAdminPage() {
         <div className="grid gap-3 lg:col-span-3">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <Label className="text-base font-semibold">Titles & content</Label>
-            <span className="text-xs text-muted-foreground">Supports VI / EN</span>
+            <span className="text-xs text-muted-foreground">
+              Supports VI / EN
+            </span>
           </div>
           <Tabs defaultValue="vi" className="w-full">
             <TabsList className="grid w-full grid-cols-2">

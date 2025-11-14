@@ -41,7 +41,10 @@ import {
 import { MoreVertical } from "lucide-react";
 
 const BASE =
+  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ||
   process.env.NEXT_PUBLIC_API_BASE?.replace(/\/$/, "") ||
+  process.env.API_BASE_URL?.replace(/\/$/, "") ||
+  process.env.API_BASE?.replace(/\/$/, "") ||
   "http://localhost:5001/api/v1";
 
 const slugifyLocal = (s: string) =>
@@ -220,7 +223,9 @@ export default function ProjectsAdminPage() {
   const [editState, setEditState] = React.useState<Editable | null>(null);
   const [editFiles, setEditFiles] = React.useState<File[]>([]);
   const [editSlugOk, setEditSlugOk] = React.useState<boolean | null>(null);
-  const [pendingDelete, setPendingDelete] = React.useState<Project | null>(null);
+  const [pendingDelete, setPendingDelete] = React.useState<Project | null>(
+    null
+  );
 
   function openEdit(p: Project) {
     setEditing(p);
@@ -516,13 +521,13 @@ export default function ProjectsAdminPage() {
                           Xem API
                         </a>
                       </Button>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => setPendingDelete(row)}
-                    >
-                      Xoá
-                    </Button>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => setPendingDelete(row)}
+                      >
+                        Xoá
+                      </Button>
                     </div>
                     {/* Mobile: collapsed into a menu */}
                     <div className="md:hidden flex justify-end">
@@ -711,10 +716,14 @@ export default function ProjectsAdminPage() {
                       </Button>
                     </div>
                     {editSlugOk === true && (
-                      <div className="text-xs text-green-600">Slug khả dụng</div>
+                      <div className="text-xs text-green-600">
+                        Slug khả dụng
+                      </div>
                     )}
                     {editSlugOk === false && (
-                      <div className="text-xs text-red-600">Slug đã tồn tại</div>
+                      <div className="text-xs text-red-600">
+                        Slug đã tồn tại
+                      </div>
                     )}
                   </div>
 
@@ -782,13 +791,20 @@ export default function ProjectsAdminPage() {
         </Dialog.Portal>
       </Dialog.Root>
       {/* Delete confirmation dialog */}
-      <Dialog.Root open={!!pendingDelete} onOpenChange={(o) => !o && setPendingDelete(null)}>
+      <Dialog.Root
+        open={!!pendingDelete}
+        onOpenChange={(o) => !o && setPendingDelete(null)}
+      >
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-[1px]" />
           <Dialog.Content className="fixed left-1/2 top-1/2 w-[92vw] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-xl border bg-white p-5 shadow-2xl">
-            <Dialog.Title className="text-base font-semibold">Xác nhận xoá</Dialog.Title>
+            <Dialog.Title className="text-base font-semibold">
+              Xác nhận xoá
+            </Dialog.Title>
             <Dialog.Description className="mt-1 text-sm text-muted-foreground">
-              Bạn có chắc chắn muốn xoá{pendingDelete ? ` “${pendingDelete.project}”` : " mục này"}? Thao tác này không thể hoàn tác.
+              Bạn có chắc chắn muốn xoá
+              {pendingDelete ? ` “${pendingDelete.project}”` : " mục này"}? Thao
+              tác này không thể hoàn tác.
             </Dialog.Description>
             <div className="mt-5 flex items-center justify-end gap-2">
               <Dialog.Close asChild>

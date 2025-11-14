@@ -1,7 +1,10 @@
 import type { Paged, ProductNode } from "@/features/products/types";
 
 const BASE =
+  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ||
   process.env.NEXT_PUBLIC_API_BASE?.replace(/\/$/, "") ||
+  process.env.API_BASE_URL?.replace(/\/$/, "") ||
+  process.env.API_BASE?.replace(/\/$/, "") ||
   "http://localhost:5001/api/v1";
 
 export async function fetchRootCategories(): Promise<Paged<ProductNode>> {

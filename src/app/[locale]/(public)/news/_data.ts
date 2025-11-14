@@ -2,7 +2,10 @@
 import type { News } from "@/types/content";
 
 const BASE =
+  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ||
   process.env.NEXT_PUBLIC_API_BASE?.replace(/\/$/, "") ||
+  process.env.API_BASE_URL?.replace(/\/$/, "") ||
+  process.env.API_BASE?.replace(/\/$/, "") ||
   "http://localhost:5001/api/v1";
 
 export async function listNews({
@@ -11,7 +14,12 @@ export async function listNews({
 }: {
   page?: number;
   limit?: number;
-} = {}): Promise<{ items: News[]; page: number; limit: number; total: number }> {
+} = {}): Promise<{
+  items: News[];
+  page: number;
+  limit: number;
+  total: number;
+}> {
   const usp = new URLSearchParams({
     isPublished: "true",
     sort: "-publishedAt",
@@ -37,7 +45,9 @@ export async function listNews({
     : data?.items ?? data?.data ?? [];
 
   const total =
-    data?.pagination?.total ?? data?.total ?? (Array.isArray(data) ? data.length : items.length);
+    data?.pagination?.total ??
+    data?.total ??
+    (Array.isArray(data) ? data.length : items.length);
   const currentPage = data?.pagination?.page ?? data?.page ?? page;
   const currentLimit = data?.pagination?.limit ?? data?.limit ?? limit;
 
