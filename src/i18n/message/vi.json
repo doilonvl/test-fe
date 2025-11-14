@@ -1,0 +1,241 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "products": "Sản phẩm & Dịch vụ",
+    "projects": "Dự án",
+    "news": "Tin tức",
+    "loading": "Đang tải…",
+    "noCatalogs": "Không có catalog nào"
+  },
+  "home": {
+    "heroTitle": "Giải pháp vui chơi - Hasake Play",
+    "heroDesc": "Giải pháp vui chơi hiện đại cho khu đô thị, resort, trường học và công viên.",
+    "brandT": "Những Thương Hiệu",
+    "brandD": "Uy Tín",
+    "brandS": "Có mặt tại",
+    "latestTitle": "Các sản phẩm mới nhất",
+    "latestLoadingDesc": "Khám phá những sản phẩm vừa cập nhật.",
+    "latestDesc": "Xem mục sản phẩm & dịch vụ để biết thêm thông tin chi tiết.",
+    "latestCTA": "Khám phá các sản phẩm",
+    "latestError": "Không tải được sản phẩm!",
+    "featuredProjectsTitle": "Các dự án nổi bật",
+    "featuredProjectsSubtitle": "Những công trình tiêu biểu do Hasake triển khai.",
+    "featuredProjectsCTA": "Xem tất cả dự án"
+  },
+  "footer": {
+    "contactCompany": "Liên hệ Công ty TNHH Hasake",
+    "hotline": {
+      "label": "HOTLINE"
+    },
+    "contactBoss": "Người đại diện pháp luật: Hari Dass Kumar Ratna Kumar (Ông)",
+    "tel": "Điện thoại",
+    "hcm": {
+      "title": "Văn phòng TP. Hồ Chí Minh",
+      "address": "Tầng 5, 27K Trần Nhật Duật, Phường Tân Định, TP. Hồ Chí Minh, Việt Nam.",
+      "phoneHcm": "VP TP.HCM",
+      "phoneHn": "VP Hà Nội",
+      "fax": "Fax"
+    },
+    "hanoi": {
+      "title": "Văn phòng Hà Nội",
+      "address": "62 Ngõ Yết Kiêu, Cửa Nam, Hoàn Kiếm, Hà Nội"
+    },
+    "thailand": {
+      "title": "Văn phòng tại Thái Lan",
+      "address": "78/23, CITY SENSE VILLAGE, SOI WATCHARAPOL 2, THARANG, BANGKHEN, BANGKOK 10230 THAILAND."
+    },
+    "malaysia": {
+      "title": "Văn phòng tại Malaysia",
+      "address": "NO. 3, JALAN ANGGERIK MOKARA 31/64, KOTA KEMUNING, 40460 SHAH ALAM, SELANGOR, MALAYSIA."
+    },
+    "india": {
+      "title": "Văn phòng tại Ấn Độ",
+      "address": "GREENPRO INDIA CONSULTANT PVT. LTD., 416 & 417, 4TH FLOOR, SUNSHINE PLAZA, NAIGAON CROSS ROAD, DADAR (E), MUMBAI – 400 014, INDIA."
+    },
+    "viewMap": "Xem bản đồ",
+    "info": {
+      "title": "Thông tin"
+    },
+    "links": {
+      "privacy": "Chính sách bảo mật",
+      "terms": "Điều khoản sử dụng",
+      "contact": "Liên hệ",
+      "catalog": "Tải Catalog"
+    },
+    "copyright": "© {startYear}–{year}, Công ty TNHH Hasake. Tất cả các quyền được bảo lưu."
+  },
+  "notFound": {
+    "title": "Trang bạn tìm không tồn tại",
+    "description": "Có thể đường dẫn đã thay đổi hoặc nội dung đã được di chuyển.",
+    "ctaHome": "Về trang chủ",
+    "ctaContact": "Liên hệ",
+    "hint": "Hãy thử tìm kiếm hoặc quay lại trang trước"
+  },
+  "products": {
+    "title": "Sản phẩm",
+    "subtitle": "Khám phá danh mục sản phẩm của Hasake Play",
+    "resultCount": "{count} kết quả",
+    "searchPlaceholder": "Tìm theo tên, từ khóa...",
+    "clear": "Xóa lọc",
+    "all": "Tất cả",
+    "sort": {
+      "order": "Thứ tự ↑",
+      "-order": "Thứ tự ↓",
+      "title": "Tên A → Z",
+      "-title": "Tên Z → A",
+      "createdAt": "Mới nhất",
+      "-createdAt": "Cũ nhất"
+    },
+    "empty": {
+      "title": "Không có kết quả phù hợp",
+      "desc": "Hãy điều chỉnh bộ lọc hoặc từ khóa tìm kiếm."
+    },
+    "viewDetails": "Xem chi tiết"
+  },
+  "contact": {
+    "trigger": "Liên hệ",
+    "title": "Liên hệ với chúng tôi",
+    "description": "Bạn đang cần hỗ trợ? Hãy gửi thông tin và chúng tôi sẽ phản hồi sớm nhất!",
+    "name": "Họ và tên",
+    "phone": "Số điện thoại",
+    "email": "Email",
+    "organisation": "Tổ chức / Công ty",
+    "city": "Thành phố",
+    "address": "Địa chỉ",
+    "message": "Lời nhắn",
+    "send": "Gửi",
+    "sending": "Đang gửi...",
+    "close": "Đóng",
+    "toast": {
+      "success": "Đã gửi thành công! Chúng tôi sẽ sớm liên hệ lại.",
+      "error": "Gửi thất bại, vui lòng thử lại sau."
+    },
+    "placeholder": {
+      "name": "Nguyễn Văn A",
+      "phone": "090...",
+      "email": "you@company.com",
+      "organisation": "Tên công ty",
+      "city": "Hà Nội",
+      "address": "123 phố X, quận Y",
+      "message": "Nhu cầu của bạn..."
+    }
+  },
+  "intro": {
+    "why": "Tại sao mọi người chọn",
+    "unique": "Sự độc đáo từ",
+    "brand": "Hasake Play",
+    "middleTitle": "Chúng tôi?",
+    "blocks": [
+      {
+        "title": "Triết lý của chúng tôi",
+        "desc": "Biến giấc mơ của khách hàng thành hiện thực, mang đến những sân chơi ý nghĩa cho mọi lứa tuổi."
+      },
+      {
+        "title": "Sứ mệnh của chúng tôi",
+        "desc": "Cam kết tính chuyên nghiệp và sáng tạo trong từng dự án, nâng cao trải nghiệm vui chơi cộng đồng."
+      },
+      {
+        "title": "Tầm nhìn của chúng tôi",
+        "desc": "Mang con người đến gần hơn với thiên nhiên, tạo ra không gian sống xanh và lành mạnh."
+      },
+      {
+        "title": "An toàn và chất lượng",
+        "desc": "An toàn là ưu tiên số một, chất lượng là nền tảng để xây dựng niềm tin với khách hàng."
+      }
+    ]
+  },
+  "aboutUs": {
+    "heading": {
+      "prefix": "Tìm hiểu",
+      "highlight": "về chúng tôi"
+    },
+    "tabs": {
+      "about": "Giới thiệu",
+      "season": "Season avanue",
+      "bowling": "Green bowling",
+      "water": "Công viên nước",
+      "aboutShort": "Giới thiệu",
+      "seasonShort": "Season",
+      "bowlingShort": "Bowling",
+      "waterShort": "Nước"
+    },
+    "imageAlt": "Hasake Play - Giới thiệu",
+    "about": {
+      "title": "Giới thiệu",
+      "p1": "Công Ty TNHH Hạ Sa Kê là văn phòng đại diện tại Việt Nam của tập đoàn HKS vững mạnh với hơn 20 năm thành lập và phát triển, văn phòng chính đặt tại Bangkok, Thái Lan, ngoài ra chúng tôi còn có văn phòng đại diện và nhà máy ở nhiều nơi như: Malaysia, Ấn Độ, Trung Quốc, Canada, Hàn Quốc, Ý, Mỹ, Hungary, Philippines...",
+      "p2": "Công ty chúng tôi chuyên cung cấp và lắp đặt các loại thiết bị dành cho sân chơi trẻ em trong nhà và ngoài trời như: Cầu trượt, thú nhún, nhà liên hoàn, xe điện đụng, xích đu, bập bênh, nhà banh, đu quay, vòng quay ngựa gỗ́, bạt nhún, v.v…, thiết bị luyện tập thể dục ngoài trời, thiết bị bowling, thiết bị vui chơi giải trí, thiết bị công viên nước, sàn cao su an toàn...",
+      "p3": "Sản phẩm của chúng tôi được sản xuất theo tiêu chuẩn Châu Âu (chứng chỉ ISO9001), đặc biệt an toàn, không độc hại và được sử dụng ở nhiều nước trên thế giới.",
+      "p4": "Ở mỗi nơi chúng tôi đều có một đội ngũ nhân viên chuyên nghiệp, luôn sẵn sàng phục vụ và đáp ứng nhu cầu của khách hàng một cách tốt nhất."
+    },
+    "season": {
+      "title": "Season avanue",
+      "videoAria": "Video giới thiệu Season avanue",
+      "p1": "\"Season avanue\" là bộ sưu tập giải pháp vui chơi theo mùa do Hasake đề xuất cho trung tâm thương mại và khu phức hợp. Mỗi phân khu được tối ưu về luồng di chuyển, khả năng quan sát của phụ huynh, cùng vật liệu bền bỉ đáp ứng tiêu chuẩn an toàn quốc tế.",
+      "p2": "Thiết kế mô-đun giúp nâng cấp – thay thế chủ đề theo mùa nhanh chóng mà không cần dừng hoạt động lâu. Hệ thống sàn cao su, bo góc mềm và lớp phủ kháng khuẩn hỗ trợ vận hành an toàn, dễ vệ sinh, giảm chi phí bảo trì cho chủ đầu tư."
+    },
+    "bowling": {
+      "title": "Green bowling",
+      "videoAria": "Video giới thiệu Green bowling",
+      "p1": "Dòng \"Green bowling\" hướng tới không gian bowling thân thiện với gia đình, bố trí đường lane thông minh, hệ thống barrier cho trẻ em và scoring UI trực quan. Ánh sáng LED tiết kiệm năng lượng, vật liệu ít phát thải giúp giảm tiêu hao vận hành.",
+      "p2": "Hasake hỗ trợ thiết kế – lắp đặt trọn gói: từ tối ưu mặt bằng, tiêu chuẩn âm học, cho tới quy trình bảo trì định kỳ. Mục tiêu là tăng trải nghiệm, tăng thời gian lưu trú và tối ưu doanh thu cho mô hình FEC/retailtainment."
+    },
+    "water": {
+      "title": "Công viên nước",
+      "videoAria": "Video giới thiệu Công viên nước",
+      "p1": "Giải pháp công viên nước của Hasake bao gồm máng trượt FRP, splash pad, vòi phun tương tác, xô đổ nước, cùng hệ thống tuần hoàn – lọc – khử trùng đạt chuẩn. Thiết kế ưu tiên an toàn mặt trượt, chống trơn và khả năng thoát nước nhanh.",
+      "p2": "Quy trình triển khai tuân thủ tiêu chuẩn, từ khảo sát – thiết kế concept – shopdrawing – thi công – vận hành thử. Đội ngũ hỗ trợ đào tạo nhân sự và bảo trì để công viên hoạt động ổn định, an toàn quanh năm."
+    }
+  },
+  "news": {
+    "title": "Tin tức",
+    "subtitle": "Những cập nhật và câu chuyện mới nhất từ Hasake Play.",
+    "breadcrumb": "Trang chủ / Tin tức",
+    "readMore": "Xem thêm"
+  },
+  "projects": {
+    "title": "Dự án",
+    "filterAllYears": "Tất cả các năm",
+    "searchPlaceholder": "Tìm theo tên / phạm vi / khách hàng",
+    "table": {
+      "project": "Dự án",
+      "scope": "Phạm vi công việc",
+      "client": "Khách hàng",
+      "year": "Năm"
+    },
+    "empty": "Không có kết quả",
+    "detail": {
+      "scope": "Phạm vi",
+      "client": "Khách hàng",
+      "year": "Năm",
+      "noImages": "Dự án này chưa có hình ảnh đính kèm.",
+      "gallery": "Bộ sưu tập ảnh",
+      "galleryTitle": "Hình ảnh dự án"
+    },
+    "pagination": {
+      "showing": "Hiển thị {start}–{end} trong tổng {total}",
+      "noData": "Không có dữ liệu",
+      "perPageSuffix": "/ trang"
+    },
+    "aria": {
+      "filterByYear": "Lọc theo năm",
+      "search": "Tìm kiếm dự án",
+      "firstPage": "Trang đầu",
+      "prevPage": "Trang trước",
+      "nextPage": "Trang sau",
+      "lastPage": "Trang cuối"
+    },
+    "resultCount": "{count} dự án",
+    "clear": "Làm mới bộ lọc",
+    "galleryEmpty": "Chưa có hình ảnh dự án.",
+    "card": {
+      "label": "Dự án",
+      "cta": "Xem chi tiết"
+    },
+    "galleryToggle": {
+      "more": "Phóng to",
+      "less": "Thu gọn"
+    },
+    "loadMore": "Tải thêm dự án",
+    "loadingMore": "Đang tải dự án..."
+  }
+}
