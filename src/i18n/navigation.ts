@@ -20,11 +20,14 @@ export const pathnames = {
   "/projects": { en: "/projects", vi: "/du-an" },
   "/projects/[slug]": { en: "/projects/[slug]", vi: "/du-an/[slug]" },
 
-  // Catalogs (đang dùng dạng số nhiều trong header)
+  // Privacy policy
+  "/privacy": { en: "/privacy", vi: "/bao-mat" },
+
+  // Catalogs
   "/catalogs": { en: "/catalogs", vi: "/catalogs" },
   "/catalogs/[slug]": { en: "/catalogs/[slug]", vi: "/catalogs/[slug]" },
 
-  // (Tùy chọn) Giữ key cũ nếu bạn còn nơi nào đó dùng /catalog
+  // Optional single form
   "/catalog": { en: "/catalog", vi: "/catalog" },
 } as const;
 

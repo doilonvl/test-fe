@@ -2,6 +2,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Mail, Phone, MapPin, Facebook, Youtube, Twitter } from "lucide-react";
 import FadeIn from "../animation/FadeIn";
 
@@ -91,6 +92,16 @@ export default function SiteFooter() {
                 >
                   <MapPin className="h-5 w-5" />
                 </a>
+              </div>
+
+              <div className="flex flex-wrap gap-3 text-sm text-slate-700">
+                <Link
+                  href="/privacy"
+                  className="hover:text-[#05acfb] hover:underline"
+                >
+                  {t("links.privacy")}
+                </Link>
+                <span className="text-slate-300">•</span>
               </div>
             </div>
 

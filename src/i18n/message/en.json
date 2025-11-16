@@ -3,6 +3,7 @@
     "home": "Home",
     "products": "Product & Services",
     "projects": "Projects",
+    "privacy": "Privacy & Policy",
     "news": "News",
     "loading": "Loading…",
     "noCatalogs": "No catalogs available"
@@ -186,6 +187,125 @@
       "videoAria": "Water park demo video",
       "p1": "Hasake’s water park solutions include FRP slides, splash pads, interactive fountains, tipping buckets, along with a compliant circulation–filtration–disinfection system. Designs prioritize slide safety, anti-slip surfaces, and fast drainage.",
       "p2": "Our delivery process follows standards from site survey, concept design, shop drawings, construction to commissioning. We train on-site staff and provide maintenance to ensure safe, stable year-round operations."
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Privacy Policy - Hasake Co., Ltd.",
+      "description": "How Hasake Co., Ltd. collects, uses, and protects your personal information when you interact with us."
+    },
+    "eyebrow": "Hasake Co., Ltd.",
+    "title": "Privacy Policy",
+    "intro": "We value your privacy and are committed to protecting your personal information when you use our website and communicate with us.",
+    "lastUpdated": "Last Updated",
+    "sections": [
+      {
+        "title": "1. Scope & Applicability",
+        "items": [
+          "This Policy applies to any personal data collected by Hasake when you visit and use our Site, or when you communicate with us.",
+          "By using our Site or submitting information to us (via forms, email, phone, etc.), you agree to the practices described here."
+        ]
+      },
+      {
+        "title": "2. Information We Collect",
+        "blocks": [
+          {
+            "subtitle": "a) Information You Voluntarily Provide",
+            "items": [
+              "Contact / quote / consultation forms.",
+              "Name, email, phone, company or organization, and project details (e.g., playground size, type).",
+              "Any information shared via email, phone, or other channels."
+            ]
+          },
+          {
+            "subtitle": "b) Automatically Collected Information",
+            "items": [
+              "IP address, browser type, OS, device details.",
+              "Pages visited, time on page, referring/exit pages, clicks/interactions.",
+              "Cookies and similar tracking technologies."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "3. Use of Your Information",
+        "items": [
+          "Respond to inquiries, provide quotes, and follow up on project requests.",
+          "Improve and personalize our website and user experience.",
+          "Analyze site usage for performance and optimization.",
+          "Send important updates or communications when necessary.",
+          "Enhance security and protect against misuse or fraud."
+        ]
+      },
+      {
+        "title": "4. Cookies & Tracking Technologies",
+        "items": [
+          "We use cookies (and similar technologies) to understand usage, remember preferences, and improve the web experience.",
+          "You can disable cookies in your browser, but some features may be limited."
+        ]
+      },
+      {
+        "title": "5. Sharing Your Information",
+        "items": [
+          "We do not sell your personal data.",
+          "We may share with service providers (hosting, analytics) or partners/contractors as needed for quotations or project services.",
+          "We may disclose data to authorities if required by law or to protect our rights.",
+          "All third parties are required to keep data confidential and use it only for the intended purpose."
+        ]
+      },
+      {
+        "title": "6. Data Security",
+        "items": [
+          "We apply appropriate technical and organizational measures to protect your data.",
+          "No internet transmission or storage is 100% secure; absolute security cannot be guaranteed."
+        ]
+      },
+      {
+        "title": "7. Data Retention",
+        "items": [
+          "We keep your data only as long as needed to fulfill its purpose (e.g., follow up on a quote or project).",
+          "On deletion requests or consent withdrawal, we erase data unless a legal or legitimate business reason requires retention."
+        ]
+      },
+      {
+        "title": "8. Your Rights",
+        "items": [
+          "Access, correct/update, or delete your personal data.",
+          "Withdraw consent or object to certain processing.",
+          "Contact us to exercise these rights."
+        ]
+      },
+      {
+        "title": "9. Third-Party Links",
+        "items": [
+          "Our Site may link to external websites (e.g., partners, suppliers).",
+          "We are not responsible for their privacy practices; please review their policies separately."
+        ]
+      },
+      {
+        "title": "10. Children’s Privacy",
+        "items": [
+          "Our Site is generally not intended for children under 13.",
+          "We do not knowingly collect data from children under 13; if you believe we have, contact us to remove it."
+        ]
+      },
+      {
+        "title": "11. Changes to This Policy",
+        "items": [
+          "We may update this Policy from time to time.",
+          "Changes will be posted here with an updated 'Last Updated' date. Please review periodically."
+        ]
+      }
+    ],
+    "contact": {
+      "title": "12. Contact Us",
+      "description": "If you have any questions, concerns, or requests about your personal data or this Privacy Policy, please reach out:",
+      "emailLabel": "Email",
+      "phoneLabel": "Phone",
+      "addressLabel": "Address",
+      "email": "info@hasakeplay.com.vn",
+      "phone": "+84 (028) 3 931 9092",
+      "address": "5th Floor, 27K Tran Nhat Duat, Tan Dinh Ward, Ho Chi Minh City, Vietnam."
     }
   },
   "news": {

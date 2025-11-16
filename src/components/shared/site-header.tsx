@@ -140,6 +140,7 @@ export default function SiteHeader() {
                 {t("projects")}
               </Link>
             </li>
+
             <li>
               <Link
                 href={{ pathname: "/", hash: "about" }}
@@ -229,6 +230,17 @@ export default function SiteHeader() {
                 )}
               </div>
             </li>
+            <li>
+              <Link
+                href="/privacy"
+                style={toneVars("bien")}
+                className={`${linkBase} ${linkHover} ${
+                  is("/privacy") ? linkActive : linkIdle
+                }`}
+              >
+                {t("privacy")}
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -273,6 +285,14 @@ export default function SiteHeader() {
                         className="block px-3 py-2 rounded-md hover:bg-gray-50"
                       >
                         {t("projects")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/privacy"
+                        className="block px-3 py-2 rounded-md hover:bg-gray-50"
+                      >
+                        {t("privacy")}
                       </Link>
                     </li>
                     <li className="pt-2 mt-2 border-t">

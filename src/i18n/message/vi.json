@@ -3,8 +3,9 @@
     "home": "Trang chủ",
     "products": "Sản phẩm & Dịch vụ",
     "projects": "Dự án",
+    "privacy": "Chính sách & Bảo mật",
     "news": "Tin tức",
-    "loading": "Đang tải…",
+    "loading": "Đang tải...",
     "noCatalogs": "Không có catalog nào"
   },
   "home": {
@@ -15,7 +16,7 @@
     "brandS": "Có mặt tại",
     "latestTitle": "Các sản phẩm mới nhất",
     "latestLoadingDesc": "Khám phá những sản phẩm vừa cập nhật.",
-    "latestDesc": "Xem mục sản phẩm & dịch vụ để biết thêm thông tin chi tiết.",
+    "latestDesc": "Xem mục Sản phẩm & Dịch vụ để biết thêm thông tin chi tiết.",
     "latestCTA": "Khám phá các sản phẩm",
     "latestError": "Không tải được sản phẩm!",
     "featuredProjectsTitle": "Các dự án nổi bật",
@@ -24,9 +25,7 @@
   },
   "footer": {
     "contactCompany": "Liên hệ Công ty TNHH Hasake",
-    "hotline": {
-      "label": "HOTLINE"
-    },
+    "hotline": { "label": "HOTLINE" },
     "contactBoss": "Người đại diện pháp luật: Hari Dass Kumar Ratna Kumar (Ông)",
     "tel": "Điện thoại",
     "hcm": {
@@ -53,16 +52,14 @@
       "address": "GREENPRO INDIA CONSULTANT PVT. LTD., 416 & 417, 4TH FLOOR, SUNSHINE PLAZA, NAIGAON CROSS ROAD, DADAR (E), MUMBAI – 400 014, INDIA."
     },
     "viewMap": "Xem bản đồ",
-    "info": {
-      "title": "Thông tin"
-    },
+    "info": { "title": "Thông tin" },
     "links": {
       "privacy": "Chính sách bảo mật",
       "terms": "Điều khoản sử dụng",
       "contact": "Liên hệ",
       "catalog": "Tải Catalog"
     },
-    "copyright": "© {startYear}–{year}, Công ty TNHH Hasake. Tất cả các quyền được bảo lưu."
+    "copyright": "© {startYear}–{year}, Công ty TNHH Hasake. Tất cả quyền được bảo lưu."
   },
   "notFound": {
     "title": "Trang bạn tìm không tồn tại",
@@ -162,8 +159,8 @@
     "imageAlt": "Hasake Play - Giới thiệu",
     "about": {
       "title": "Giới thiệu",
-      "p1": "Công Ty TNHH Hạ Sa Kê là văn phòng đại diện tại Việt Nam của tập đoàn HKS vững mạnh với hơn 20 năm thành lập và phát triển, văn phòng chính đặt tại Bangkok, Thái Lan, ngoài ra chúng tôi còn có văn phòng đại diện và nhà máy ở nhiều nơi như: Malaysia, Ấn Độ, Trung Quốc, Canada, Hàn Quốc, Ý, Mỹ, Hungary, Philippines...",
-      "p2": "Công ty chúng tôi chuyên cung cấp và lắp đặt các loại thiết bị dành cho sân chơi trẻ em trong nhà và ngoài trời như: Cầu trượt, thú nhún, nhà liên hoàn, xe điện đụng, xích đu, bập bênh, nhà banh, đu quay, vòng quay ngựa gỗ́, bạt nhún, v.v…, thiết bị luyện tập thể dục ngoài trời, thiết bị bowling, thiết bị vui chơi giải trí, thiết bị công viên nước, sàn cao su an toàn...",
+      "p1": "Công Ty TNHH Há Sa Kê là văn phòng đại diện tại Việt Nam của tập đoàn HKS với hơn 20 năm thành lập và phát triển. Văn phòng chính đặt tại Bangkok, Thái Lan, ngoài ra chúng tôi còn có văn phòng đại diện và nhà máy ở nhiều nơi như: Malaysia, Ấn Độ, Trung Quốc, Canada, Hàn Quốc, Ý, Mỹ, Hungary, Philippines...",
+      "p2": "Công ty chúng tôi chuyên cung cấp và lắp đặt các loại thiết bị dành cho sân chơi trẻ em trong nhà và ngoài trời như: Cầu trượt, thú nhún, nhà liên hoàn, xe điện đụng, xích đu, bập bênh, nhà banh, đu quay, vòng quay ngựa gỗ, bạt nhún,... thiết bị luyện tập thể dục ngoài trời, thiết bị bowling, thiết bị vui chơi giải trí, thiết bị công viên nước, sàn cao su an toàn...",
       "p3": "Sản phẩm của chúng tôi được sản xuất theo tiêu chuẩn Châu Âu (chứng chỉ ISO9001), đặc biệt an toàn, không độc hại và được sử dụng ở nhiều nước trên thế giới.",
       "p4": "Ở mỗi nơi chúng tôi đều có một đội ngũ nhân viên chuyên nghiệp, luôn sẵn sàng phục vụ và đáp ứng nhu cầu của khách hàng một cách tốt nhất."
     },
@@ -184,6 +181,125 @@
       "videoAria": "Video giới thiệu Công viên nước",
       "p1": "Giải pháp công viên nước của Hasake bao gồm máng trượt FRP, splash pad, vòi phun tương tác, xô đổ nước, cùng hệ thống tuần hoàn – lọc – khử trùng đạt chuẩn. Thiết kế ưu tiên an toàn mặt trượt, chống trơn và khả năng thoát nước nhanh.",
       "p2": "Quy trình triển khai tuân thủ tiêu chuẩn, từ khảo sát – thiết kế concept – shopdrawing – thi công – vận hành thử. Đội ngũ hỗ trợ đào tạo nhân sự và bảo trì để công viên hoạt động ổn định, an toàn quanh năm."
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Chính Sách Bảo Mật - Công Ty TNHH Hasake",
+      "description": "Cách Công Ty TNHH Hasake thu thập, sử dụng và bảo vệ thông tin cá nhân của bạn khi tương tác với chúng tôi."
+    },
+    "eyebrow": "Công Ty TNHH Hasake",
+    "title": "Chính sách bảo mật",
+    "intro": "Chúng tôi trân trọng quyền riêng tư và cam kết bảo vệ thông tin cá nhân của bạn khi sử dụng trang web cũng như liên hệ với chúng tôi.",
+    "lastUpdated": "Cập nhật lần cuối",
+    "sections": [
+      {
+        "title": "1. Phạm vi & áp dụng",
+        "items": [
+          "Chính Sách này áp dụng cho mọi dữ liệu cá nhân Hasake thu thập khi bạn truy cập và sử dụng Trang web, hoặc khi bạn liên hệ với chúng tôi.",
+          "Bằng việc sử dụng Trang web hoặc gửi thông tin cho chúng tôi (qua form, email, điện thoại,...), bạn đồng ý với các nội dung được nêu tại đây."
+        ]
+      },
+      {
+        "title": "2. Thông tin chúng tôi thu thập",
+        "blocks": [
+          {
+            "subtitle": "a) Thông tin bạn cung cấp",
+            "items": [
+              "Các form liên hệ / báo giá / tư vấn.",
+              "Họ tên, email, điện thoại, công ty hoặc tổ chức, chi tiết dự án (ví dụ: kích thước, loại sân chơi).",
+              "Bất kỳ thông tin nào bạn chia sẻ qua email, điện thoại hoặc kênh khác."
+            ]
+          },
+          {
+            "subtitle": "b) Thông tin tự động thu thập",
+            "items": [
+              "Địa chỉ IP, trình duyệt, hệ điều hành, thông tin thiết bị.",
+              "Trang đã xem, thời gian trên trang, trang giới thiệu/thoát, các lần nhấp/tương tác.",
+              "Cookie và công nghệ theo dõi tương tự."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "3. Cách chúng tôi sử dụng thông tin",
+        "items": [
+          "Phản hồi yêu cầu, cung cấp báo giá và theo dõi các đề nghị dự án.",
+          "Cải thiện và cá nhân hóa website cùng trải nghiệm người dùng.",
+          "Phân tích mức độ sử dụng để tối ưu hiệu suất.",
+          "Gửi thông báo/cập nhật quan trọng khi cần.",
+          "Tăng cường bảo mật và ngăn ngừa lạm dụng hoặc gian lận."
+        ]
+      },
+      {
+        "title": "4. Cookie & công nghệ theo dõi",
+        "items": [
+          "Chúng tôi dùng cookie (và công nghệ tương tự) để hiểu hành vi sử dụng, ghi nhớ tùy chọn và cải thiện trải nghiệm web.",
+          "Bạn có thể tắt cookie trong trình duyệt, nhưng một số tính năng có thể bị hạn chế."
+        ]
+      },
+      {
+        "title": "5. Chia sẻ thông tin",
+        "items": [
+          "Chúng tôi không bán dữ liệu cá nhân.",
+          "Có thể chia sẻ với nhà cung cấp dịch vụ (lưu trữ, phân tích) hoặc đối tác/nhà thầu phục vụ báo giá hay triển khai dự án.",
+          "Có thể cung cấp dữ liệu cho cơ quan chức năng nếu pháp luật yêu cầu hoặc để bảo vệ quyền lợi của chúng tôi.",
+          "Các bên thứ ba được yêu cầu bảo mật và chỉ sử dụng đúng mục đích."
+        ]
+      },
+      {
+        "title": "6. Bảo mật dữ liệu",
+        "items": [
+          "Áp dụng biện pháp kỹ thuật và tổ chức phù hợp để bảo vệ dữ liệu.",
+          "Không có truyền dẫn hay lưu trữ internet nào đảm bảo 100% an toàn; chúng tôi không thể cam kết tuyệt đối."
+        ]
+      },
+      {
+        "title": "7. Thời gian lưu giữ",
+        "items": [
+          "Lưu giữ dữ liệu trong thời gian cần thiết để phục vụ mục đích (ví dụ: theo dõi báo giá hoặc dự án).",
+          "Khi có yêu cầu xóa hoặc rút lại sự đồng ý, chúng tôi xóa dữ liệu trừ khi cần giữ lại vì lý do pháp lý hoặc kinh doanh chính đáng."
+        ]
+      },
+      {
+        "title": "8. Quyền của bạn",
+        "items": [
+          "Truy cập, chỉnh sửa/cập nhật hoặc xóa dữ liệu cá nhân.",
+          "Rút lại sự đồng ý hoặc phản đối một số mục đích xử lý.",
+          "Liên hệ với chúng tôi để thực hiện các quyền này."
+        ]
+      },
+      {
+        "title": "9. Liên kết bên thứ ba",
+        "items": [
+          "Trang web có thể liên kết tới trang của đối tác/nhà cung cấp.",
+          "Chúng tôi không chịu trách nhiệm về chính sách của họ; vui lòng tham khảo riêng."
+        ]
+      },
+      {
+        "title": "10. Quyền riêng tư của trẻ em",
+        "items": [
+          "Trang web không hướng tới trẻ em dưới 13 tuổi.",
+          "Chúng tôi không cố ý thu thập dữ liệu từ trẻ dưới 13; nếu bạn cho rằng chúng tôi đã thu thập, hãy liên hệ để được xóa."
+        ]
+      },
+      {
+        "title": "11. Thay đổi của Chính Sách",
+        "items": [
+          "Chúng tôi có thể cập nhật Chính Sách theo thời gian.",
+          "Mọi thay đổi sẽ đăng tại đây kèm ngày “Cập nhật lần cuối”. Vui lòng xem lại định kỳ."
+        ]
+      }
+    ],
+    "contact": {
+      "title": "12. Liên hệ với chúng tôi",
+      "description": "Nếu bạn có câu hỏi, thắc mắc hoặc yêu cầu liên quan đến dữ liệu cá nhân hay Chính Sách Bảo Mật này, vui lòng liên hệ:",
+      "emailLabel": "Email",
+      "phoneLabel": "Điện thoại",
+      "addressLabel": "Địa chỉ",
+      "email": "info@hasakeplay.com.vn",
+      "phone": "+84 (028) 3 931 9092",
+      "address": "Tầng 5, 27K Trần Nhật Duật, Phường Tân Định, TP. Hồ Chí Minh, Việt Nam."
     }
   },
   "news": {
