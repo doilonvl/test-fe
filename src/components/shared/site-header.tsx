@@ -16,7 +16,14 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import ProductsMegaMenu from "./ProductsMegaMenu";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "../ui/sheet";
 
 type Tone = "cam" | "bien" | "la";
 const toneVars = (which: Tone): CSSProperties => ({
@@ -80,6 +87,7 @@ export default function SiteHeader() {
   }, []);
 
   const [hash, setHash] = useState("");
+  const [mobileOpen, setMobileOpen] = useState(false);
   useEffect(() => {
     const update = () => setHash(window.location.hash);
     update();
@@ -250,7 +258,7 @@ export default function SiteHeader() {
           <LanguageSwitcher />
 
           {/* Mobile menu trigger (responsive only) - right corner */}
-          <Sheet>
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
               <button
                 className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border hover:bg-gray-50 cursor-pointer"
@@ -260,12 +268,17 @@ export default function SiteHeader() {
               </button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[85vw] sm:w-[360px] p-0">
+              <SheetHeader className="sr-only">
+                <SheetTitle>Navigation</SheetTitle>
+                <SheetDescription>Primary navigation links</SheetDescription>
+              </SheetHeader>
               <div className="p-4">
                 <nav>
                   <ul className="space-y-1 text-sm font-semibold">
                     <li>
                       <Link
                         href="/products"
+                        onClick={() => setMobileOpen(false)}
                         className="block px-3 py-2 rounded-md hover:bg-gray-50"
                       >
                         {t("products")}
@@ -274,6 +287,7 @@ export default function SiteHeader() {
                     <li>
                       <Link
                         href="/news"
+                        onClick={() => setMobileOpen(false)}
                         className="block px-3 py-2 rounded-md hover:bg-gray-50"
                       >
                         {t("news")}
@@ -282,6 +296,7 @@ export default function SiteHeader() {
                     <li>
                       <Link
                         href="/projects"
+                        onClick={() => setMobileOpen(false)}
                         className="block px-3 py-2 rounded-md hover:bg-gray-50"
                       >
                         {t("projects")}
@@ -290,6 +305,7 @@ export default function SiteHeader() {
                     <li>
                       <Link
                         href="/privacy"
+                        onClick={() => setMobileOpen(false)}
                         className="block px-3 py-2 rounded-md hover:bg-gray-50"
                       >
                         {t("privacy")}
@@ -318,6 +334,7 @@ export default function SiteHeader() {
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+                                  onClick={() => setMobileOpen(false)}
                                 >
                                   <FileText
                                     size={16}

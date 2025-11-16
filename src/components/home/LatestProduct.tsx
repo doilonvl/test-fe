@@ -110,60 +110,62 @@ export default function LatestProducts({ limit = 8 }: { limit?: number }) {
 
         {/* Cột phải: grid card nhỏ */}
         <div className="flex-1 min-w-0">
-          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {items.map((p) => {
-              const titleMap = (p as any)?.title_i18n;
-              const taglineMap = (p as any)?.tagline_i18n;
-              const descriptionMap = (p as any)?.description_i18n;
-              const localizedTitle =
-                (titleMap && titleMap[normalizedLocale]) || p.title;
-              const localizedDesc =
-                (taglineMap && taglineMap[normalizedLocale]) ||
-                p.tagline ||
-                (descriptionMap && descriptionMap[normalizedLocale]) ||
-                (p as any).description ||
-                "";
-              return (
-                <li key={p._id} className={itemClass}>
-                  <Link
-                    href={{
-                      pathname: "/products/[[...segments]]",
-                      params: {
-                        segments: ((p as any).path || (p as any).slug || "")
-                          .split("/")
-                          .filter(Boolean),
-                      },
-                    }}
-                    className="block"
-                  >
-                    {/* Ảnh THU VÀO + khoảng trống + bo radius kiểu Coursera */}
-                    <div className="p-2">
-                      <div className="relative aspect-[16/10] rounded-lg overflow-hidden ring-1 ring-black/5 bg-gray-100">
-                        <img
-                          src={(p as any).thumbnail || "/placeholder.svg"}
-                          alt={localizedTitle}
-                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.06]"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Nội dung */}
-                    <div className="px-3 pb-3 pt-1 text-gray-900">
-                      <div className="text-sm font-semibold line-clamp-2">
-                        {localizedTitle}
-                      </div>
-                      {/* Mô tả: đúng bề ngang card; quá thì “ … ” */}
-                      {localizedDesc ? (
-                        <div className="mt-1 text-xs text-gray-600 truncate">
-                          {localizedDesc}
+          <div className="group overflow-hidden max-h-[420px] sm:max-h-[520px] lg:max-h-[560px] transition-all duration-300">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 pr-1 group-hover:overflow-y-auto group-hover:pr-2">
+              {items.map((p) => {
+                const titleMap = (p as any)?.title_i18n;
+                const taglineMap = (p as any)?.tagline_i18n;
+                const descriptionMap = (p as any)?.description_i18n;
+                const localizedTitle =
+                  (titleMap && titleMap[normalizedLocale]) || p.title;
+                const localizedDesc =
+                  (taglineMap && taglineMap[normalizedLocale]) ||
+                  p.tagline ||
+                  (descriptionMap && descriptionMap[normalizedLocale]) ||
+                  (p as any).description ||
+                  "";
+                return (
+                  <li key={p._id} className={itemClass}>
+                    <Link
+                      href={{
+                        pathname: "/products/[[...segments]]",
+                        params: {
+                          segments: ((p as any).path || (p as any).slug || "")
+                            .split("/")
+                            .filter(Boolean),
+                        },
+                      }}
+                      className="block"
+                    >
+                      {/* Ảnh THU VÀO + khoảng trống + bo radius kiểu Coursera */}
+                      <div className="p-2">
+                        <div className="relative aspect-[16/10] rounded-lg overflow-hidden ring-1 ring-black/5 bg-gray-100">
+                          <img
+                            src={(p as any).thumbnail || "/placeholder.svg"}
+                            alt={localizedTitle}
+                            className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.06]"
+                          />
                         </div>
-                      ) : null}
-                    </div>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+                      </div>
+
+                      {/* Nội dung */}
+                      <div className="px-3 pb-3 pt-1 text-gray-900">
+                        <div className="text-sm font-semibold line-clamp-2">
+                          {localizedTitle}
+                        </div>
+                        {/* Mô tả: đúng bề ngang card; quá thì “ … ” */}
+                        {localizedDesc ? (
+                          <div className="mt-1 text-xs text-gray-600 truncate">
+                            {localizedDesc}
+                          </div>
+                        ) : null}
+                      </div>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

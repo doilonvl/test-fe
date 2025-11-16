@@ -158,10 +158,7 @@ export default function NewsAdminPage() {
     useUploadNewsImagesMutation();
 
   // -------- Create form state --------
-  const [title, setTitle] = React.useState("");
   const [slug, setSlug] = React.useState("");
-  const [excerpt, setExcerpt] = React.useState("");
-  const [content, setContent] = React.useState("");
   const [titleVi, setTitleVi] = React.useState("");
   const [titleEn, setTitleEn] = React.useState("");
   const [excerptVi, setExcerptVi] = React.useState("");
@@ -181,18 +178,12 @@ export default function NewsAdminPage() {
 
   React.useEffect(() => {
     if (!slug) {
-      setSlug(slugifyLocal(title));
+      setSlug(slugifyLocal(titleVi || titleEn));
     }
-  }, [title, slug]);
+  }, [titleVi, titleEn, slug]);
 
-  React.useEffect(() => {
-    if (!title && !titleVi && titleEn) {
-      setTitle(titleEn);
-    }
-  }, [titleEn, titleVi, title]);
-
-  const baseTitleValue = (titleVi || titleEn || title || "").trim();
-  const baseContentValue = (contentVi || contentEn || content || "").trim();
+  const baseTitleValue = (titleVi || titleEn || "").trim();
+  const baseContentValue = (contentVi || contentEn || "").trim();
   const canCreate =
     !!baseTitleValue &&
     !!(slug?.trim() || slugifyLocal(baseTitleValue)) &&
@@ -225,9 +216,9 @@ export default function NewsAdminPage() {
 
   async function handleCreate() {
     try {
-      const resolvedTitle = titleVi || titleEn || title;
-      const resolvedExcerpt = excerptVi || excerptEn || excerpt;
-      const resolvedContent = contentVi || contentEn || content;
+      const resolvedTitle = titleVi || titleEn;
+      const resolvedExcerpt = excerptVi || excerptEn;
+      const resolvedContent = contentVi || contentEn;
       const finalSlug = (
         slug?.trim() || slugifyLocal(resolvedTitle || "")
       ).toLowerCase();
@@ -267,14 +258,11 @@ export default function NewsAdminPage() {
       }).unwrap();
 
       // reset
-      setTitle("");
       setTitleVi("");
       setTitleEn("");
       setSlug("");
-      setExcerpt("");
       setExcerptVi("");
       setExcerptEn("");
-      setContent("");
       setContentVi("");
       setContentEn("");
       setAuthor("Hasake");
@@ -471,7 +459,6 @@ export default function NewsAdminPage() {
                   value={titleVi}
                   onChange={(e) => {
                     setTitleVi(e.target.value);
-                    setTitle(e.target.value);
                   }}
                   placeholder="Tiêu đề tiếng Việt"
                 />
@@ -482,7 +469,6 @@ export default function NewsAdminPage() {
                   value={excerptVi}
                   onChange={(e) => {
                     setExcerptVi(e.target.value);
-                    setExcerpt(e.target.value);
                   }}
                   className="min-h-20 w-full rounded-md border px-3 py-2 text-sm"
                   placeholder="Mô tả ngắn tiếng Việt"
@@ -494,7 +480,6 @@ export default function NewsAdminPage() {
                   value={contentVi}
                   onChange={(e) => {
                     setContentVi(e.target.value);
-                    setContent(e.target.value);
                   }}
                   className="min-h-32 w-full rounded-md border px-3 py-2 text-sm"
                   placeholder="Nội dung tiếng Việt"
@@ -561,24 +546,6 @@ export default function NewsAdminPage() {
         <div className="flex items-center gap-2 mt-7">
           <Switch checked={isPublished} onCheckedChange={setIsPublished} />
           <span>Published</span>
-        </div>
-        <div className="grid gap-2 lg:col-span-3">
-          <Label>Mô tả ngắn</Label>
-          <textarea
-            value={excerpt}
-            onChange={(e) => setExcerpt(e.target.value)}
-            className="min-h-20 w-full rounded-md border px-3 py-2 text-sm"
-            placeholder="Với tiêu chí trẻ em làm trung tâm…"
-          />
-        </div>
-        <div className="grid gap-2 lg:col-span-3">
-          <Label>Nội dung</Label>
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="min-h-32 w-full rounded-md border px-3 py-2 text-sm"
-            placeholder="Bạn đang mong muốn có một nơi tuyệt vời cho trẻ em của bạn…"
-          />
         </div>
         <div className="grid gap-2">
           <Label>Ảnh cover</Label>

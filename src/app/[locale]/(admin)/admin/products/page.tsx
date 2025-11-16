@@ -107,7 +107,7 @@ function ImageGrid({
   onAltChange?: (idx: number, alt: string) => void;
 }) {
   if (!images?.length)
-    return <div className="text-sm text-muted-foreground">ChÆ°a cÃ³ áº£nh</div>;
+    return <div className="text-sm text-muted-foreground">Chưa có ảnh</div>;
   return (
     <div className="grid grid-cols-3 gap-3">
       {images.map((img, idx) => (
@@ -776,7 +776,7 @@ export default function ProductsAdminPage() {
               setQ(e.target.value);
               setPage(1);
             }}
-            placeholder="title / slug / descriptionâ€¦"
+            placeholder="title / slug / description"
             className="w-64"
           />
         </div>
@@ -1040,7 +1040,9 @@ export default function ProductsAdminPage() {
                         className="h-24 w-36 object-cover rounded border"
                       />
                     ) : (
-                      <div className="text-sm text-muted-foreground">â€”</div>
+                      <div className="text-sm text-muted-foreground">
+                        Chọn ảnh
+                      </div>
                     )}
                     <Input
                       type="file"

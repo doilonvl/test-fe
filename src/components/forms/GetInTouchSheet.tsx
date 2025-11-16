@@ -1,7 +1,6 @@
 "use client";
-
-import { useRef } from "react";
-import { useTranslations } from "next-intl";
+import { useRef, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useSendContactFormMutation } from "@/services/api";
 import { Button } from "@/components/ui/button";
@@ -20,10 +19,39 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
+type ErrorFields = Partial<
+  Record<"name" | "phone" | "email" | "message", string>
+>;
+
 export default function GetInTouchSheet() {
   const t = useTranslations("contact");
+  const locale = useLocale();
   const [sendContact, { isLoading }] = useSendContactFormMutation();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const [errors, setErrors] = useState<ErrorFields>({});
+
+  const clearError = (field: keyof ErrorFields) =>
+    setErrors((prev) => {
+      if (!prev[field]) return prev;
+      const { [field]: _removed, ...rest } = prev;
+      return rest;
+    });
+
+  const isValidPhone = (value: string) => {
+    const digits = value.replace(/\D/g, "");
+    return digits.length >= 9 && digits.length <= 15;
+  };
+
+  const errRequired =
+    locale === "vi"
+      ? "Vui lòng điền thông tin bắt buộc"
+      : "Please fill the required fields";
+  const errPhone =
+    locale === "vi"
+      ? "Số điện thoại không hợp lệ"
+      : "Please enter a valid phone number";
+  const errEmail =
+    locale === "vi" ? "Email không hợp lệ" : "Please enter a valid email";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -31,20 +59,44 @@ export default function GetInTouchSheet() {
     const formData = new FormData(form);
 
     const data = {
-      fullName: formData.get("name") as string,
-      email: formData.get("email") as string,
+      fullName: (formData.get("name") as string) || "",
+      email: (formData.get("email") as string) || "",
       organisation: (formData.get("organisation") as string) || "N/A",
-      phone: formData.get("phone") as string,
-      message: formData.get("message") as string,
+      phone: (formData.get("phone") as string) || "",
+      message: (formData.get("message") as string) || "",
       city: (formData.get("city") as string) || "N/A",
-      country: "Việt Nam",
+      country: "viet Nam",
       address: (formData.get("address") as string) || "N/A",
     };
+
+    const nextErrors: ErrorFields = {};
+    if (!data.fullName.trim()) nextErrors.name = errRequired;
+    if (
+      !data.email.trim() ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())
+    ) {
+      nextErrors.email = errEmail;
+    }
+    if (!data.phone.trim() || !isValidPhone(data.phone)) {
+      nextErrors.phone = errPhone;
+    }
+    if (!data.message.trim()) nextErrors.message = errRequired;
+
+    if (Object.keys(nextErrors).length) {
+      setErrors(nextErrors);
+      toast.error(
+        locale === "vi"
+          ? "Vui lòng kiểm tra lại các trường được đánh dấu."
+          : "Please correct the highlighted fields."
+      );
+      return;
+    }
 
     try {
       await sendContact(data).unwrap();
       toast.success(t("toast.success"));
       form.reset();
+      setErrors({});
       setTimeout(() => closeRef.current?.click(), 500);
     } catch (err) {
       console.error(err);
@@ -52,40 +104,42 @@ export default function GetInTouchSheet() {
     }
   }
 
+  const baseFieldClass =
+    "rounded-xl border px-3 py-2.5 text-sm transition bg-white/80 backdrop-blur focus:outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-400 shadow-sm";
+
+  const fieldErrorClass = (field: keyof ErrorFields) =>
+    errors[field]
+      ? "border-red-500 ring-1 ring-red-400"
+      : "border-slate-200 focus:ring-sky-200 focus:border-sky-400";
+
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button className="bg-[#05acfb] text-white font-semibold px-5 py-2 rounded-xl shadow-md hover:brightness-110 cursor-pointer">
+        <Button className="bg-gradient-to-r from-[#05acfb] to-[#0fb2ff] text-white font-semibold px-5 py-2.5 rounded-full shadow-lg shadow-sky-200/60 hover:brightness-110 cursor-pointer">
           {t("trigger")}
         </Button>
       </SheetTrigger>
 
       <SheetContent
         side="bottom"
-        // aria-label="Get in touch form"
-        className="max-h-[85vh] w-[92vw] sm:w-[80vw] md:w-[45vw] max-w-3xl
-        left-1/2 -translate-x-1/2 rounded-t-2xl bg-transparent p-0 border-none shadow-2xl"
+        className="max-h-[88vh] w-[92vw] sm:w-[80vw] md:w-[48vw] max-w-3xl left-1/2 -translate-x-1/2 rounded-t-3xl bg-transparent p-0 border-none shadow-2xl"
       >
-        <div className="relative overflow-hidden border border-gray-200 rounded-t-2xl bg-white shadow-xl">
-          <div
-            className="absolute top-0 left-0 w-full h-[70px] bg-white"
-            style={{
-              clipPath: "path('M0,70 Q80,20 160,0 L100%,0 L100%,70 Z')",
-            }}
-          />
-          <div className="absolute top-0 left-0 z-10 bg-linear-to-r from-[#05acfb] to-[#05acfb] text-white text-2xl font-bold px-5 py-2 rounded-br-3xl shadow-md">
+        <div className="relative overflow-hidden rounded-t-3xl border border-slate-100 bg-gradient-to-br from-white via-slate-50 to-sky-50 shadow-2xl shadow-slate-200/60">
+          {/* <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#05acfb] via-[#8fc542] to-[#05acfb]" /> */}
+          <div className="absolute left-6 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-slate-100">
+            <span className="inline-block h-2 w-2 rounded-full bg-[#05acfb] text-lg" />
             {t("title")}
           </div>
 
-          <div className="relative z-0 px-6 pt-10 pb-8 space-y-6 hover:overflow-y-auto scrollbar-hide hover:scrollbar-default transition-all duration-300">
+          <div className="relative z-0 px-6 pt-12 pb-9 space-y-6 hover:overflow-y-auto scrollbar-hide hover:scrollbar-default transition-all duration-300">
             <SheetHeader className="space-y-1 text-center">
-              <SheetTitle className="text-[#05acfb] font-semibold text-2xl leading-snug">
+              <SheetTitle className="text-transparent bg-clip-text bg-gradient-to-r from-[#05acfb] to-[#0fb2ff] font-semibold text-2xl leading-snug">
                 <VisuallyHidden>
                   <h2>{t("title")}</h2>
                 </VisuallyHidden>
               </SheetTitle>
 
-              <SheetDescription className="text-gray-600 text-sm mt-4">
+              <SheetDescription className="text-gray-600 text-base mt-3">
                 {t("description")}
               </SheetDescription>
             </SheetHeader>
@@ -99,7 +153,13 @@ export default function GetInTouchSheet() {
                     name="name"
                     placeholder={t("placeholder.name")}
                     required
+                    aria-invalid={!!errors.name}
+                    className={`${baseFieldClass} ${fieldErrorClass("name")}`}
+                    onChange={() => clearError("name")}
                   />
+                  {errors.name ? (
+                    <p className="text-xs text-red-600">{errors.name}</p>
+                  ) : null}
                 </div>
                 <div className="grid gap-1">
                   <Label htmlFor="phone">{t("phone")}</Label>
@@ -108,7 +168,13 @@ export default function GetInTouchSheet() {
                     name="phone"
                     placeholder={t("placeholder.phone")}
                     required
+                    aria-invalid={!!errors.phone}
+                    className={`${baseFieldClass} ${fieldErrorClass("phone")}`}
+                    onChange={() => clearError("phone")}
                   />
+                  {errors.phone ? (
+                    <p className="text-xs text-red-600">{errors.phone}</p>
+                  ) : null}
                 </div>
               </div>
 
@@ -120,7 +186,13 @@ export default function GetInTouchSheet() {
                   type="email"
                   placeholder={t("placeholder.email")}
                   required
+                  aria-invalid={!!errors.email}
+                  className={`${baseFieldClass} ${fieldErrorClass("email")}`}
+                  onChange={() => clearError("email")}
                 />
+                {errors.email ? (
+                  <p className="text-xs text-red-600">{errors.email}</p>
+                ) : null}
               </div>
 
               <div className="grid gap-1">
@@ -129,6 +201,7 @@ export default function GetInTouchSheet() {
                   id="organisation"
                   name="organisation"
                   placeholder={t("placeholder.organisation")}
+                  className={baseFieldClass}
                 />
               </div>
 
@@ -139,6 +212,7 @@ export default function GetInTouchSheet() {
                     id="city"
                     name="city"
                     placeholder={t("placeholder.city")}
+                    className={baseFieldClass}
                   />
                 </div>
                 <div className="grid gap-1">
@@ -147,6 +221,7 @@ export default function GetInTouchSheet() {
                     id="address"
                     name="address"
                     placeholder={t("placeholder.address")}
+                    className={baseFieldClass}
                   />
                 </div>
               </div>
@@ -158,7 +233,15 @@ export default function GetInTouchSheet() {
                   name="message"
                   rows={5}
                   placeholder={t("placeholder.message")}
+                  aria-invalid={!!errors.message}
+                  className={`${baseFieldClass} ${fieldErrorClass(
+                    "message"
+                  )} min-h-[140px]`}
+                  onChange={() => clearError("message")}
                 />
+                {errors.message ? (
+                  <p className="text-xs text-red-600">{errors.message}</p>
+                ) : null}
               </div>
 
               <SheetFooter className="gap-2 sm:space-x-2 justify-end mt-2">
@@ -166,7 +249,7 @@ export default function GetInTouchSheet() {
                   <Button
                     ref={closeRef}
                     variant="outline"
-                    className="cursor-pointer border-[#8fc542] text-[#8fc542] hover:bg-[#8fc542]/10"
+                    className="cursor-pointer border-slate-200 text-slate-700 hover:bg-slate-100/80 rounded-full px-4"
                   >
                     {t("close")}
                   </Button>
@@ -175,7 +258,7 @@ export default function GetInTouchSheet() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="cursor-pointer text-white bg-[#05acfb] hover:brightness-110"
+                  className="cursor-pointer text-white bg-gradient-to-r from-[#05acfb] to-[#0fb2ff] hover:brightness-110 rounded-full px-5"
                 >
                   {isLoading ? t("sending") : t("send")}
                 </Button>

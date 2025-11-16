@@ -7,6 +7,7 @@ const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "dm0fuut1j";
 
 const nextConfig: NextConfig = {
   images: {
+    qualities: [75, 85],
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com" },
       { protocol: "https", hostname: "hasakeplay.com.vn" },
