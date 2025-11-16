@@ -25,15 +25,9 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const base = (
-        process.env.NEXT_PUBLIC_API_BASE_URL ||
-        process.env.NEXT_PUBLIC_API_BASE ||
-        "http://localhost:5001/api/v1"
-      ).replace(/\/$/, "");
-      const res = await fetch(`${base}/auth/login`, {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 
