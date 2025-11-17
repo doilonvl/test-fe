@@ -110,8 +110,8 @@ export default function LatestProducts({ limit = 8 }: { limit?: number }) {
 
         {/* Cột phải: grid card nhỏ */}
         <div className="flex-1 min-w-0">
-          <div className="group overflow-hidden max-h-[420px] sm:max-h-[520px] lg:max-h-[560px] transition-all duration-300">
-            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 pr-1 group-hover:overflow-y-auto group-hover:pr-2">
+          <div className="max-h-[420px] sm:max-h-[520px] overflow-y-auto pr-1 sm:pr-2 transition-all duration-300 lg:max-h-none lg:overflow-visible lg:pr-0">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4">
               {items.map((p) => {
                 const titleMap = (p as any)?.title_i18n;
                 const taglineMap = (p as any)?.tagline_i18n;
