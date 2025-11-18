@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Image, { ImageProps } from "next/image";
+import { toCloudinaryUrl } from "@/lib/media/cloudinary";
 
 const ALLOWED = new Set([
   "res.cloudinary.com",
@@ -16,10 +18,28 @@ export default function SmartImage({ src, alt, ...rest }: Props) {
   } catch {}
 
   const isAllowed = !host || ALLOWED.has(host);
-  const optimizedSrc = src.includes("cloudinary.com")
-    ? src.replace("/upload/", "/upload/f_auto,q_auto,c_fill,w_900/")
-    : src;
-  if (!isAllowed && "fill" in rest && rest.fill) {
+
+  const width =
+    typeof (rest as any).width === "number"
+      ? (rest as any).width
+      : "fill" in rest && (rest as any).fill
+      ? 1200
+      : 900;
+  const height =
+    typeof (rest as any).height === "number" ? (rest as any).height : undefined;
+
+  const optimizedSrc =
+    host === "res.cloudinary.com"
+      ? toCloudinaryUrl(src, {
+          width,
+          height,
+          quality: "auto:best",
+          crop: "fill",
+          gravity: "auto",
+        })
+      : src;
+
+  if (!isAllowed && "fill" in rest && (rest as any).fill) {
     return (
       <div className="relative" style={{ width: "100%", height: "100%" }}>
         <img
@@ -33,12 +53,12 @@ export default function SmartImage({ src, alt, ...rest }: Props) {
   }
 
   return isAllowed ? (
-    <Image src={src} alt={alt} {...rest} />
+    <Image src={optimizedSrc} alt={alt} {...rest} />
   ) : (
     <img
-      src={src}
+      src={optimizedSrc}
       alt={alt}
-      className={("className" in rest && rest.className) || ""}
+      className={("className" in rest && (rest as any).className) || ""}
     />
   );
 }

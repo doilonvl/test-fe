@@ -22,7 +22,8 @@ export const adminProjectsApi = api.injectEndpoints({
       } | void
     >({
       query: (arg) => ({
-        url: "/projects/list",
+        // Dùng endpoint chung /projects (backend không có /projects/list ở prod)
+        url: "/projects",
         params: {
           page: 1,
           limit: 20,

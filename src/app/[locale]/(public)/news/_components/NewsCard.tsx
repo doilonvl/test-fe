@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import type { News } from "@/types/content";
+import { toCloudinaryUrl } from "@/lib/media/cloudinary";
 
 export default function NewsCard({
   n,
@@ -16,9 +17,9 @@ export default function NewsCard({
 }: {
   n: News;
   variant?: "large" | "small";
-  wide?: boolean; // ép 16:9 cho thẻ nhỏ khi cần
-  compact?: boolean; // bỏ padding media để canh hàng
-  overlay?: React.ReactNode; // nội dung chèn lên ảnh (absolute)
+  wide?: boolean; // Ưu tiên 16:9 cho thẻ lớn khi cần
+  compact?: boolean; // Bớt padding media để canh hàng
+  overlay?: React.ReactNode; // Nội dung chèn lên ảnh (absolute)
 }) {
   const t = useTranslations("news");
   const locale = useLocale();
@@ -36,34 +37,17 @@ export default function NewsCard({
     ? Math.round((targetWidth * 9) / 16)
     : Math.round((targetWidth * 3) / 4);
 
-  // Tối ưu Cloudinary (nhẹ, trung tính)
-  const toBetterCover = (src: string): string => {
-    try {
-      const u = new URL(src);
-      if (u.hostname !== "res.cloudinary.com") return src;
-      const parts = u.pathname.split("/");
-      const uploadIdx = parts.findIndex((p) => p === "upload");
-      if (uploadIdx === -1) return src;
-      const base = parts.slice(0, uploadIdx + 1).join("/");
-      const rest = parts.slice(uploadIdx + 1).join("/");
-      const t = [
-        "f_auto",
-        "q_auto:good",
-        "dpr_auto",
-        "c_fill",
-        "g_auto",
-        "e_improve",
-        `w_${targetWidth}`,
-        `h_${targetHeight}`,
-      ].join(",");
-      u.pathname = `${base}/${t}/${rest}`.replace(/\/+/, "/");
-      return u.toString();
-    } catch {
-      return src;
-    }
-  };
+  // Tối ưu Cloudinary để tránh thumbnail mờ
+  const betterCover = (src: string) =>
+    toCloudinaryUrl(src, {
+      width: targetWidth,
+      height: targetHeight,
+      quality: "auto:best",
+      crop: "fill",
+      gravity: "auto",
+    });
 
-  // Whitelist nguồn ảnh dùng <Image>
+  // Whitelist nguồn ảnh dạng <Image>
   const canNextImage = (() => {
     try {
       const u = new URL(n.cover || "");
@@ -110,7 +94,7 @@ export default function NewsCard({
           "motion-reduce:transform-none motion-reduce:transition-none",
         ].join(" ")}
       >
-        {/* Accent thanh màu nếu card sang trọng hơn */}
+        {/* Accent màu nếu card sáng trọng hơn */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-sky-400 via-cyan-400 to-indigo-500"
@@ -131,7 +115,7 @@ export default function NewsCard({
                 "ring-1 ring-slate-900/5 shadow-inner",
               ].join(" ")}
             >
-              {/* Overlay tuỳ chọn: dùng nền đen mờ để giữ tính “news” */}
+              {/* Overlay tùy chọn: dạng nền đen mờ để giữ text ở tone news */}
               {overlay ? (
                 <div className="pointer-events-none absolute inset-x-0 top-0 z-10 bg-gradient-to-b from-black/50 via-black/30 to-transparent text-white p-3 sm:p-4">
                   {overlay}
@@ -140,7 +124,7 @@ export default function NewsCard({
 
               {canNextImage ? (
                 <Image
-                  src={toBetterCover(n.cover!)}
+                  src={betterCover(n.cover!)}
                   alt={n.title}
                   fill
                   sizes={
@@ -154,7 +138,7 @@ export default function NewsCard({
                 />
               ) : (
                 <img
-                  src={n.cover!}
+                  src={betterCover(n.cover!)}
                   alt={n.title}
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none"
                   loading={isLarge ? "eager" : "lazy"}
@@ -162,7 +146,7 @@ export default function NewsCard({
                 />
               )}
 
-              {/* Dải mờ đáy nhẹ để text đọc rõ nếu overlay ở dưới */}
+              {/* Dải mờ để text dễ đọc nếu overlay ở dưới */}
               <div
                 aria-hidden
                 className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/15 to-transparent"
@@ -173,7 +157,7 @@ export default function NewsCard({
 
         {/* BODY */}
         <div className="px-5 pb-5 pt-3 md:px-6 md:pb-6">
-          {/* Eyebrow meta (date) — nhỏ, trung tính */}
+          {/* Eyebrow meta (date) – nhỏ, trung tính */}
           {dateLabel ? (
             <div
               className="mb-2 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-slate-500"
@@ -219,7 +203,7 @@ export default function NewsCard({
             aria-hidden
           />
 
-          {/* Read more — trung tính, ít màu mè */}
+          {/* Read more – trung tính, ít màu mè */}
           <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-slate-800 group-hover:text-gray-900">
             {t("readMore")}
             <svg
@@ -237,7 +221,7 @@ export default function NewsCard({
             </svg>
           </span>
 
-          {/* SEO microdata (ẩn) */}
+          {/* SEO microdata (nếu cần) */}
           {n.cover ? <meta itemProp="image" content={n.cover} /> : null}
           <meta itemProp="url" content={`/news/${n.slug}`} />
         </div>

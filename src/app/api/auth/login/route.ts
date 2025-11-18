@@ -27,6 +27,12 @@ export async function POST(req: Request) {
     (data as any)?.access_token ??
     (data as any)?.accessToken ??
     (data as any)?.token;
+  const refresh =
+    (data as any)?.refresh_token ??
+    (data as any)?.refreshToken ??
+    (data as any)?.refresh;
+
+  const isProd = process.env.NODE_ENV === "production";
 
   if (!token) {
     return NextResponse.json(
@@ -38,10 +44,20 @@ export async function POST(req: Request) {
   const res = NextResponse.json({ ok: true });
   res.cookies.set("access_token", token, {
     httpOnly: true,
-    secure: true,
+    secure: isProd,
     sameSite: "lax",
     path: "/",
+    maxAge: 60 * 15, // 15 minutes (align access token)
   });
+  if (refresh) {
+    res.cookies.set("refresh_token", refresh, {
+      httpOnly: true,
+      secure: isProd,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+    });
+  }
 
   return res;
 }

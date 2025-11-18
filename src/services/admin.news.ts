@@ -15,9 +15,9 @@ export const adminNewsApi = api.injectEndpoints({
       NewsListResp,
       { page?: number; limit?: number; q?: string; sort?: string } | void
     >({
-
       query: (arg) => ({
-        url: "/news/list",
+        // Dùng endpoint chung /news (backend không có /news/list ở prod)
+        url: "/news",
         params: {
           page: 1,
           limit: 20,
