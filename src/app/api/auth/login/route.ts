@@ -49,6 +49,13 @@ export async function POST(req: Request) {
     path: "/",
     maxAge: 60 * 15, // 15 minutes (align access token)
   });
+  res.cookies.set("access_token_public", token, {
+    httpOnly: false,
+    secure: isProd,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 15,
+  });
   if (refresh) {
     res.cookies.set("refresh_token", refresh, {
       httpOnly: true,
@@ -56,6 +63,13 @@ export async function POST(req: Request) {
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 60 * 24 * 30, // 30 days
+    });
+    res.cookies.set("refresh_token_public", refresh, {
+      httpOnly: false,
+      secure: isProd,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 30,
     });
   }
 

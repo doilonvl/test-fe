@@ -24,6 +24,17 @@ const rawBaseQuery = fetchBaseQuery({
     if (typeof document !== "undefined") {
       const htmlLang = document.documentElement.lang || "vi";
       locale = htmlLang.startsWith("en") ? "en" : "vi";
+
+      // Attach access token from client-readable cookie to Authorization header
+      const token = (() => {
+        const m = document.cookie.match(
+          /(?:^|;\s*)access_token_public=([^;]*)/
+        );
+        return m ? decodeURIComponent(m[1]) : null;
+      })();
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
     }
     headers.set("Accept-Language", locale);
     return headers;
@@ -40,18 +51,18 @@ const baseQueryWithReauth: typeof rawBaseQuery = async (
   const status = (result as any)?.error?.status as number | undefined;
 
   if (status === 401 || status === 403) {
-    // Attempt to refresh access token using HttpOnly refresh cookie
-    const refresh = await rawBaseQuery(
-      { url: "/auth/refresh", method: "POST" },
-      api,
-      extraOptions
-    );
-
-    if ((refresh as any)?.data) {
-      // Retry the original request after successful refresh
-      result = await rawBaseQuery(args as any, api, extraOptions);
-    } else {
-      // Optional: could dispatch a logout action or redirect; leave as is to surface error
+    // Attempt to refresh access token via Next API (uses cookies)
+    try {
+      const refreshRes = await fetch("/api/auth/refresh", {
+        method: "POST",
+        credentials: "include",
+      });
+      if (refreshRes.ok) {
+        // Retry the original request after successful refresh
+        result = await rawBaseQuery(args as any, api, extraOptions);
+      }
+    } catch {
+      // surface original error
     }
   }
 

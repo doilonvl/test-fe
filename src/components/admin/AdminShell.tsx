@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 const NAV_ITEMS = [
-  { key: "products", label: "Quản lý sản phẩm", icon: Boxes, slug: "products" },
+  { key: "products", label: "Quản lý Sản phẩm", icon: Boxes, slug: "products" },
   { key: "news", label: "Quản lý Tin tức", icon: Newspaper, slug: "news" },
   {
     key: "projects",
