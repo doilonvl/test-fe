@@ -7,19 +7,22 @@ const intl = createMiddleware({
   locales: [...locales],
   defaultLocale,
   pathnames,
+  localePrefix: "as-needed",
 });
 
 export function middleware(req: NextRequest) {
   const res = intl(req);
 
   const { pathname } = req.nextUrl;
-  const match = pathname.match(/^\/(vi|en)\/admin(\/|$)/);
+  const match = pathname.match(/^\/(?:(vi|en)\/)?admin(\/|$)/);
   if (match) {
     const locale = (match[1] as "vi" | "en") ?? defaultLocale;
     const token = req.cookies.get("access_token")?.value;
     if (!token) {
       const url = req.nextUrl.clone();
-      url.pathname = `/${locale}/login`;
+      const loginPath =
+        locale === defaultLocale ? "/login" : `/${locale}/login`;
+      url.pathname = loginPath;
       url.searchParams.set("next", pathname);
       return NextResponse.redirect(url);
     }

@@ -6,11 +6,13 @@
     "privacy": "Privacy & Policy",
     "news": "News",
     "loading": "Loading…",
-    "noCatalogs": "No catalogs available"
+    "noCatalogs": "No catalogs available",
+    "about": "About us",
+    "contact": "Contact us"
   },
   "home": {
-    "heroTitle": "Playground solutions - HasakePlay",
-    "heroDesc": "Modern playground solutions for urban areas, resorts, schools, and parks.",
+    "heroTitle": "Playground Equipment Supplier and Manufacturer",
+    "heroDesc": "Hasake Play specialises in the design, supply and installation of outdoor and indoor playground equipment with children’s playground equipment and safety flooring, while ensuring creativity, interaction and safety aspects are incorporated in all our designs.",
     "brandT": "The Brands",
     "brandD": "Prestige",
     "brandS": "Present in",
@@ -121,6 +123,41 @@
       "city": "Hanoi",
       "address": "123 Street, District Y",
       "message": "Your message..."
+    }
+  },
+  "contactPage": {
+    "title": "Contact us",
+    "eyebrow": "Talk to Hasake",
+    "heroTitle": "Contact Hasake Play",
+    "heroSubtitle": "We operate across Vietnam and Asia-Pacific. Choose the nearest office or send us your project details.",
+    "hotline": "Hotline",
+    "email": "Email",
+    "ctaTitle": "Quick support",
+    "ctaHeadline": "Share your needs",
+    "ctaDesc": "We respond within working hours with the right specialist for your request.",
+    "miniCards": {
+      "projects": {
+        "title": "Project advisory",
+        "desc": "Layouts, materials, budgeting, and safety compliance."
+      },
+      "support": {
+        "title": "Service & aftercare",
+        "desc": "Operations tips, maintenance, and spare parts guidance."
+      }
+    },
+    "formTitle": "Send us a message",
+    "formSubtitle": "Fill all required fields so we can support you faster.",
+    "officesTitle": "Offices",
+    "officesSubtitle": "Vietnam & International",
+    "officesIntro": "Call or visit the closest location, or use the form for quick response.",
+    "officesLabel": "Where to find us",
+    "officesGridTitle": "Our offices worldwide",
+    "officesGridSubtitle": "Pick a city and reach the right team instantly.",
+    "badges": {
+      "hq": "Head office",
+      "vietnam": "Vietnam",
+      "asia": "Asia",
+      "global": "Global"
     }
   },
   "intro": {

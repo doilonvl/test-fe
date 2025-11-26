@@ -51,10 +51,10 @@ export default function ImagesLightbox({
             <img
               src={img.url}
               alt={img.alt || "Image"}
-              className="w-full h-40 object-cover md:h-44 lg:h-48"
+              className="w-full h-44 object-cover md:h-48 lg:h-52"
             />
             {img.alt ? (
-              <figcaption className="p-2 text-xs text-muted-foreground">
+              <figcaption className="p-2 text-xs text-white bg-slate-900/70">
                 {img.alt}
               </figcaption>
             ) : null}
@@ -92,8 +92,8 @@ export default function ImagesLightbox({
 
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[96vw] max-w-5xl max-h-[90vh]">
+          <Dialog.Overlay className="fixed inset-0 z-[70] bg-black/70 backdrop-blur-sm" />
+          <Dialog.Content className="fixed left-1/2 top-1/2 z-[80] -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-5xl max-h-[88vh] p-0 outline-none">
             <Dialog.Title className="sr-only">
               {current?.alt || "Image preview"}
             </Dialog.Title>
@@ -103,14 +103,14 @@ export default function ImagesLightbox({
                 : "Full-size preview of the selected product image"}
             </Dialog.Description>
             {current ? (
-              <div className="rounded-lg overflow-hidden bg-black/5">
+              <div className="flex flex-col items-center gap-3 rounded-xl overflow-hidden bg-transparent">
                 <img
                   src={current.url}
                   alt={current.alt || "Image"}
-                  className="max-h-[85vh] w-auto mx-auto object-contain"
+                  className="mx-auto h-auto w-full max-h-[82vh] max-w-[90vw] object-contain"
                 />
                 {current.alt ? (
-                  <div className="mt-2 text-center text-sm text-white/90">
+                  <div className="mx-auto mt-1 inline-flex items-center justify-center rounded-full bg-black/70 px-4 py-2 text-center text-sm text-white/95">
                     {current.alt}
                   </div>
                 ) : null}

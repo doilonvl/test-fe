@@ -6,13 +6,15 @@
     "privacy": "Chính sách & Bảo mật",
     "news": "Tin tức",
     "loading": "Đang tải...",
-    "noCatalogs": "Không có catalog nào"
+    "noCatalogs": "Không có catalog nào",
+    "about": "Giới thiệu",
+    "contact": "Liên hệ"
   },
   "home": {
-    "heroTitle": "Giải pháp vui chơi - Hasake Play",
-    "heroDesc": "Giải pháp vui chơi hiện đại cho khu đô thị, resort, trường học và công viên.",
+    "heroTitle": "Nhà cung cấp và sản xuất thiết bị sân chơi",
+    "heroDesc": "Hasake Play chuyên thiết kế, cung cấp và lắp đặt thiết bị sân chơi ngoài trời và trong nhà với thiết bị sân chơi trẻ em và sàn an toàn, đồng thời đảm bảo tính sáng tạo, tương tác và an toàn được kết hợp trong mọi thiết kế của chúng tôi.",
     "brandT": "Những Thương Hiệu",
-    "brandD": "Uy Tín",
+    "brandD": "Uy tín",
     "brandS": "Có mặt tại",
     "latestTitle": "Các sản phẩm mới nhất",
     "latestLoadingDesc": "Khám phá những sản phẩm vừa cập nhật.",
@@ -89,32 +91,39 @@
     },
     "viewDetails": "Xem chi tiết"
   },
-  "contact": {
-    "trigger": "Liên hệ",
-    "title": "Liên hệ với chúng tôi",
-    "description": "Bạn đang cần hỗ trợ? Hãy gửi thông tin và chúng tôi sẽ phản hồi sớm nhất!",
-    "name": "Họ và tên",
-    "phone": "Số điện thoại",
+  "contactPage": {
+    "title": "Liên hệ",
+    "eyebrow": "Kết nối cùng Hasake",
+    "heroTitle": "Liên hệ Hasake Play",
+    "heroSubtitle": "Chúng tôi có mặt tại nhiều thành phố và khu vực. Chọn văn phòng gần bạn hoặc gửi yêu cầu trực tiếp.",
+    "hotline": "Hotline",
     "email": "Email",
-    "organisation": "Tổ chức / Công ty",
-    "city": "Thành phố",
-    "address": "Địa chỉ",
-    "message": "Lời nhắn",
-    "send": "Gửi",
-    "sending": "Đang gửi...",
-    "close": "Đóng",
-    "toast": {
-      "success": "Đã gửi thành công! Chúng tôi sẽ sớm liên hệ lại.",
-      "error": "Gửi thất bại, vui lòng thử lại sau."
+    "ctaTitle": "Hỗ trợ nhanh",
+    "ctaHeadline": "Chia sẻ nhu cầu của bạn",
+    "ctaDesc": "Đội ngũ Hasake sẽ phản hồi trong giờ làm việc với đúng chuyên gia.",
+    "miniCards": {
+      "projects": {
+        "title": "Tư vấn dự án",
+        "desc": "Bản vẽ layout, vật liệu, ngân sách và tuân thủ an toàn."
+      },
+      "support": {
+        "title": "Dịch vụ & bảo trì",
+        "desc": "Hướng dẫn vận hành, bảo dưỡng và phụ tùng thay thế."
+      }
     },
-    "placeholder": {
-      "name": "Nguyễn Văn A",
-      "phone": "090...",
-      "email": "you@company.com",
-      "organisation": "Tên công ty",
-      "city": "Hà Nội",
-      "address": "123 phố X, quận Y",
-      "message": "Nhu cầu của bạn..."
+    "formTitle": "Gửi thông tin liên hệ",
+    "formSubtitle": "Điền đầy đủ các trường bắt buộc để chúng tôi hỗ trợ nhanh hơn.",
+    "officesTitle": "Văn phòng",
+    "officesSubtitle": "Việt Nam & Quốc tế",
+    "officesIntro": "Gọi hoặc ghé văn phòng gần nhất, hoặc gửi form để được phản hồi sớm.",
+    "officesLabel": "Liên hệ trực tiếp",
+    "officesGridTitle": "Các văn phòng của Hasake",
+    "officesGridSubtitle": "Kết nối dễ dàng tại bất kỳ vị trí nào.",
+    "badges": {
+      "hq": "Trụ sở",
+      "vietnam": "Việt Nam",
+      "asia": "Châu Á",
+      "global": "Global"
     }
   },
   "intro": {
@@ -159,21 +168,21 @@
     "imageAlt": "Hasake Play - Giới thiệu",
     "about": {
       "title": "Giới thiệu",
-      "p1": "Công Ty TNHH Há Sa Kê là văn phòng đại diện tại Việt Nam của tập đoàn HKS với hơn 20 năm thành lập và phát triển. Văn phòng chính đặt tại Bangkok, Thái Lan, ngoài ra chúng tôi còn có văn phòng đại diện và nhà máy ở nhiều nơi như: Malaysia, Ấn Độ, Trung Quốc, Canada, Hàn Quốc, Ý, Mỹ, Hungary, Philippines...",
-      "p2": "Công ty chúng tôi chuyên cung cấp và lắp đặt các loại thiết bị dành cho sân chơi trẻ em trong nhà và ngoài trời như: Cầu trượt, thú nhún, nhà liên hoàn, xe điện đụng, xích đu, bập bênh, nhà banh, đu quay, vòng quay ngựa gỗ, bạt nhún,... thiết bị luyện tập thể dục ngoài trời, thiết bị bowling, thiết bị vui chơi giải trí, thiết bị công viên nước, sàn cao su an toàn...",
+      "p1": "Công Ty TNHH Há Sa Kê là văn phòng đại diện tại Việt Nam của tập đoàn HKS với hơn 20 năm thành lập và phát triển. Văn phòng chính đặt tại Bangkok, Thái Lan; ngoài ra chúng tôi còn có văn phòng đại diện và nhà máy ở nhiều nơi như: Malaysia, Ấn Độ, Trung Quốc, Canada, Hàn Quốc, Ý, Mỹ, Hungary, Philippines...",
+      "p2": "Công ty chúng tôi chuyên cung cấp và lắp đặt các loại thiết bị dành cho sân chơi trẻ em trong nhà và ngoài trời như: cầu trượt, thú nhún, nhà liên hoàn, xe điện đụng, xích đu, bập bênh, nhà banh, đu quay, vòng quay ngựa gỗ, bạt nhún,... cùng các thiết bị luyện tập thể dục ngoài trời, thiết bị bowling, thiết bị vui chơi giải trí, thiết bị công viên nước, sàn cao su an toàn...",
       "p3": "Sản phẩm của chúng tôi được sản xuất theo tiêu chuẩn Châu Âu (chứng chỉ ISO9001), đặc biệt an toàn, không độc hại và được sử dụng ở nhiều nước trên thế giới.",
       "p4": "Ở mỗi nơi chúng tôi đều có một đội ngũ nhân viên chuyên nghiệp, luôn sẵn sàng phục vụ và đáp ứng nhu cầu của khách hàng một cách tốt nhất."
     },
     "season": {
       "title": "Season avanue",
       "videoAria": "Video giới thiệu Season avanue",
-      "p1": "\"Season avanue\" là bộ sưu tập giải pháp vui chơi theo mùa do Hasake đề xuất cho trung tâm thương mại và khu phức hợp. Mỗi phân khu được tối ưu về luồng di chuyển, khả năng quan sát của phụ huynh, cùng vật liệu bền bỉ đáp ứng tiêu chuẩn an toàn quốc tế.",
+      "p1": "\"Season avanue\" là bộ sưu tập giải pháp vui chơi theo mùa do Hasake đề xuất cho trung tâm thương mại và khu phức hợp. Mỗi phân khu được tối ưu về lưu lượng di chuyển, khả năng quan sát của phụ huynh, cùng vật liệu bền bỉ đáp ứng tiêu chuẩn an toàn quốc tế.",
       "p2": "Thiết kế mô-đun giúp nâng cấp – thay thế chủ đề theo mùa nhanh chóng mà không cần dừng hoạt động lâu. Hệ thống sàn cao su, bo góc mềm và lớp phủ kháng khuẩn hỗ trợ vận hành an toàn, dễ vệ sinh, giảm chi phí bảo trì cho chủ đầu tư."
     },
     "bowling": {
       "title": "Green bowling",
       "videoAria": "Video giới thiệu Green bowling",
-      "p1": "Dòng \"Green bowling\" hướng tới không gian bowling thân thiện với gia đình, bố trí đường lane thông minh, hệ thống barrier cho trẻ em và scoring UI trực quan. Ánh sáng LED tiết kiệm năng lượng, vật liệu ít phát thải giúp giảm tiêu hao vận hành.",
+      "p1": "Dòng \"Green bowling\" hướng tới không gian bowling thân thiện với gia đình, bố trí đường lane thông minh, hệ thống barrier cho trẻ em và giao diện scoring trực quan. Ánh sáng LED tiết kiệm năng lượng, vật liệu ít phát thải giúp giảm tiêu hao vận hành.",
       "p2": "Hasake hỗ trợ thiết kế – lắp đặt trọn gói: từ tối ưu mặt bằng, tiêu chuẩn âm học, cho tới quy trình bảo trì định kỳ. Mục tiêu là tăng trải nghiệm, tăng thời gian lưu trú và tối ưu doanh thu cho mô hình FEC/retailtainment."
     },
     "water": {
@@ -190,14 +199,14 @@
     },
     "eyebrow": "Công Ty TNHH Hasake",
     "title": "Chính sách bảo mật",
-    "intro": "Chúng tôi trân trọng quyền riêng tư và cam kết bảo vệ thông tin cá nhân của bạn khi sử dụng trang web cũng như liên hệ với chúng tôi.",
+    "intro": "Chúng tôi trân trọng quyền riêng tư và cam kết bảo vệ thông tin cá nhân của bạn khi sử dụng trang web cũng như khi liên hệ với chúng tôi.",
     "lastUpdated": "Cập nhật lần cuối",
     "sections": [
       {
         "title": "1. Phạm vi & áp dụng",
         "items": [
           "Chính Sách này áp dụng cho mọi dữ liệu cá nhân Hasake thu thập khi bạn truy cập và sử dụng Trang web, hoặc khi bạn liên hệ với chúng tôi.",
-          "Bằng việc sử dụng Trang web hoặc gửi thông tin cho chúng tôi (qua form, email, điện thoại,...), bạn đồng ý với các nội dung được nêu tại đây."
+          "Bằng việc sử dụng Trang web hoặc gửi thông tin cho chúng tôi (qua form, email, điện thoại, ...), bạn đồng ý với các nội dung được nêu tại đây."
         ]
       },
       {
@@ -258,7 +267,7 @@
         "title": "7. Thời gian lưu giữ",
         "items": [
           "Lưu giữ dữ liệu trong thời gian cần thiết để phục vụ mục đích (ví dụ: theo dõi báo giá hoặc dự án).",
-          "Khi có yêu cầu xóa hoặc rút lại sự đồng ý, chúng tôi xóa dữ liệu trừ khi cần giữ lại vì lý do pháp lý hoặc kinh doanh chính đáng."
+          "Khi có yêu cầu xóa hoặc rút lại sự đồng ý, chúng tôi sẽ xóa dữ liệu trừ khi cần giữ lại vì lý do pháp lý hoặc kinh doanh chính đáng."
         ]
       },
       {
@@ -353,5 +362,33 @@
     },
     "loadMore": "Tải thêm dự án",
     "loadingMore": "Đang tải dự án..."
+  },
+  "contact": {
+    "trigger": "Liên hệ",
+    "title": "Liên hệ với chúng tôi",
+    "description": "Nếu bạn cần hỗ trợ, hãy điền biểu mẫu dưới đây, chúng tôi sẽ phản hồi trong thời gian sớm nhất.",
+    "name": "Họ và tên",
+    "phone": "Số điện thoại",
+    "email": "Email",
+    "organisation": "Tổ chức / Công ty",
+    "city": "Thành phố",
+    "address": "Địa chỉ",
+    "message": "Nội dung",
+    "send": "Gửi",
+    "sending": "Đang gửi...",
+    "close": "Đóng",
+    "toast": {
+      "success": "Gửi thông tin thành công! Chúng tôi sẽ liên hệ với bạn sớm.",
+      "error": "Gửi không thành công, vui lòng thử lại sau."
+    },
+    "placeholder": {
+      "name": "Nguyễn Văn A",
+      "phone": "+84...",
+      "email": "you@company.com",
+      "organisation": "Tên công ty",
+      "city": "Hà Nội",
+      "address": "123 Đường, Quận X",
+      "message": "Lời nhắn của bạn..."
+    }
   }
 }

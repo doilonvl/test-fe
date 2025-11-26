@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import NewsCard from "./_components/NewsCard";
 // Removed paginate in favor of a slider for row 2
 import NewsCarousel from "./_components/Carousel";
-// import NewsBreadcrumbs from "./_components/BreadCrumbs";
+import NewsBreadcrumbs from "./_components/BreadCrumbs";
 
 type PageProps = {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
@@ -19,6 +19,7 @@ export default async function NewsListPage({ searchParams }: PageProps) {
 
   const { items, total } = await listNews({ page, limit });
   const t = await getTranslations("news");
+  const nav = await getTranslations("nav");
   const first = items[0];
   const second = items[1];
   const third = items[2];
@@ -26,7 +27,10 @@ export default async function NewsListPage({ searchParams }: PageProps) {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 space-y-8">
-      {/* Header above the first row */}
+      <NewsBreadcrumbs
+        labels={{ home: nav("home"), news: nav("news") }}
+        title={undefined}
+      />
 
       <section className="space-y-6">
         {/* Hàng đầu tiên: 1 lớn bên trái, 2 nhỏ bên phải */}
@@ -34,9 +38,6 @@ export default async function NewsListPage({ searchParams }: PageProps) {
           <div className="grid gap-3 md:grid-cols-[2fr_1fr] items-start">
             <div className="space-y-3">
               <section className="space-y-1">
-                <div className="text-sm text-muted-foreground">
-                  {t("breadcrumb")}
-                </div>
                 <h1 className="text-2xl font-bold">{t("title")}</h1>
                 {/* <p className="text-muted-foreground">{t("subtitle")}</p> */}
               </section>

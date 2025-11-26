@@ -32,6 +32,13 @@ export async function POST(req: Request) {
     (data as any)?.refreshToken ??
     (data as any)?.refresh;
 
+  // Try to pick refresh_token from upstream Set-Cookie when backend does not send it in JSON
+  const setCookieHeader = upstream.headers.get("set-cookie") ?? "";
+  const refreshFromCookie =
+    setCookieHeader.match(/refresh_token=([^;]+)/)?.[1] ??
+    setCookieHeader.match(/refreshToken=([^;]+)/)?.[1] ??
+    null;
+
   const isProd = process.env.NODE_ENV === "production";
 
   if (!token) {
@@ -56,15 +63,17 @@ export async function POST(req: Request) {
     path: "/",
     maxAge: 60 * 15,
   });
-  if (refresh) {
-    res.cookies.set("refresh_token", refresh, {
+  const refreshValue = refresh || refreshFromCookie;
+
+  if (refreshValue) {
+    res.cookies.set("refresh_token", refreshValue, {
       httpOnly: true,
       secure: isProd,
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 60 * 24 * 30, // 30 days
     });
-    res.cookies.set("refresh_token_public", refresh, {
+    res.cookies.set("refresh_token_public", refreshValue, {
       httpOnly: false,
       secure: isProd,
       sameSite: "lax",

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getLocale } from "next-intl/server";
 import { Caladea } from "next/font/google";
 import TopProgressBar from "@/components/shared/top-progress-bar";
+import ScrollToTopButton from "@/components/shared/scroll-to-top-button";
 
 const caladea = Caladea({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default async function RootLayout({
         <Providers>
           <TopProgressBar />
           {children}
+          <ScrollToTopButton />
         </Providers>
       </body>
     </html>

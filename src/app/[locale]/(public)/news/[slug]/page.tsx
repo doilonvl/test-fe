@@ -89,6 +89,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
   if (!n) notFound();
   const localeKey = normalizeLocale(await getLocale());
   const t = await getTranslations("news");
+  const nav = await getTranslations("nav");
   const title = pickLocalizedField(n, localeKey, "title") || n.title;
   const excerpt = pickLocalizedField(n, localeKey, "excerpt") || n.excerpt || "";
   const content = pickLocalizedField(n, localeKey, "content") || n.content || "";
@@ -110,10 +111,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
       itemScope
       itemType="https://schema.org/NewsArticle"
     >
-      <NewsBreadcrumbs
-        labels={{ home: "Home", news: t("title") }}
-        title={title}
-      />
+      <NewsBreadcrumbs labels={{ home: nav("home"), news: nav("news") }} title={title} />
 
       <header className="space-y-3">
         <h1

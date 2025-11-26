@@ -1,7 +1,6 @@
-import { fetchProjects } from "./_data";
-import ProjectsExplorer from "./_components/Explorer";
-import { buildGalleryProjects } from "./_lib/gallery";
+import AboutUs from "@/components/shared/AboutUs";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -10,24 +9,16 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
-import { Link } from "@/i18n/navigation";
 import { ChevronRight } from "lucide-react";
 
-export const revalidate = 60;
-const PAGE_SIZE = 24;
+export const revalidate = 300;
 
-export default async function ProjectsPage() {
+export default async function AboutUsPage() {
   const nav = await getTranslations("nav");
-  const initialPage = 1;
-  const res = await fetchProjects({ page: initialPage, limit: PAGE_SIZE });
-  const projects = res.items ?? [];
-  const galleryProjects = await buildGalleryProjects(
-    projects,
-    projects.length || undefined
-  );
+
   return (
-    <main className="mx-auto max-w-7xl px-4 py-8">
-      <section className="mb-4">
+    <main className="min-h-screen bg-white">
+      <section className="mx-auto max-w-7xl px-4 py-10 md:py-14 space-y-6">
         <Breadcrumb>
           <BreadcrumbList className="text-sm text-muted-foreground">
             <BreadcrumbItem>
@@ -40,19 +31,13 @@ export default async function ProjectsPage() {
             </BreadcrumbSeparator>
             <BreadcrumbItem>
               <BreadcrumbPage className="text-foreground font-medium">
-                {nav("projects")}
+                {nav("about")}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
+        <AboutUs />
       </section>
-      <ProjectsExplorer
-        initialProjects={projects}
-        initialGalleryProjects={galleryProjects}
-        total={typeof res.total === "number" ? res.total : 0}
-        pageSize={res.limit ?? PAGE_SIZE}
-        initialPage={res.page ?? initialPage}
-      />
     </main>
   );
 }

@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link, usePathname, getPathname } from "@/i18n/navigation";
 import { useGetCatalogsQuery } from "@/services/api";
 import GetInTouchSheet from "../forms/GetInTouchSheet";
 import LanguageSwitcher from "../LanguageSwitcher";
@@ -47,9 +47,17 @@ export default function SiteHeader() {
   const pathname = usePathname() || "/";
   const { data, isLoading } = useGetCatalogsQuery();
   const locale = useLocale();
-  const current = pathname.replace(/^\/(vi|en)(?=\/|$)/, "");
-  const is = (p: string) =>
-    p === "/" ? current === "" || current === "/" : current.startsWith(p);
+  const normalize = (p: string) =>
+    (p || "/").replace(/^\/(vi|en)(?=\/|$)/, "") || "/";
+  const current = normalize(pathname);
+  const isAny = (...paths: string[]) =>
+    paths.some((p) => {
+      const localized = getPathname({ href: p as any, locale }) ?? p;
+      const target = normalize(localized);
+      return target === "/"
+        ? current === "/" || current === ""
+        : current === target || current.startsWith(`${target}/`);
+    });
   // helper derive slug nếu backend chưa trả slug
   function deriveSlug(cat: any) {
     const fromPublicId = cat?.pdf?.public_id?.split("/")?.pop();
@@ -86,34 +94,46 @@ export default function SiteHeader() {
     return () => clearCloseTimer();
   }, []);
 
-  const [hash, setHash] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [hideOnScroll, setHideOnScroll] = useState(false);
+  const lastScrollY = useRef(0);
+
   useEffect(() => {
-    const update = () => setHash(window.location.hash);
-    update();
-    window.addEventListener("hashchange", update);
-    return () => window.removeEventListener("hashchange", update);
+    const handleScroll = () => {
+      const y = window.scrollY || document.documentElement.scrollTop;
+      const goingDown = y > lastScrollY.current;
+      const nearTop = y < 80;
+
+      if (nearTop) {
+        setHideOnScroll(false);
+      } else if (goingDown && y > 140) {
+        setHideOnScroll(true);
+      } else if (!goingDown) {
+        setHideOnScroll(false);
+      }
+
+      lastScrollY.current = y;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const goToAbout = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (is("/")) {
-      e.preventDefault();
-      document
-        .getElementById("about")
-        ?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur supports-backdrop-filter:bg-white/80 border-b py-3 px-3 shadow-[0_6px_12px_-8px_rgba(0,0,0,0.8)]">
+    <nav
+      className={`sticky top-0 z-50 bg-white/80 backdrop-blur supports-backdrop-filter:bg-white/80 border-b py-3 px-3 shadow-[0_6px_12px_-8px_rgba(0,0,0,0.8)] transition-transform duration-300 ease-out ${
+        hideOnScroll ? "-translate-y-full" : "translate-y-0"
+      }`}
+    >
       <div className="grid w-full items-center min-h-16 grid-cols-[auto_1fr_auto] gap-2">
         {/* Logo */}
         <Link href="/" className="shrink-0 pl-7">
           <Image
             src="/Logo/hasakelogo.png"
             alt="HasakePlay"
-            width={120}
-            height={40}
-            className="h-14 w-auto"
+            width={168}
+            height={56}
+            className="h-14 w-[168px]"
             priority
           />
         </Link>
@@ -131,7 +151,7 @@ export default function SiteHeader() {
                 href="/news"
                 style={toneVars("bien")}
                 className={`${linkBase} ${linkHover} ${
-                  is("/news") ? linkActive : linkIdle
+                  isAny("/news", "/tin-tuc") ? linkActive : linkIdle
                 }`}
               >
                 {t("news")}
@@ -142,7 +162,7 @@ export default function SiteHeader() {
                 href="/projects"
                 style={toneVars("la")}
                 className={`${linkBase} ${linkHover} ${
-                  is("/projects") ? linkActive : linkIdle
+                  isAny("/projects", "/du-an") ? linkActive : linkIdle
                 }`}
               >
                 {t("projects")}
@@ -151,14 +171,13 @@ export default function SiteHeader() {
 
             <li>
               <Link
-                href={{ pathname: "/", hash: "about" }}
-                onClick={goToAbout}
+                href="/about-us"
                 style={toneVars("cam")}
                 className={`${linkBase} ${linkHover} ${
-                  is("/") && hash === "#about" ? linkActive : linkIdle
+                  isAny("/about-us", "/gioi-thieu") ? linkActive : linkIdle
                 }`}
               >
-                About
+                {t("about")}
               </Link>
             </li>
 
@@ -174,7 +193,7 @@ export default function SiteHeader() {
                 <button
                   style={toneVars("bien")}
                   className={`${linkBase} ${linkHover} flex items-center gap-1 ${
-                    is("/catalogs") ? linkActive : linkIdle
+                    isAny("/catalogs") ? linkActive : linkIdle
                   } cursor-pointer`}
                   aria-haspopup="menu"
                   aria-expanded={catalogOpen}
@@ -243,10 +262,21 @@ export default function SiteHeader() {
                 href="/privacy"
                 style={toneVars("bien")}
                 className={`${linkBase} ${linkHover} ${
-                  is("/privacy") ? linkActive : linkIdle
+                  isAny("/privacy", "/bao-mat") ? linkActive : linkIdle
                 }`}
               >
                 {t("privacy")}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact-us"
+                style={toneVars("la")}
+                className={`${linkBase} ${linkHover} ${
+                  isAny("/contact-us", "/lien-he") ? linkActive : linkIdle
+                }`}
+              >
+                {t("contact")}
               </Link>
             </li>
           </ul>
@@ -304,11 +334,29 @@ export default function SiteHeader() {
                     </li>
                     <li>
                       <Link
+                        href="/about-us"
+                        onClick={() => setMobileOpen(false)}
+                        className="block px-3 py-2 rounded-md hover:bg-gray-50"
+                      >
+                        {t("about")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
                         href="/privacy"
                         onClick={() => setMobileOpen(false)}
                         className="block px-3 py-2 rounded-md hover:bg-gray-50"
                       >
                         {t("privacy")}
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/contact-us"
+                        onClick={() => setMobileOpen(false)}
+                        className="block px-3 py-2 rounded-md hover:bg-gray-50"
+                      >
+                        {t("contact")}
                       </Link>
                     </li>
                     <li className="pt-2 mt-2 border-t">

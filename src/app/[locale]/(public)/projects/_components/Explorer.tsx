@@ -31,6 +31,10 @@ export default function ProjectsExplorer({
 }: ExplorerProps) {
   const tNav = useTranslations("nav");
   const tProj = useTranslations("projects");
+  const initialTotalCount = typeof total === "number" ? total : null;
+  const initialExhausted =
+    initialProjects.length < pageSize ||
+    (typeof total === "number" && initialProjects.length >= total);
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [galleryProjects, setGalleryProjects] = useState<Project[]>(
     initialGalleryProjects
@@ -39,8 +43,9 @@ export default function ProjectsExplorer({
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [totalCount, setTotalCount] = useState<number | null>(
-    typeof total === "number" ? total : null
+    initialTotalCount
   );
+  const [exhausted, setExhausted] = useState(initialExhausted);
 
   useEffect(() => {
     setProjects(initialProjects);
@@ -55,7 +60,17 @@ export default function ProjectsExplorer({
   }, [initialPage]);
 
   useEffect(() => {
-    setTotalCount(typeof total === "number" ? total : null);
+    setTotalCount(
+      typeof total === "number"
+        ? total
+        : initialProjects.length < pageSize
+        ? initialProjects.length
+        : null
+    );
+    setExhausted(
+      initialProjects.length < pageSize ||
+        (typeof total === "number" && initialProjects.length >= total)
+    );
   }, [total]);
 
   const years = useMemo(() => {
@@ -84,7 +99,8 @@ export default function ProjectsExplorer({
     [projects, normalizedQuery, year]
   );
 
-  const hasMore = totalCount === null ? true : projects.length < totalCount;
+  const hasMore =
+    !exhausted && (totalCount === null ? true : projects.length < totalCount);
 
   const loadMore = async () => {
     if (isLoadingMore || !hasMore) return;
@@ -116,11 +132,16 @@ export default function ProjectsExplorer({
       const derivedTotal = extractTotal(json);
       setTotalCount((prev) => {
         if (typeof derivedTotal === "number") return derivedTotal;
-        if (newItems.length < pageSize || !newItems.length) {
-          return mergedProjects.length;
-        }
         return prev;
       });
+      if (
+        (typeof derivedTotal === "number" &&
+          mergedProjects.length >= derivedTotal) ||
+        newItems.length < pageSize ||
+        !newItems.length
+      ) {
+        setExhausted(true);
+      }
     } catch (err) {
       setLoadError(
         err instanceof Error ? err.message : "Unable to load more projects."
@@ -136,9 +157,6 @@ export default function ProjectsExplorer({
         <div className="h-1 w-full rounded-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)]" />
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-sm text-muted-foreground">
-              {tNav("home")} / {tProj("title")}
-            </p>
             <h1 className="text-3xl font-bold text-gray-900">
               {tProj("title")}
             </h1>

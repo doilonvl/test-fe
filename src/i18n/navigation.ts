@@ -1,5 +1,5 @@
 import { createNavigation } from "next-intl/navigation";
-import { locales } from "./request";
+import { locales, defaultLocale } from "./request";
 
 export const pathnames = {
   "/": "/",
@@ -29,7 +29,18 @@ export const pathnames = {
 
   // Optional single form
   "/catalog": { en: "/catalog", vi: "/catalog" },
+
+  // About
+  "/about-us": { en: "/about-us", vi: "/gioi-thieu" },
+
+  // Contact
+  "/contact-us": { en: "/contact-us", vi: "/lien-he" },
 } as const;
 
 export const { Link, useRouter, usePathname, redirect, getPathname } =
-  createNavigation({ locales, pathnames });
+  createNavigation({
+    locales,
+    defaultLocale,
+    pathnames,
+    localePrefix: "as-needed",
+  });

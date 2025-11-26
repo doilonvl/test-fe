@@ -23,7 +23,7 @@ export const revalidate = 60;
 const pick = <T,>(v: T | undefined, fb: T) =>
   v === undefined || v === null || v === "" ? fb : v;
 
-const PAGE_SIZE = 10; // 5 A- 2
+const PAGE_SIZE = 50;
 
 const normalizeLocale = (value: string | undefined) =>
   value && value.toLowerCase().startsWith("en") ? "en" : "vi";
@@ -54,8 +54,7 @@ const localizeBreadcrumbs = (
 ) =>
   (crumbs || []).map((crumb) => ({
     ...crumb,
-    title:
-      pickLocalizedField(crumb, localeKey, "title")?.trim() || crumb.title,
+    title: pickLocalizedField(crumb, localeKey, "title")?.trim() || crumb.title,
   }));
 
 export default async function ProductsPage({
@@ -131,10 +130,7 @@ export default async function ProductsPage({
         );
         const nodeTitle =
           pickLocalizedField(node, localeKey, "title") || node.title;
-        const crumbs = localizeBreadcrumbs(
-          data.breadcrumbs as any,
-          localeKey
-        );
+        const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
         return (
           <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
             <header className="space-y-2">
@@ -199,10 +195,7 @@ export default async function ProductsPage({
       if (children.length === 0) {
         const nodeTitle =
           pickLocalizedField(node, localeKey, "title") || node.title;
-        const crumbs = localizeBreadcrumbs(
-          data.breadcrumbs as any,
-          localeKey
-        );
+        const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
         return (
           <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
             <header className="space-y-2">
@@ -238,12 +231,8 @@ export default async function ProductsPage({
       }
 
       const nodeTitle =
-        pickLocalizedField(data.node, localeKey, "title") ||
-        data.node.title;
-      const crumbs = localizeBreadcrumbs(
-        data.breadcrumbs as any,
-        localeKey
-      );
+        pickLocalizedField(data.node, localeKey, "title") || data.node.title;
+      const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
 
       return (
         <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
@@ -302,7 +291,11 @@ export default async function ProductsPage({
                 isRootProducts
               />
             </div>
-            <Filters variant="inline" initial={{ q: "", sort }} total={listing.total} />
+            <Filters
+              variant="inline"
+              initial={{ q: "", sort }}
+              total={listing.total}
+            />
           </div>
         </header>
 

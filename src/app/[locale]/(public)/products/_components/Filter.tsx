@@ -63,8 +63,8 @@ export default function Filters({
   }[] = [
     // { value: "order", label: t("sort.order") },
     // { value: "-order", label: t("sort.-order") },
-    { value: "title", label: t("sort.title") },
-    { value: "-title", label: t("sort.-title") },
+    { value: "title", label: t("sort.order") },
+    { value: "-title", label: t("sort.-order") },
     { value: "createdAt", label: t("sort.createdAt") },
     { value: "-createdAt", label: t("sort.-createdAt") },
   ];

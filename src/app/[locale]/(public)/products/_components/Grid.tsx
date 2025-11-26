@@ -39,8 +39,6 @@ export default function Grid({
 
   // Force remount of the list when dataset changes to reset animations
   const listKey = nodes.map((n) => n._id).join("|");
-
-  const pageSize = 8; // 4 per row * 2 rows
   return (
     <motion.ul
       key={`${listKey}-page`}
@@ -50,7 +48,7 @@ export default function Grid({
       animate="show"
       className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4"
     >
-      {nodes.slice(0, pageSize).map((n) => {
+      {nodes.map((n) => {
         const titleMap = (n as any)?.title_i18n;
         const taglineMap = (n as any)?.tagline_i18n;
         const descriptionMap = (n as any)?.description_i18n;

@@ -16,22 +16,39 @@ import {
   LogOut,
   ChevronsLeft,
   ChevronsRight,
+  LayoutDashboard,
 } from "lucide-react";
 
 const NAV_ITEMS = [
-  { key: "products", label: "Quản lý Sản phẩm", icon: Boxes, slug: "products" },
-  { key: "news", label: "Quản lý Tin tức", icon: Newspaper, slug: "news" },
+  {
+    key: "overview",
+    label: "Tổng quan",
+    icon: LayoutDashboard,
+    href: "/admin",
+  },
+  {
+    key: "products",
+    label: "Quản lý Sản phẩm",
+    icon: Boxes,
+    href: "/admin/products",
+  },
+  {
+    key: "news",
+    label: "Quản lý Tin tức",
+    icon: Newspaper,
+    href: "/admin/news",
+  },
   {
     key: "projects",
     label: "Quản lý Dự án",
     icon: FolderKanban,
-    slug: "projects",
+    href: "/admin/projects",
   },
   {
     key: "catalogs",
     label: "Quản lý Danh mục",
     icon: FileText,
-    slug: "catalogs",
+    href: "/admin/catalogs",
   },
 ];
 
@@ -57,13 +74,7 @@ export default function AdminShell({
 
   async function handleLogout() {
     try {
-      const base = (
-        process.env.NEXT_PUBLIC_API_BASE_URL ||
-        process.env.NEXT_PUBLIC_API_BASE ||
-        "http://localhost:5001/api/v1"
-      ).replace(/\/$/, "");
-
-      await fetch(`${base}/auth/logout`, {
+      await fetch("/api/auth/logout", {
         method: "POST",
         credentials: "include",
       });
@@ -119,11 +130,13 @@ export default function AdminShell({
           <ScrollArea className="flex-1">
             <nav className="px-2 py-3 space-y-1">
               {NAV_ITEMS.map((it) => {
-                // ⚠️ Không chèn locale ở đây, Link sẽ tự thêm → tránh /en/en/...
-                const href = `/admin/${it.slug}`;
+                // Locale đã nằm ở layout, Link sẽ tự thêm để tránh /en/en/...
+                const href = it.href;
+                const target = `/${locale}${href}`;
                 const active =
-                  pathname === `/${locale}/admin/${it.slug}` ||
-                  pathname.startsWith(`/${locale}/admin/${it.slug}/`);
+                  href === "/admin"
+                    ? pathname === target || pathname === `${target}/`
+                    : pathname === target || pathname.startsWith(`${target}/`);
                 const Icon = it.icon;
 
                 return (
