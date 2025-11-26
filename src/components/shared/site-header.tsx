@@ -35,7 +35,8 @@ const toneVars = (which: Tone): CSSProperties => ({
       : "143,197,66",
 });
 
-const linkBase = "px-3 py-2 text-sm rounded-lg transition-colors";
+const linkBase =
+  "px-3 py-2 text-[13px] lg:text-sm rounded-lg transition-colors";
 const linkHover =
   "hover:bg-[rgba(var(--tone-rgb),0.10)] hover:shadow-[0_8px_20px_-12px_rgba(var(--tone-rgb),0.35)] hover:text-foreground";
 const linkIdle = "text-muted-foreground";
@@ -139,8 +140,8 @@ export default function SiteHeader() {
         </Link>
 
         {/* Menu trung tâm */}
-        <div className="hidden md:flex justify-center">
-          <ul className="flex items-center gap-8 text-sm font-semibold">
+        <div className="hidden lg:flex justify-center">
+          <ul className="flex items-center gap-6 xl:gap-8 text-[13px] lg:text-sm font-semibold">
             <li>
               <div style={toneVars("cam")}>
                 <ProductsMegaMenu
@@ -294,7 +295,7 @@ export default function SiteHeader() {
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
               <button
-                className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border hover:bg-gray-50 cursor-pointer"
+                className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border hover:bg-gray-50 cursor-pointer"
                 aria-label="Open menu"
               >
                 <Menu className="h-5 w-5" />
