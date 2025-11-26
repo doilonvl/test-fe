@@ -132,7 +132,8 @@ export default function AdminShell({
               {NAV_ITEMS.map((it) => {
                 // Locale đã nằm ở layout, Link sẽ tự thêm để tránh /en/en/...
                 const href = it.href;
-                const target = `/${locale}${href}`;
+                const base = locale === "vi" ? "" : `/${locale}`;
+                const target = `${base}${href}`;
                 const active =
                   href === "/admin"
                     ? pathname === target || pathname === `${target}/`
@@ -144,15 +145,28 @@ export default function AdminShell({
                     key={it.key}
                     href={href as any}
                     className={[
-                      "group flex items-center gap-3 rounded-md px-3 py-2 text-sm",
+                      "group relative flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-all",
                       active
-                        ? "bg-accent text-accent-foreground"
-                        : "hover:bg-muted",
+                        ? "bg-primary text-primary-foreground font-semibold shadow-md ring-2 ring-primary/25"
+                        : "text-muted-foreground hover:bg-muted",
                     ].join(" ")}
                     title={collapsed ? it.label : undefined}
                     aria-current={active ? "page" : undefined}
                   >
-                    <Icon className="size-4 opacity-80 group-hover:opacity-100" />
+                    {active ? (
+                      <span
+                        aria-hidden
+                        className="absolute left-2 top-1.5 bottom-1.5 w-1 rounded-full bg-primary-foreground/80"
+                      />
+                    ) : null}
+                    <Icon
+                      className={[
+                        "size-4 opacity-80 group-hover:opacity-100",
+                        active
+                          ? "text-primary-foreground"
+                          : "text-muted-foreground",
+                      ].join(" ")}
+                    />
                     {!collapsed && <span className="truncate">{it.label}</span>}
                   </Link>
                 );

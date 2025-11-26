@@ -5,11 +5,9 @@ import * as React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useLocale } from "next-intl";
 
-export default function ImagesLightbox({
-  images,
-}: {
-  images: { url: string; alt?: string }[];
-}) {
+type Img = { url: string; alt?: string };
+
+export default function ImagesLightbox({ images }: { images: Img[] }) {
   const [open, setOpen] = React.useState(false);
   const [index, setIndex] = React.useState<number>(0);
   const [visibleCount, setVisibleCount] = React.useState(
@@ -28,6 +26,9 @@ export default function ImagesLightbox({
     setIndex(i);
     setOpen(true);
   };
+  const showNext = () => setIndex((i) => (i + 1) % images.length);
+  const showPrev = () =>
+    setIndex((i) => (i - 1 + images.length) % images.length);
 
   const current = images[index];
   const shown = images.slice(0, visibleCount);
@@ -37,6 +38,17 @@ export default function ImagesLightbox({
   const remaining = images.length - visibleCount;
   const hasMore = remaining > 0;
   const canCollapse = visibleCount > initialCount;
+
+  React.useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+      if (e.key === "ArrowRight") showNext();
+      if (e.key === "ArrowLeft") showPrev();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
     <>
@@ -93,7 +105,7 @@ export default function ImagesLightbox({
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-[70] bg-black/70 backdrop-blur-sm" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 z-[80] -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-5xl max-h-[88vh] p-0 outline-none">
+          <Dialog.Content className="fixed left-1/2 top-1/2 z-[80] -translate-x-1/2 -translate-y-1/2 w-[92vw] max-w-6xl max-h-[92vh] p-0 outline-none">
             <Dialog.Title className="sr-only">
               {current?.alt || "Image preview"}
             </Dialog.Title>
@@ -103,15 +115,41 @@ export default function ImagesLightbox({
                 : "Full-size preview of the selected product image"}
             </Dialog.Description>
             {current ? (
-              <div className="flex flex-col items-center gap-3 rounded-xl overflow-hidden bg-transparent">
+              <div className="relative max-h-[90vh] w-full rounded-2xl overflow-hidden bg-black/40">
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="absolute right-3 top-3 z-10 rounded-full bg-black/60 px-3 py-1 text-sm font-semibold text-white hover:bg-black/80"
+                  aria-label="Close"
+                >
+                  ×
+                </button>
+                <button
+                  type="button"
+                  onClick={showPrev}
+                  className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/60 px-3 py-2 text-white hover:bg-black/80"
+                  aria-label="Previous image"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  onClick={showNext}
+                  className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/60 px-3 py-2 text-white hover:bg-black/80"
+                  aria-label="Next image"
+                >
+                  ›
+                </button>
                 <img
                   src={current.url}
                   alt={current.alt || "Image"}
-                  className="mx-auto h-auto w-full max-h-[82vh] max-w-[90vw] object-contain"
+                  className="mx-auto max-h-[90vh] w-full object-contain"
                 />
                 {current.alt ? (
-                  <div className="mx-auto mt-1 inline-flex items-center justify-center rounded-full bg-black/70 px-4 py-2 text-center text-sm text-white/95">
-                    {current.alt}
+                  <div className="absolute left-0 right-0 bottom-3 flex items-center justify-center px-4">
+                    <span className="inline-flex items-center justify-center rounded-full bg-black/70 px-4 py-2 text-center text-sm text-white/95">
+                      {current.alt}
+                    </span>
                   </div>
                 ) : null}
               </div>

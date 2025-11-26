@@ -140,7 +140,7 @@
   .brand-marquee:hover .marquee-track {
     animation-play-state: paused;
   }
-  .gallery-marquee:hover .animate-gallery-marquee {
+  .animate-gallery-marquee.is-paused {
     animation-play-state: paused;
   }
   @keyframes gallery-marquee {

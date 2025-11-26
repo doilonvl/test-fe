@@ -41,7 +41,7 @@ const linkHover =
   "hover:bg-[rgba(var(--tone-rgb),0.10)] hover:shadow-[0_8px_20px_-12px_rgba(var(--tone-rgb),0.35)] hover:text-foreground";
 const linkIdle = "text-muted-foreground";
 const linkActive =
-  "bg-[rgba(var(--tone-rgb),0.15)] shadow-[0_8px_20px_-12px_rgba(var(--tone-rgb),0.35)] text-foreground";
+  "bg-[rgba(var(--tone-rgb),0.22)] shadow-[0_8px_22px_-10px_rgba(var(--tone-rgb),0.45)] text-foreground ring-2 ring-[rgba(var(--tone-rgb),0.35)]";
 
 export default function SiteHeader() {
   const t = useTranslations("nav");
@@ -54,10 +54,13 @@ export default function SiteHeader() {
   const isAny = (...paths: string[]) =>
     paths.some((p) => {
       const localized = getPathname({ href: p as any, locale }) ?? p;
-      const target = normalize(localized);
-      return target === "/"
-        ? current === "/" || current === ""
-        : current === target || current.startsWith(`${target}/`);
+      const candidates = [localized, p];
+      return candidates.some((c) => {
+        const target = normalize(c);
+        return target === "/"
+          ? current === "/" || current === ""
+          : current === target || current.startsWith(`${target}/`);
+      });
     });
   // helper derive slug nếu backend chưa trả slug
   function deriveSlug(cat: any) {

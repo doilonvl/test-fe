@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -110,7 +111,7 @@ export default function ProjectsGallery({
     <div className="gallery-marquee relative -mx-4 px-4 sm:mx-0">
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-24 bg-linear-to-b from-white to-transparent" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-linear-to-t from-white to-transparent" />
-      <div className="relative grid h-192 max-h-[150vh] grid-cols-1 items-start gap-6 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
+      <div className="relative grid h-[58rem] max-h-[170vh] grid-cols-1 items-start gap-6 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
         <GalleryColumn
           items={columnOne}
           msPerPixel={12}
@@ -142,9 +143,13 @@ function GalleryColumn({
   className,
   label,
   cta,
-}: GalleryColumnProps & { label: string; cta: string }) {
+}: GalleryColumnProps & {
+  label: string;
+  cta: string;
+}) {
   const columnRef = useRef<HTMLDivElement | null>(null);
   const [columnHeight, setColumnHeight] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     const element = columnRef.current;
@@ -170,6 +175,7 @@ function GalleryColumn({
       ref={columnRef}
       className={cx(
         "animate-gallery-marquee space-y-6 py-4",
+        paused && "is-paused",
         className,
         items.length === 0 && "opacity-0"
       )}
@@ -183,6 +189,7 @@ function GalleryColumn({
           label={label}
           cta={cta}
           variant="marquee"
+          onHoverChange={setPaused}
         />
       ))}
     </div>
@@ -195,12 +202,14 @@ function GalleryCard({
   label,
   cta,
   variant,
+  onHoverChange,
 }: {
   item: GalleryItem;
   index: number;
   label: string;
   cta: string;
   variant: "marquee" | "grid";
+  onHoverChange?: (hover: boolean) => void;
 }) {
   const href = item.slug
     ? `/projects/${item.slug}`
@@ -216,6 +225,8 @@ function GalleryCard({
         variant === "grid" ? "h-full" : ""
       }`}
       style={variant === "marquee" ? { animationDelay } : undefined}
+      onMouseEnter={() => onHoverChange?.(true)}
+      onMouseLeave={() => onHoverChange?.(false)}
     >
       <article
         className={cx(
