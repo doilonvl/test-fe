@@ -143,7 +143,10 @@ export default function SiteHeader() {
           <ul className="flex items-center gap-8 text-sm font-semibold">
             <li>
               <div style={toneVars("cam")}>
-                <ProductsMegaMenu label={t("products")} />
+                <ProductsMegaMenu
+                  label={t("products")}
+                  active={isAny("/products", "/san-pham")}
+                />
               </div>
             </li>
             <li>

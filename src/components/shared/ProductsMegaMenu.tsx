@@ -15,9 +15,11 @@ import type { ProductNode } from "@/types/content";
 export default function ProductsMegaMenu({
   label = "Products",
   tone = "255,137,5", // cam
+  active = false,
 }: {
   label?: string;
   tone?: string;
+  active?: boolean;
 }) {
   const locale = useLocale();
   const normalizedLocale = locale?.toLowerCase().startsWith("en") ? "en" : "vi";
@@ -161,7 +163,12 @@ export default function ProductsMegaMenu({
         href="/products"
         className={`px-3 py-2 text-sm rounded-lg transition-colors
                     hover:bg-[rgba(var(--tone-rgb),0.10)]
-                    hover:shadow-[0_8px_20px_-12px_rgba(var(--tone-rgb),0.35)]`}
+                    hover:shadow-[0_8px_20px_-12px_rgba(var(--tone-rgb),0.35)]
+                    ${
+                      active
+                        ? "bg-[rgba(var(--tone-rgb),0.15)] shadow-[0_8px_20px_-12px_rgba(var(--tone-rgb),0.35)] text-foreground"
+                        : "text-muted-foreground"
+                    }`}
         aria-haspopup="menu"
         aria-expanded={open}
       >
@@ -313,19 +320,19 @@ export default function ProductsMegaMenu({
               <div className="w-[360px] max-h-[60vh] overflow-auto overscroll-contain">
                 {activeHasItems ? (
                   <ul className="space-y-1">
-                  {items.map((it) => (
-                    <li key={it._id}>
-                      <Link
-                        href={{
-                          pathname: "/products/[[...segments]]",
-                          params: { segments: it.path.split("/") },
-                        }}
-                        className="block rounded-md truncate px-2 py-1.5 hover:bg-gray-50 border-l-2 border-transparent hover:border-[#05acfb]"
-                      >
-                        {it.title_i18n?.[normalizedLocale] || it.title}
-                      </Link>
-                    </li>
-                  ))}
+                    {items.map((it) => (
+                      <li key={it._id}>
+                        <Link
+                          href={{
+                            pathname: "/products/[[...segments]]",
+                            params: { segments: it.path.split("/") },
+                          }}
+                          className="block rounded-md truncate px-2 py-1.5 hover:bg-gray-50 border-l-2 border-transparent hover:border-[#05acfb]"
+                        >
+                          {it.title_i18n?.[normalizedLocale] || it.title}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 ) : (
                   <div className="px-2 py-1.5 text-sm text-muted-foreground">
