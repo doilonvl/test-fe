@@ -8,6 +8,8 @@ const intl = createMiddleware({
   defaultLocale,
   pathnames,
   localePrefix: "as-needed",
+  // Force default locale when no explicit selection; avoid Accept-Language choosing English first.
+  localeDetection: false,
 });
 
 export function middleware(req: NextRequest) {
