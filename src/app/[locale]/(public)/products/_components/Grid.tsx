@@ -7,9 +7,18 @@ import type { ProductNode } from "@/features/products/types";
 type Props = {
   nodes: ProductNode[];
   highlightType?: boolean;
+  localeKey: string;
+  viewDetailsLabel: string;
+  fallbackDescription?: string;
 };
 
-export default function Grid({ nodes, highlightType = false }: Props) {
+export default function Grid({
+  nodes,
+  highlightType = false,
+  localeKey,
+  viewDetailsLabel,
+  fallbackDescription = "",
+}: Props) {
   if (!nodes?.length) return null;
 
   const firstId = nodes[0]?._id;
@@ -21,13 +30,16 @@ export default function Grid({ nodes, highlightType = false }: Props) {
         const taglineMap = (n as any)?.tagline_i18n;
         const descriptionMap = (n as any)?.description_i18n;
         const localizedTitle =
-          (titleMap && titleMap[getLocaleKey()]) || n.title;
-        const localizedTagline =
-          (taglineMap && taglineMap[getLocaleKey()]) ||
-          n.tagline ||
-          (descriptionMap && descriptionMap[getLocaleKey()]) ||
+          (titleMap && titleMap[localeKey]) || n.title || "";
+        const localizedDescription =
+          (descriptionMap && descriptionMap[localeKey]) ||
           n.description ||
+          fallbackDescription ||
           "";
+        const localizedTagline =
+          (taglineMap && taglineMap[localeKey]) ||
+          n.tagline ||
+          localizedDescription;
 
         const gallery = Array.isArray(n.images) ? n.images.slice(0, 3) : [];
         const hasVideo =
@@ -116,12 +128,10 @@ export default function Grid({ nodes, highlightType = false }: Props) {
 
                 <div className="flex flex-1 flex-col justify-between gap-4 p-5">
                   <p className="text-sm text-gray-600 line-clamp-3">
-                    {(descriptionMap && descriptionMap[getLocaleKey()]) ||
-                      n.description ||
-                      "Discover full details and specifications."}
+                    {localizedDescription}
                   </p>
                   <div className="flex items-center justify-between text-sm font-semibold text-primary">
-                    <span>View details</span>
+                    <span>{viewDetailsLabel}</span>
                     <svg
                       width="16"
                       height="16"
@@ -146,19 +156,4 @@ export default function Grid({ nodes, highlightType = false }: Props) {
       })}
     </ul>
   );
-}
-
-function getLocaleKey() {
-  if (typeof Intl === "undefined") return "vi";
-  try {
-    const lang =
-      typeof navigator !== "undefined"
-        ? navigator.language
-        : typeof document !== "undefined"
-        ? document.documentElement.lang
-        : "vi";
-    return lang.toLowerCase().startsWith("en") ? "en" : "vi";
-  } catch {
-    return "vi";
-  }
 }

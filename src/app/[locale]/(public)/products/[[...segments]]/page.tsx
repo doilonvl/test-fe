@@ -80,6 +80,7 @@ export default async function ProductsPage({
   searchParams,
 }: PageProps) {
   const t = await getTranslations("products");
+  const nav = await getTranslations("nav");
   const localeKey = normalizeLocale(await getLocale());
   const { segments = [] } = await params;
   const qs = await searchParams;
@@ -124,7 +125,13 @@ export default async function ProductsPage({
           </div>
         </header>
 
-        <Grid nodes={result.items} highlightType />
+        <Grid
+          nodes={result.items}
+          highlightType
+          localeKey={localeKey}
+          viewDetailsLabel={t("viewDetails")}
+          fallbackDescription={t("subtitle")}
+        />
         <Pagination
           total={result.total}
           page={result.page}
@@ -160,7 +167,7 @@ export default async function ProductsPage({
             <Breadcrumbs
               nodeTitle={nodeTitle}
               ancestors={crumbs}
-              labels={{ home: "Home", products: "Products & services" }}
+              labels={{ home: nav("home"), products: nav("products") }}
             />
 
             {nodeDescription ? (
@@ -224,7 +231,7 @@ export default async function ProductsPage({
             <Breadcrumbs
               nodeTitle={nodeTitle}
               ancestors={crumbs}
-              labels={{ home: "Home", products: "Products & services" }}
+              labels={{ home: nav("home"), products: nav("products") }}
             />
 
             {nodeDescription ? (
@@ -264,7 +271,7 @@ export default async function ProductsPage({
           <Breadcrumbs
             nodeTitle={nodeTitle}
             ancestors={crumbs}
-            labels={{ home: "Home", products: "Products & services" }}
+            labels={{ home: nav("home"), products: nav("products") }}
           />
 
           {/* Description cá»§a node */}
@@ -278,7 +285,13 @@ export default async function ProductsPage({
           {/* KhÃ´ng hiá»ƒn thá»‹ Filter/Search á»Ÿ cáº¥p sÃ¢u (group/item) */}
 
           {/* Grid con theo type mong muá»‘n */}
-          <Grid key={currentPath} nodes={pageChildren} />
+          <Grid
+            key={currentPath}
+            nodes={pageChildren}
+            localeKey={localeKey}
+            viewDetailsLabel={t("viewDetails")}
+            fallbackDescription={t("subtitle")}
+          />
 
           <Pagination total={total} page={page} limit={PAGE_SIZE} />
         </main>
@@ -305,7 +318,7 @@ export default async function ProductsPage({
             <div className="space-y-2">
               <h1 className="text-2xl font-bold">{t("title")}</h1>
               <Breadcrumbs
-                labels={{ home: "Home", products: "Products & services" }}
+                labels={{ home: nav("home"), products: nav("products") }}
                 isRootProducts
               />
             </div>
@@ -317,7 +330,13 @@ export default async function ProductsPage({
           </div>
         </header>
 
-        <Grid key="root" nodes={listing.items} />
+        <Grid
+          key="root"
+          nodes={listing.items}
+          localeKey={localeKey}
+          viewDetailsLabel={t("viewDetails")}
+          fallbackDescription={t("subtitle")}
+        />
         <Pagination
           total={listing.total}
           page={listing.page}
