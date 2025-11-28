@@ -135,6 +135,7 @@ export default function NewsCard({
                   className="object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none"
                   quality={85}
                   priority={isLarge}
+                  fetchPriority={isLarge ? "high" : "auto"}
                 />
               ) : (
                 <img

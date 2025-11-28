@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-/* eslint-disable @next/next/no-img-element */
 import path from "path";
 import fs from "fs/promises";
+import type { Metadata } from "next";
+import Script from "next/script";
 import { getTranslations } from "next-intl/server";
 import HeroCarousel from "@/components/home/HeroCarousel";
 import BrandMarquee from "@/components/BrandMarquee";
@@ -15,7 +16,38 @@ import { buildGalleryProjects } from "./projects/_lib/gallery";
 import { Link } from "@/i18n/navigation";
 import SectionHeading from "@/components/home/SectionHeading";
 
-// Đọc ảnh banner từ /public/Banner_header
+const siteUrl = "https://hasakeplay.com.vn";
+
+export const metadata: Metadata = {
+  title: "Hasake Play - Giải pháp khu vui chơi hiện đại",
+  description:
+    "Hasake Play cung cấp giải pháp thiết kế, thi công khu vui chơi trong nhà và ngoài trời, thiết bị an toàn, bền bỉ cho trẻ em.",
+  keywords: [
+    "Hasake Play",
+    "khu vui choi",
+    "playground equipment",
+    "thiet ke khu vui choi",
+    "xich du tre em",
+    "thiet bi khu vui choi",
+  ],
+  alternates: { canonical: siteUrl },
+  openGraph: {
+    title: "Hasake Play - Playground solutions",
+    description:
+      "Thiết kế, sản xuất, thi công khu vui chơi hiện đại và an toàn cho trẻ em.",
+    url: siteUrl,
+    siteName: "Hasake Play",
+    images: [{ url: "/Logo/hasakelogo.png", width: 512, height: 512 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hasake Play - Playground solutions",
+    description:
+      "Giải pháp thiết kế và thi công khu vui chơi hiện đại, an toàn.",
+    images: ["/Logo/hasakelogo.png"],
+  },
+};
+
 async function getSlidesFromPublic() {
   const dir = path.join(process.cwd(), "public", "Banner_header");
   const files = await fs.readdir(dir);
@@ -25,7 +57,6 @@ async function getSlidesFromPublic() {
   return images.map((f) => ({ src: `/Banner_header/${f}` }));
 }
 
-// Đọc logo brand từ /public/Brand_marquee
 async function getBrandLogos() {
   const dir = path.join(process.cwd(), "public", "Brand_marquee");
   const files = await fs.readdir(dir);
@@ -48,9 +79,34 @@ export default async function HomePage() {
     18
   );
 
+  const orgLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Hasake Play",
+    url: siteUrl,
+    logo: `${siteUrl}/Logo/hasakelogo.png`,
+    sameAs: [
+      "https://www.facebook.com/hasakeplay",
+      "https://www.instagram.com/hasakeplay",
+    ],
+  };
+
+  const projectsLd =
+    featuredProjects.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          itemListElement: featuredProjects.slice(0, 6).map((p, idx) => ({
+            "@type": "ListItem",
+            position: idx + 1,
+            name: p.project,
+            url: `${siteUrl}/projects/${p.slug || p._id}`,
+          })),
+        }
+      : null;
+
   return (
     <main className="min-h-screen">
-      {/* HERO / CAROUSEL */}
       <section className="relative">
         <HeroCarousel slides={slides} />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-slate-100" />
@@ -63,7 +119,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* BRAND MARQUEE */}
       <section className="mx-auto mt-12 max-w-7xl space-y-6 px-4 md:mt-16">
         <FadeIn direction="left">
           <SectionHeading
@@ -74,21 +129,18 @@ export default async function HomePage() {
         <BrandMarquee logos={brandLogos} />
       </section>
 
-      {/* INTRO BLOCKS */}
       <section className="mx-auto mt-12 max-w-7xl px-4 md:mt-16">
         <FadeIn direction="up" once>
           <IntroBlocks />
         </FadeIn>
       </section>
 
-      {/* ABOUT US */}
       <section className="mx-auto mt-12 max-w-7xl px-4 md:mt-16">
         <FadeIn direction="up" once>
           <AboutUs />
         </FadeIn>
       </section>
 
-      {/* LATEST PRODUCTS */}
       <section className="mx-auto mt-12 max-w-7xl px-4 md:mt-16">
         <FadeIn direction="up" once>
           <LatestProducts limit={4} />
@@ -107,13 +159,26 @@ export default async function HomePage() {
                   className="inline-flex items-center gap-2 rounded-full border border-white/70 bg-white/80 px-4 py-2 text-sm font-semibold text-gray-700 shadow hover:border-[#05acfb]"
                 >
                   {t("featuredProjectsCTA")}
-                  <span aria-hidden>→</span>
+                  <span aria-hidden>{">"}</span>
                 </Link>
               }
             />
             <ProjectsGallery data={featuredProjects} variant="marquee" />
           </FadeIn>
         </section>
+      ) : null}
+
+      <Script
+        id="org-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }}
+      />
+      {projectsLd ? (
+        <Script
+          id="projects-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsLd) }}
+        />
       ) : null}
     </main>
   );

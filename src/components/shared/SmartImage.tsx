@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
 import Image, { ImageProps } from "next/image";
 import { toCloudinaryUrl } from "@/lib/media/cloudinary";
 

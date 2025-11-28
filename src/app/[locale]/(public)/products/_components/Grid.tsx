@@ -1,63 +1,31 @@
-/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
 
-import { useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import type { ProductNode } from "@/features/products/types";
 import SmartImage from "@/components/shared/SmartImage";
-import { motion } from "framer-motion";
-import Pagination from "./Pagination";
+import type { ProductNode } from "@/features/products/types";
 
-export default function Grid({
-  nodes,
-  highlightType = false,
-}: {
+type Props = {
   nodes: ProductNode[];
   highlightType?: boolean;
-}) {
-  const locale = useLocale();
-  const normalizedLocale = locale?.startsWith("en") ? "en" : "vi";
+};
+
+export default function Grid({ nodes, highlightType = false }: Props) {
   if (!nodes?.length) return null;
 
-  const listVariants = {
-    hidden: {},
-    show: {
-      transition: { staggerChildren: 0.06, delayChildren: 0.04 },
-    },
-  } as const;
+  const firstId = nodes[0]?._id;
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 14, filter: "blur(6px)" },
-    show: {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-    },
-  } as const;
-
-  // Force remount of the list when dataset changes to reset animations
-  const listKey = nodes.map((n) => n._id).join("|");
   return (
-    <motion.ul
-      key={`${listKey}-page`}
-      id="products-grid-top"
-      variants={listVariants}
-      initial="hidden"
-      animate="show"
-      className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4"
-    >
-      {nodes.map((n) => {
+    <ul className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
+      {nodes.map((n, idx) => {
         const titleMap = (n as any)?.title_i18n;
         const taglineMap = (n as any)?.tagline_i18n;
         const descriptionMap = (n as any)?.description_i18n;
         const localizedTitle =
-          (titleMap && titleMap[normalizedLocale]) || n.title;
+          (titleMap && titleMap[getLocaleKey()]) || n.title;
         const localizedTagline =
-          (taglineMap && taglineMap[normalizedLocale]) ||
+          (taglineMap && taglineMap[getLocaleKey()]) ||
           n.tagline ||
-          (descriptionMap && descriptionMap[normalizedLocale]) ||
+          (descriptionMap && descriptionMap[getLocaleKey()]) ||
           n.description ||
           "";
 
@@ -67,10 +35,10 @@ export default function Grid({
           (n as any).heroVideo.length > 0;
 
         return (
-          <motion.li
+          <li
             key={n._id}
-            variants={cardVariants}
-            className="group relative h-full"
+            className="group relative h-full opacity-0 translate-y-4 animate-[fade-slide-up_0.5s_ease-out_forwards]"
+            style={{ animationDelay: `${idx * 0.06}s` }}
             itemScope
             itemType={
               n.type === "item"
@@ -81,7 +49,7 @@ export default function Grid({
             <Link
               href={{
                 pathname: "/products/[[...segments]]",
-                params: { segments: n.path.split("/") },
+                params: { segments: n.path.split("/").filter(Boolean) },
               }}
               aria-label={localizedTitle}
               className="block h-full max-w-[320px] mx-auto rounded-2xl border border-white/60 bg-white/80 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
@@ -91,11 +59,12 @@ export default function Grid({
                   {hasVideo ? (
                     <video
                       src={(n as any).heroVideo}
-                      autoPlay
-                      loop
                       muted
                       playsInline
+                      controls={false}
+                      preload="metadata"
                       className="h-full w-full object-cover"
+                      aria-label={localizedTitle}
                     />
                   ) : n.thumbnail ? (
                     <SmartImage
@@ -104,6 +73,7 @@ export default function Grid({
                       fill
                       sizes="(max-width: 1024px) 100vw, 33vw"
                       className="object-cover transition duration-700 group-hover:scale-105"
+                      fetchPriority={n._id === firstId ? "high" : "auto"}
                     />
                   ) : (
                     <div className="h-full w-full" />
@@ -111,7 +81,7 @@ export default function Grid({
 
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 text-white">
                     <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-white/70">
-                      {n.type}
+                      {highlightType ? n.type : null}
                     </div>
                     <h3 className="mt-2 text-2xl font-semibold">
                       {localizedTitle}
@@ -126,15 +96,18 @@ export default function Grid({
 
                 {gallery.length > 0 ? (
                   <div className="flex gap-2 bg-white/90 px-4 py-3">
-                    {gallery.map((img, idx) => (
+                    {gallery.map((img, gIdx) => (
                       <div
-                        key={`${img.url}-${idx}`}
+                        key={`${img.url}-${gIdx}`}
                         className="relative h-16 w-16 overflow-hidden rounded-lg border border-white/70"
                       >
-                        <img
+                        <SmartImage
                           src={img.url}
                           alt={img.alt || localizedTitle}
-                          className="h-full w-full object-cover"
+                          fill
+                          sizes="64px"
+                          className="object-cover"
+                          loading="lazy"
                         />
                       </div>
                     ))}
@@ -143,7 +116,7 @@ export default function Grid({
 
                 <div className="flex flex-1 flex-col justify-between gap-4 p-5">
                   <p className="text-sm text-gray-600 line-clamp-3">
-                    {(descriptionMap && descriptionMap[normalizedLocale]) ||
+                    {(descriptionMap && descriptionMap[getLocaleKey()]) ||
                       n.description ||
                       "Discover full details and specifications."}
                   </p>
@@ -168,27 +141,24 @@ export default function Grid({
                 </div>
               </article>
             </Link>
-          </motion.li>
+          </li>
         );
       })}
-    </motion.ul>
+    </ul>
   );
 }
 
-function TypePill({ type }: { type: ProductNode["type"] }) {
-  const pill =
-    type === "item"
-      ? { bg: "from-[#8fc542] to-[#66b212]", label: "Item" }
-      : type === "group"
-      ? { bg: "from-[#05acfb] to-[#0487c5]", label: "Group" }
-      : { bg: "from-[#ff8905] to-[#d46e00]", label: "Category" };
-
-  return (
-    <span
-      className={`rounded-full px-2 py-0.5 text-[10px] text-white bg-gradient-to-r ${pill.bg} shadow-sm ring-1 ring-white/25`}
-      aria-label={pill.label}
-    >
-      {pill.label}
-    </span>
-  );
+function getLocaleKey() {
+  if (typeof Intl === "undefined") return "vi";
+  try {
+    const lang =
+      typeof navigator !== "undefined"
+        ? navigator.language
+        : typeof document !== "undefined"
+        ? document.documentElement.lang
+        : "vi";
+    return lang.toLowerCase().startsWith("en") ? "en" : "vi";
+  } catch {
+    return "vi";
+  }
 }

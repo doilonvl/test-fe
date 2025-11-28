@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/error-boundaries */
+import type { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
 import { redirect, notFound } from "next/navigation";
 import Breadcrumbs from "../_components/Breadcrumbs";
@@ -24,6 +25,23 @@ const pick = <T,>(v: T | undefined, fb: T) =>
   v === undefined || v === null || v === "" ? fb : v;
 
 const PAGE_SIZE = 50;
+
+const siteUrl = "https://hasakeplay.com.vn/products";
+
+export const metadata: Metadata = {
+  title: "Sản phẩm & dịch vụ | Hasake Play",
+  description:
+    "Khám phá danh mục sản phẩm, thiết bị khu vui chơi, giải pháp thiết kế và thi công của Hasake Play.",
+  openGraph: {
+    title: "Sản phẩm & dịch vụ | Hasake Play",
+    description:
+      "Danh mục thiết bị, giải pháp khu vui chơi trong nhà và ngoài trời.",
+    url: siteUrl,
+    siteName: "Hasake Play",
+    images: [{ url: "/Logo/hasakelogo.png", width: 512, height: 512 }],
+  },
+  alternates: { canonical: siteUrl },
+};
 
 const normalizeLocale = (value: string | undefined) =>
   value && value.toLowerCase().startsWith("en") ? "en" : "vi";

@@ -14,6 +14,7 @@ import {
 import type { Project } from "../_data";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import SmartImage from "@/components/shared/SmartImage";
 
 type GalleryProps = {
   data: Project[];
@@ -106,6 +107,7 @@ export default function ProjectsGallery({
   const columnOne = columns[0] ?? [];
   const columnTwo = columns[1] ?? [];
   const columnThree = columns[2] ?? [];
+  const maxColumnItems = 12;
 
   return (
     <div className="gallery-marquee relative -mx-4 px-4 sm:mx-0">
@@ -113,20 +115,20 @@ export default function ProjectsGallery({
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-linear-to-t from-white to-transparent" />
       <div className="relative grid h-[58rem] max-h-[170vh] grid-cols-1 items-start gap-6 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
         <GalleryColumn
-          items={columnOne}
+          items={columnOne.slice(0, maxColumnItems)}
           msPerPixel={12}
           label={t("card.label")}
           cta={t("card.cta")}
         />
         <GalleryColumn
-          items={columnTwo}
+          items={columnTwo.slice(0, maxColumnItems)}
           className="hidden md:block"
           msPerPixel={16}
           label={t("card.label")}
           cta={t("card.cta")}
         />
         <GalleryColumn
-          items={columnThree}
+          items={columnThree.slice(0, maxColumnItems)}
           className="hidden lg:block"
           msPerPixel={14}
           label={t("card.label")}
@@ -237,12 +239,19 @@ function GalleryCard({
         )}
       >
         <div className="relative overflow-hidden rounded-[1.75rem] bg-gray-100">
-          <div className="aspect-3/4 overflow-hidden">
-            <img
+          <div className="relative aspect-3/4 overflow-hidden">
+            <SmartImage
               src={item.imageUrl}
-              alt={item.imageAlt}
-              className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-              loading="lazy"
+              alt={item.imageAlt ?? item.project}
+              fill
+              sizes={
+                variant === "grid"
+                  ? "(min-width:1280px) 25vw, (min-width:768px) 33vw, 100vw"
+                  : "(min-width:1280px) 28vw, (min-width:768px) 40vw, 90vw"
+              }
+              className="object-cover transition duration-700 group-hover:scale-105"
+              loading={index === 0 ? "eager" : "lazy"}
+              fetchPriority={index === 0 ? "high" : "auto"}
             />
           </div>
           <div className="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/70 to-transparent p-5 text-white">

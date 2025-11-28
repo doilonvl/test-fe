@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Metadata } from "next";
+import Script from "next/script";
 import { listNews } from "./_data";
 import { getTranslations } from "next-intl/server";
 import NewsCard from "./_components/NewsCard";
@@ -12,6 +14,23 @@ type PageProps = {
 
 export const revalidate = 60;
 
+const siteUrl = "https://hasakeplay.com.vn/news";
+
+export const metadata: Metadata = {
+  title: "Tin tức | Hasake Play",
+  description:
+    "Cập nhật tin tức, dự án mới và câu chuyện từ Hasake Play về giải pháp khu vui chơi.",
+  alternates: { canonical: siteUrl },
+  openGraph: {
+    title: "Tin tức | Hasake Play",
+    description:
+      "Tin tức và dự án mới về thiết kế, thi công khu vui chơi của Hasake Play.",
+    url: siteUrl,
+    siteName: "Hasake Play",
+    images: [{ url: "/Logo/hasakelogo.png", width: 512, height: 512 }],
+  },
+};
+
 export default async function NewsListPage({ searchParams }: PageProps) {
   const qs = (await searchParams) || {};
   const page = Number((qs.page as string) || "1");
@@ -24,6 +43,16 @@ export default async function NewsListPage({ searchParams }: PageProps) {
   const second = items[1];
   const third = items[2];
   const rest = items.slice(3);
+  const listLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: items.slice(0, 6).map((n, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      url: `${siteUrl}/${n.slug}`,
+      name: n.title,
+    })),
+  };
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 space-y-8">
@@ -53,6 +82,11 @@ export default async function NewsListPage({ searchParams }: PageProps) {
         {/* Các bài phía dưới: thẳng hàng đồng nhất */}
         {rest.length > 0 && <NewsCarousel items={rest} perView={5} />}
       </section>
+      <Script
+        id="news-list-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(listLd) }}
+      />
     </main>
   );
 }

@@ -143,6 +143,7 @@ export default function AboutUs({
                     loop
                     playsInline
                     controls
+                    preload="metadata"
                     aria-label={t("season.videoAria")}
                   />
                 </div>
@@ -178,6 +179,7 @@ export default function AboutUs({
                     loop
                     playsInline
                     controls
+                    preload="metadata"
                     aria-label={t("bowling.videoAria")}
                   />
                 </div>
@@ -213,6 +215,7 @@ export default function AboutUs({
                     loop
                     playsInline
                     controls
+                    preload="metadata"
                     aria-label={t("water.videoAria")}
                   />
                 </div>

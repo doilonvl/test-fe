@@ -35,7 +35,7 @@ export async function fetchNodeWithChildren(
 }> {
   const usp = new URLSearchParams({ path, sort });
   const res = await fetch(`${BASE}/products/node?${usp.toString()}`, {
-    cache: "no-store",
+    next: { revalidate: 300 },
   });
   if (!res.ok) throw new Error("Node not found");
   return res.json();
@@ -84,7 +84,9 @@ export async function listProducts(params: {
   if (params.type) usp.set("type", params.type);
   if (params.q) usp.set("q", params.q);
   const res = await fetch(`${BASE}/products?${usp.toString()}`, {
-    cache: "no-store",
+    ...(params.q
+      ? { cache: "no-store" }
+      : { next: { revalidate: 300 } }),
   });
   if (!res.ok) return { items: [], page: 1, limit: 12, total: 0 };
   return res.json();

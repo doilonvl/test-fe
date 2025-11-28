@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -12,6 +13,7 @@ export default function NewsCarousel({
   perView?: number;
 }) {
   const [cols, setCols] = useState(perView);
+
   useEffect(() => {
     const compute = () => {
       if (typeof window === "undefined") return;
@@ -32,8 +34,9 @@ export default function NewsCarousel({
 
   const pages = useMemo(() => {
     const arr: News[][] = [];
-    for (let i = 0; i < items.length; i += cols)
+    for (let i = 0; i < items.length; i += cols) {
       arr.push(items.slice(i, i + cols));
+    }
     return arr;
   }, [items, cols]);
 
@@ -41,7 +44,6 @@ export default function NewsCarousel({
 
   return (
     <div className="relative">
-      {/* Track */}
       <div className="overflow-hidden rounded-xl border w-full p-5">
         <div
           className="flex transition-transform duration-300 ease-out w-full"
@@ -64,14 +66,13 @@ export default function NewsCarousel({
         </div>
       </div>
 
-      {/* Controls */}
       {canPrev && (
         <button
           onClick={() => setPage((p) => Math.max(0, p - 1))}
           className="absolute left-1 top-1/2 -translate-y-1/2 z-10 h-8 w-8 rounded-full bg-white/90 shadow hover:bg-white border"
           aria-label="Prev"
         >
-          ‹
+          {"←"}
         </button>
       )}
       {canNext && (
@@ -80,7 +81,7 @@ export default function NewsCarousel({
           className="absolute right-1 top-1/2 -translate-y-1/2 z-10 h-8 w-8 rounded-full bg-white/90 shadow hover:bg-white border"
           aria-label="Next"
         >
-          ›
+          {"→"}
         </button>
       )}
     </div>

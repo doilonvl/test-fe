@@ -2,6 +2,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import FadeIn from "./animation/FadeIn";
 
 type Logo = { src: string; alt?: string };
@@ -61,13 +62,17 @@ export default function BrandMarquee({ logos }: { logos: Logo[] }) {
             className="group relative flex h-24 w-[220px] items-center justify-center
                        transition-opacity duration-300 opacity-90"
           >
-            <img
+            <Image
               src={l.src}
               alt={l.alt ?? "Brand logo"}
-              className="block max-h-20 w-auto object-contain select-none
+              width={220}
+              height={80}
+              sizes="220px"
+              className="max-h-20 w-auto object-contain select-none
                          grayscale group-hover:grayscale-0
                          transition-transform duration-300 will-change-transform
                          group-hover:scale-110 cursor-pointer"
+              loading="lazy"
               draggable={false}
             />
           </div>

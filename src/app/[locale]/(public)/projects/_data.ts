@@ -38,7 +38,7 @@ export async function fetchProjects(
     page: String(page),
   });
   const res = await fetch(`${BASE}/projects?${usp.toString()}`, {
-    cache: "no-store",
+    next: { revalidate: 300 },
   });
   if (!res.ok) return { items: [], total: 0, page: 1, limit: 0 };
   const json = await res.json();
