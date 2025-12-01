@@ -44,14 +44,14 @@ export default function InlineContactForm({
 
   const errRequired =
     locale === "vi"
-      ? "Vui lA�ng �`i��?n thA'ng tin b��_t bu��Tc"
+      ? "Vui lòng điền thông tin bắt buộc"
       : "Please fill the required fields";
   const errPhone =
     locale === "vi"
-      ? "S��` �`i���n tho���i khA'ng h���p l���"
+      ? "Số điện thoại không hợp lệ"
       : "Please enter a valid phone number";
   const errEmail =
-    locale === "vi" ? "Email khA'ng h���p l���" : "Please enter a valid email";
+    locale === "vi" ? "Email không hợp lệ" : "Please enter a valid email";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -65,7 +65,7 @@ export default function InlineContactForm({
       phone: (formData.get("phone") as string) || "",
       message: (formData.get("message") as string) || "",
       city: (formData.get("city") as string) || "N/A",
-      country: "viet Nam",
+      country: "Vietnam",
       address: (formData.get("address") as string) || "N/A",
     };
 
@@ -86,7 +86,7 @@ export default function InlineContactForm({
       setErrors(nextErrors);
       toast.error(
         locale === "vi"
-          ? "Vui lA�ng ki���m tra l���i cA�c tr����?ng �`�����c �`A�nh d���u."
+          ? "Vui lòng kiểm tra lại các trường được đánh dấu."
           : "Please correct the highlighted fields."
       );
       return;
