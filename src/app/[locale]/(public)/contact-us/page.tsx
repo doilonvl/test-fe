@@ -128,8 +128,8 @@ export default async function ContactPage() {
                 <InfoBadge
                   icon={<Phone className="h-4 w-4" />}
                   label={contactPage("hotline")}
-                  value="+84 305 335 723"
-                  href="tel:+84305335723"
+                  value="+84 906 866 262"
+                  href="tel:+84906866262"
                   tone="sky"
                 />
                 <InfoBadge

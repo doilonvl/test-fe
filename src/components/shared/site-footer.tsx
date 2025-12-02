@@ -110,15 +110,24 @@ export default function SiteFooter() {
               </div>
               <p className="text-sm text-slate-600">{t("contactCompany")}</p>
               <p className="text-sm text-slate-600">{t("contactBoss")}</p>
+              <div className="flex items-center gap-2 text-sm text-slate-700">
+                <Mail className="h-4 w-4 text-slate-500" />
+                <a
+                  href="mailto:info@hasakeplay.com.vn"
+                  className="hover:text-[#05acfb]"
+                >
+                  info@hasakeplay.com.vn
+                </a>
+              </div>
               <div className="rounded-xl border p-4 shadow-sm">
                 <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
                   {t("hotline.label")}
                 </p>
                 <a
-                  href="tel:+84305335723"
+                  href="tel:+84906866262"
                   className="mt-1 block text-xl font-bold text-slate-900 hover:text-[#ff8905]"
                 >
-                  +84 305 335 723
+                  +84 906 866 262
                 </a>
               </div>
 
