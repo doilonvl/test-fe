@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
+﻿/* eslint-disable @next/next/no-html-link-for-pages */
 import path from "path";
 import fs from "fs/promises";
 import type { Metadata } from "next";
@@ -19,35 +19,42 @@ import SectionHeading from "@/components/home/SectionHeading";
 const siteUrl = "https://hasakeplay.com.vn";
 
 export const metadata: Metadata = {
-  title: "Hasake Play - Giải pháp khu vui chơi hiện đại",
+  title: "Playground Equipment Supplier and Manufacturer",
   description:
-    "Hasake Play cung cấp giải pháp thiết kế, thi công khu vui chơi trong nhà và ngoài trời, thiết bị an toàn, bền bỉ cho trẻ em.",
+    "Hasake Play specialises in the design, supply and installation o...eraction and safety aspects are incorporated in all our designs.",
   keywords: [
-    "Hasake Play",
-    "khu vui choi",
-    "playground equipment",
-    "thiet ke khu vui choi",
-    "xich du tre em",
-    "thiet bi khu vui choi",
+    "playground equipment supplier",
+    "outdoor playground equipment supplier",
+    "playground equipment manufacturers",
+    "EPDM rubber flooring manufacturers",
+    "EPDM rubber flooring supplier",
+    "outdoor fitness playground equipment",
+    "Outdoor Children's Play Park Equipment",
+    "Kids Outdoor Multiplay Equipment",
+    "water park play equipment supplier",
+    "bowling equipment supplier",
+    "Indoor Bowling Manufacturer",
+    "Selling Playground Equipment",
+    "Amusement Park Equipment",
+    "school playground equipment",
   ],
   alternates: { canonical: siteUrl },
   openGraph: {
-    title: "Hasake Play - Playground solutions",
+    title: "Playground Equipment Supplier and Manufacturer",
     description:
-      "Thiết kế, sản xuất, thi công khu vui chơi hiện đại và an toàn cho trẻ em.",
+      "Hasake Play specialises in the design, supply and installation o...eraction and safety aspects are incorporated in all our designs.",
     url: siteUrl,
     siteName: "Hasake Play",
     images: [{ url: "/Logo/hasakelogo.png", width: 512, height: 512 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hasake Play - Playground solutions",
+    title: "Playground Equipment Supplier and Manufacturer",
     description:
-      "Giải pháp thiết kế và thi công khu vui chơi hiện đại, an toàn.",
+      "Hasake Play specialises in the design, supply and installation o...eraction and safety aspects are incorporated in all our designs.",
     images: ["/Logo/hasakelogo.png"],
   },
 };
-
 async function getSlidesFromPublic() {
   const dir = path.join(process.cwd(), "public", "Banner_header");
   const files = await fs.readdir(dir);

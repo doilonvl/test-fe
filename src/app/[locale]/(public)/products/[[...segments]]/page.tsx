@@ -28,20 +28,191 @@ const PAGE_SIZE = 50;
 
 const siteUrl = "https://hasakeplay.com.vn/products";
 
-export const metadata: Metadata = {
-  title: "Sản phẩm & dịch vụ | Hasake Play",
+const defaultMetadata: Metadata = {
+  title: "Products & services",
   description:
-    "Khám phá danh mục sản phẩm, thiết bị khu vui chơi, giải pháp thiết kế và thi công của Hasake Play.",
+    "Explore Hasake Play's catalog of playground equipment, design services, and installation support.",
   openGraph: {
-    title: "Sản phẩm & dịch vụ | Hasake Play",
+    title: "Products & services | Hasake Play",
     description:
-      "Danh mục thiết bị, giải pháp khu vui chơi trong nhà và ngoài trời.",
+      "Discover playground equipment and services for indoor and outdoor projects.",
     url: siteUrl,
     siteName: "Hasake Play",
     images: [{ url: "/Logo/hasakelogo.png", width: 512, height: 512 }],
   },
   alternates: { canonical: siteUrl },
 };
+
+const landingMetas: Record<
+  string,
+  { title: string; description: string; keywords: string[] }
+> = {
+  "bowling-equipment-supplier": {
+    title: "Bowling Alley Equipment Manufacturer and Supplier",
+    description:
+      "Hasake Play is a reliable and professional manufacturer and supp...uipment, ensuring high-quality products and services in Vietnam.",
+    keywords: [
+      "bowling systems equipment services",
+      "bowling alley equipment manufacturer",
+      "bowling alley equipment supplier",
+      "bowling systems services",
+      "bowling systems manufacturer",
+      "bowling systems supplier",
+      "bowling equipment supplier",
+      "Indoor Bowling Manufacturer",
+      "bowling alley equipment installation",
+    ],
+  },
+  "playground-epdm-flooring-manufacturers": {
+    title: "EPDM Rubber Tiles Manufacturer & Exporter in Vietnam",
+    description:
+      "Hasake Play EPDM rubber tiles are a type of flooring material co...rts facilities, gyms, and outdoor. Easy to install and maintain.",
+    keywords: [
+      "EPDM rubber flooring manufacturers",
+      "EPDM rubber flooring supplier",
+      "EPDM rubber gym flooring mat",
+      "EPDM Gym Flooring Recycled Rubber Mat",
+      "EPDM Rubber Roll Gym Flooring Mat",
+      "EPDM Kids Playground Flooring",
+      "EPDM Rubber Sheet Manufacturer",
+      "EPDM Rubber Sheet Supplier",
+      "EPDM Playground Rubber Flooring",
+      "Playground EPDM Rubber Flooring",
+      "Recycled Rubber Flooring Manufacturer",
+      "EPDM rubber tiles",
+      "epdm rubber tile exporter",
+      "epdm rubber tiles manufacturer",
+      "gym epdm tiles",
+      "Epdm Sports Flooring",
+      "Kids Play Area Flooring",
+    ],
+  },
+  "outdoor-fitness-equipment-supplier": {
+    title:
+      "Outdoor Fitness Equipment | Outdoor Gym Equipment Manufacturer Vietnam",
+    description:
+      "Get Play Outdoor fitness equipment manufacturer and supplier in ...pment suppliers and exporters offer superior quality in Vietnam.",
+    keywords: [
+      "Outdoor Gym Equipment Manufacturer",
+      "outdoor fitness playground equipment",
+      "Outdoor School Fitness Playground Equipment",
+      "Open Park Exercise Equipment",
+      "open gym equipment",
+      "park exercise equipment",
+      "park fitness equipment",
+      "Outdoor Fitness Equipment Suppliers",
+    ],
+  },
+};
+
+type LandingCopy = {
+  heading: string;
+  intro: string;
+  support?: string;
+  imageAlt?: string;
+};
+
+const landingCopy: Record<string, LandingCopy> = {
+  "bowling-equipment-supplier": {
+    heading: "Bowling Alley Equipment Manufacturer and Supplier",
+    intro:
+      "As a bowling alley equipment manufacturer and bowling equipment supplier in Vietnam, Hasake Play delivers custom lanes, scoring systems, and lighting that elevate every venue.",
+    support:
+      "Our bowling equipment supplier team provides design, installation, and maintenance so your bowling systems stay reliable for families and players.",
+    imageAlt: "Bowling alley equipment supplier in Vietnam",
+  },
+  "playground-epdm-flooring-manufacturers": {
+    heading: "EPDM Rubber Tiles Manufacturer & Exporter in Vietnam",
+    intro:
+      "We are EPDM rubber flooring manufacturers delivering EPDM playground rubber flooring and gym tiles engineered for impact absorption and drainage.",
+    support:
+      "This EPDM rubber tiles manufacturer supplies durable, easy-to-clean surfacing for parks, sports areas, and schools across Vietnam.",
+    imageAlt: "EPDM rubber flooring manufacturers in Vietnam",
+  },
+  "outdoor-fitness-equipment-supplier": {
+    heading:
+      "Outdoor Fitness Equipment | Outdoor Gym Equipment Manufacturer Vietnam",
+    intro:
+      "Hasake Play is an outdoor fitness equipment supplier and outdoor gym equipment manufacturer in Vietnam, building durable park exercise equipment for communities.",
+    support:
+      "We design and install outdoor fitness playground equipment, open park exercise equipment, and school fitness stations to encourage daily movement.",
+    imageAlt: "Outdoor fitness equipment supplier in Vietnam",
+  },
+};
+
+const enhanceImages = (images: any[], alt?: string) =>
+  images.map((img, idx) => ({
+    ...img,
+    alt:
+      img.alt ||
+      (alt ? `${alt}${images.length > 1 ? ` ${idx + 1}` : ""}` : undefined),
+  }));
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ segments?: string[] }>;
+}): Promise<Metadata> {
+  const { segments = [] } = await params;
+  const currentPath = segments.join("/");
+  const landing = landingMetas[currentPath];
+  if (landing) {
+    const url = siteUrl + "/" + currentPath;
+    return {
+      title: landing.title,
+      description: landing.description,
+      keywords: landing.keywords,
+      alternates: { canonical: url },
+      openGraph: {
+        title: landing.title,
+        description: landing.description,
+        url,
+        siteName: "Hasake Play",
+        images: [{ url: "/Logo/hasakelogo.png", width: 512, height: 512 }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: landing.title,
+        description: landing.description,
+        images: ["/Logo/hasakelogo.png"],
+      },
+    };
+  }
+
+  // Fallback: generate meta from node data so dynamic slugs (e.g. nested) get specific titles
+  try {
+    const localeKey = normalizeLocale(await getLocale());
+    const data = await fetchNodeWithChildren(currentPath, "order");
+    const nodeTitle =
+      pickLocalizedField(data.node, localeKey, "title") || data.node.title;
+    const nodeDescription = pickLocalizedField(
+      data.node,
+      localeKey,
+      "description"
+    );
+    const url = siteUrl + "/" + currentPath;
+    return {
+      title: nodeTitle || defaultMetadata.title,
+      description: nodeDescription || defaultMetadata.description,
+      alternates: { canonical: url },
+      openGraph: {
+        title: nodeTitle || defaultMetadata.title,
+        description: nodeDescription || defaultMetadata.description,
+        url,
+        siteName: "Hasake Play",
+        images: [{ url: "/Logo/hasakelogo.png", width: 512, height: 512 }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: nodeTitle || defaultMetadata.title,
+        description: nodeDescription || defaultMetadata.description,
+        images: ["/Logo/hasakelogo.png"],
+      },
+    };
+  } catch {
+    return defaultMetadata;
+  }
+}
 
 const normalizeLocale = (value: string | undefined) =>
   value && value.toLowerCase().startsWith("en") ? "en" : "vi";
@@ -95,6 +266,16 @@ export default async function ProductsPage({
     | "-createdAt";
   const page = Number(pick(qs.page as string | undefined, "1"));
   const currentPath = segments.join("/");
+  const landing = landingCopy[currentPath];
+  const renderLandingIntro = () =>
+    landing ? (
+      <section className="prose max-w-none">
+        <p className="text-gray-700">{landing.intro}</p>
+        {landing.support ? (
+          <p className="text-gray-700">{landing.support}</p>
+        ) : null}
+      </section>
+    ) : null;
 
   // 1) SEARCH: váº«n nhÆ° hiá»‡n táº¡i (chá»‰ type=category)
   if (q.trim()) {
@@ -141,11 +322,10 @@ export default async function ProductsPage({
     );
   }
 
-  // 2) NODE: Ä‘i sÃ¢u theo slug; hiá»ƒn thá»‹ description + con theo type
   if (currentPath) {
     try {
       const data = await fetchNodeWithChildren(currentPath, sort);
-      // Náº¿u lÃ  item, hiá»ƒn thá»‹ trang chi tiáº¿t ngay táº¡i route lá»“ng nhau
+      const headingText = landing?.heading || t("title");
       if (data.node.type === "item") {
         const node = data.node as any;
         const nodeDescription = pickLocalizedField(
@@ -160,7 +340,7 @@ export default async function ProductsPage({
           <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
             <header className="space-y-2">
               <div className="h-1 w-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)] rounded-full" />
-              <h1 className="text-2xl font-bold">{t("title")}</h1>
+              <h1 className="text-2xl font-bold">{headingText}</h1>
               {/* <p className="text-muted-foreground">{t("subtitle")}</p> */}
             </header>
 
@@ -170,6 +350,8 @@ export default async function ProductsPage({
               labels={{ home: nav("home"), products: nav("products") }}
             />
 
+            {renderLandingIntro()}
+
             {nodeDescription ? (
               <section className="prose max-w-none">
                 <p className="text-gray-700">{nodeDescription}</p>
@@ -178,11 +360,20 @@ export default async function ProductsPage({
 
             {(() => {
               const imgs = Array.isArray(node.images) ? node.images : [];
-              if (imgs.length > 0) return <ImagesLightbox images={imgs} />;
+              const landingAlt = landing?.imageAlt;
+              if (imgs.length > 0)
+                return (
+                  <ImagesLightbox images={enhanceImages(imgs, landingAlt)} />
+                );
               if (node.thumbnail)
                 return (
                   <ImagesLightbox
-                    images={[{ url: node.thumbnail, alt: nodeTitle }]}
+                    images={[
+                      {
+                        url: node.thumbnail,
+                        alt: landingAlt || nodeTitle,
+                      },
+                    ]}
                   />
                 );
               return null;
@@ -191,10 +382,6 @@ export default async function ProductsPage({
         );
       }
 
-      // Quy Æ°á»›c hiá»ƒn thá»‹:
-      // - Náº¿u node lÃ  CATEGORY  â†’ Æ°u tiÃªn show cÃ¡c con type = "group"
-      // - Náº¿u node lÃ  GROUP     â†’ show cÃ¡c con type = "item"
-      // - Náº¿u CATEGORY khÃ´ng cÃ³ group nhÆ°ng cÃ³ item trá»±c thuá»™c â†’ hiá»ƒn thá»‹ item
       const node = data.node as any;
       const nodeDescription = pickLocalizedField(
         node,
@@ -216,7 +403,6 @@ export default async function ProductsPage({
       const start = (page - 1) * PAGE_SIZE;
       const pageChildren = children.slice(start, start + PAGE_SIZE);
 
-      // Náº¿u khÃ´ng cÃ³ con nÃ o Ä‘á»ƒ hiá»ƒn thá»‹: cho phÃ©p detail view cá»§a chÃ­nh node
       if (children.length === 0) {
         const nodeTitle =
           pickLocalizedField(node, localeKey, "title") || node.title;
@@ -225,7 +411,7 @@ export default async function ProductsPage({
           <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
             <header className="space-y-2">
               <div className="h-1 w-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)] rounded-full" />
-              <h1 className="text-2xl font-bold">{t("title")}</h1>
+              <h1 className="text-2xl font-bold">{headingText}</h1>
             </header>
 
             <Breadcrumbs
@@ -233,6 +419,8 @@ export default async function ProductsPage({
               ancestors={crumbs}
               labels={{ home: nav("home"), products: nav("products") }}
             />
+
+            {renderLandingIntro()}
 
             {nodeDescription ? (
               <section className="prose max-w-none">
@@ -242,11 +430,20 @@ export default async function ProductsPage({
 
             {(() => {
               const imgs = Array.isArray(node.images) ? node.images : [];
-              if (imgs.length > 0) return <ImagesLightbox images={imgs} />;
+              const landingAlt = landing?.imageAlt;
+              if (imgs.length > 0)
+                return (
+                  <ImagesLightbox images={enhanceImages(imgs, landingAlt)} />
+                );
               if (node.thumbnail)
                 return (
                   <ImagesLightbox
-                    images={[{ url: node.thumbnail, alt: nodeTitle }]}
+                    images={[
+                      {
+                        url: node.thumbnail,
+                        alt: landingAlt || nodeTitle,
+                      },
+                    ]}
                   />
                 );
               return null;
@@ -263,28 +460,24 @@ export default async function ProductsPage({
         <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
           <header className="space-y-2">
             <div className="h-1 w-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)] rounded-full" />
-            <h1 className="text-2xl font-bold">{t("title")}</h1>
+            <h1 className="text-2xl font-bold">{headingText}</h1>
             {/* <p className="text-muted-foreground">{t("subtitle")}</p> */}
           </header>
 
-          {/* Breadcrumbs ngáº¯n gá»n: Home / Products & services / [node] */}
           <Breadcrumbs
             nodeTitle={nodeTitle}
             ancestors={crumbs}
             labels={{ home: nav("home"), products: nav("products") }}
           />
 
-          {/* Description cá»§a node */}
+          {renderLandingIntro()}
+
           {nodeDescription ? (
             <section className="prose max-w-none">
-              {/* náº¿u description cÃ³ HTML, báº¡n cÃ³ thá»ƒ Ä‘á»•i sang dangerouslySetInnerHTML */}
               <p className="text-gray-700">{nodeDescription}</p>
             </section>
           ) : null}
 
-          {/* KhÃ´ng hiá»ƒn thá»‹ Filter/Search á»Ÿ cáº¥p sÃ¢u (group/item) */}
-
-          {/* Grid con theo type mong muá»‘n */}
           <Grid
             key={currentPath}
             nodes={pageChildren}
@@ -301,7 +494,6 @@ export default async function ProductsPage({
     }
   }
 
-  // 3) ROOT: chá»‰ â€œHome / Products & servicesâ€ + danh má»¥c gá»‘c (category)
   {
     const listing = await listProducts({
       page,

@@ -1,8 +1,8 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
-export default function NotFound() {
-  const t = useTranslations("notFound");
+export default async function NotFound() {
+  const t = await getTranslations("notFound");
 
   return (
     <main className="min-h-[70vh] grid place-items-center px-6">
@@ -26,7 +26,7 @@ export default function NotFound() {
           style={{ backgroundColor: "rgba(143,197,66,0.12)", color: "#3e6d09" }}
         >
           <span>404</span>
-          <span>•</span>
+          <span>-&gt;</span>
           <span>{t("hint")}</span>
         </div>
       </div>
