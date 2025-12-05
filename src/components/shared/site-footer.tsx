@@ -165,7 +165,10 @@ export default function SiteFooter() {
             </div>
 
             {/* Divider */}
-            <div className="hidden lg:block h-full w-px bg-slate-200/80" aria-hidden />
+            <div
+              className="hidden lg:block h-full w-px bg-slate-200/80"
+              aria-hidden
+            />
 
             {/* Quick links */}
             <div className="space-y-4">
@@ -185,7 +188,10 @@ export default function SiteFooter() {
             </div>
 
             {/* Divider */}
-            <div className="hidden lg:block h-full w-px bg-slate-200/80" aria-hidden />
+            <div
+              className="hidden lg:block h-full w-px bg-slate-200/80"
+              aria-hidden
+            />
 
             {/* Offices */}
             <div className="space-y-4">

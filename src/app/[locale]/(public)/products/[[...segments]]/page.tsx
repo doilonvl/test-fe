@@ -183,20 +183,24 @@ export async function generateMetadata({
   try {
     const localeKey = normalizeLocale(await getLocale());
     const data = await fetchNodeWithChildren(currentPath, "order");
-    const nodeTitle =
-      pickLocalizedField(data.node, localeKey, "title") || data.node.title;
+    const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
+    const nodeTitle = resolveNodeTitle(data.node, crumbs, localeKey);
     const nodeDescription = pickLocalizedField(
       data.node,
       localeKey,
       "description"
     );
+    const crumbTitles = crumbs.map((c) => c.title).filter(Boolean);
+    const chainTitles = [...crumbTitles, nodeTitle].filter(Boolean);
+    const titleText =
+      chainTitles.length > 1 ? chainTitles.join(" | ") : nodeTitle;
     const url = siteUrl + "/" + currentPath;
     return {
-      title: nodeTitle || defaultMetadata.title,
+      title: titleText || defaultMetadata.title,
       description: nodeDescription || defaultMetadata.description,
       alternates: { canonical: url },
       openGraph: {
-        title: nodeTitle || defaultMetadata.title,
+        title: titleText || defaultMetadata.title,
         description: nodeDescription || defaultMetadata.description,
         url,
         siteName: "Hasake Play",
@@ -204,7 +208,7 @@ export async function generateMetadata({
       },
       twitter: {
         card: "summary_large_image",
-        title: nodeTitle || defaultMetadata.title,
+        title: titleText || defaultMetadata.title,
         description: nodeDescription || defaultMetadata.description,
         images: ["/Logo/hasakelogo.png"],
       },
@@ -241,10 +245,33 @@ const localizeBreadcrumbs = (
     | undefined,
   localeKey: string
 ) =>
-  (crumbs || []).map((crumb) => ({
-    ...crumb,
-    title: pickLocalizedField(crumb, localeKey, "title")?.trim() || crumb.title,
-  }));
+  (crumbs || [])
+    .slice(0, Math.max((crumbs || []).length - 1, 0)) // drop current node to avoid duplication
+    .map((crumb) => ({
+      ...crumb,
+      title:
+        pickLocalizedField(crumb, localeKey, "title")?.trim() || crumb.title,
+    }))
+    .filter((crumb, idx, arr) => {
+      const prev = arr[idx - 1];
+      if (!prev) return true;
+      return (
+        (prev.title || "").trim().toLowerCase() !==
+        (crumb.title || "").trim().toLowerCase()
+      );
+    });
+
+const resolveNodeTitle = (
+  node: any,
+  crumbs: ReturnType<typeof localizeBreadcrumbs>,
+  localeKey: string
+) => {
+  const localized = pickLocalizedField(node, localeKey, "title");
+  if (localized) return localized;
+  const tail = crumbs[crumbs.length - 1];
+  if (tail?.slug === node.slug && tail.title) return tail.title;
+  return node.title || "";
+};
 
 export default async function ProductsPage({
   params,
@@ -328,14 +355,13 @@ export default async function ProductsPage({
       const headingText = landing?.heading || t("title");
       if (data.node.type === "item") {
         const node = data.node as any;
+        const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
+        const nodeTitle = resolveNodeTitle(node, crumbs, localeKey);
         const nodeDescription = pickLocalizedField(
           node,
           localeKey,
           "description"
         );
-        const nodeTitle =
-          pickLocalizedField(node, localeKey, "title") || node.title;
-        const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
         return (
           <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
             <header className="space-y-2">
@@ -404,9 +430,8 @@ export default async function ProductsPage({
       const pageChildren = children.slice(start, start + PAGE_SIZE);
 
       if (children.length === 0) {
-        const nodeTitle =
-          pickLocalizedField(node, localeKey, "title") || node.title;
         const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
+        const nodeTitle = resolveNodeTitle(node, crumbs, localeKey);
         return (
           <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
             <header className="space-y-2">
@@ -452,9 +477,8 @@ export default async function ProductsPage({
         );
       }
 
-      const nodeTitle =
-        pickLocalizedField(data.node, localeKey, "title") || data.node.title;
       const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
+      const nodeTitle = resolveNodeTitle(data.node, crumbs, localeKey);
 
       return (
         <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
