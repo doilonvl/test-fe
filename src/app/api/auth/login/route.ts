@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 
 const API_BASE =
@@ -8,11 +9,18 @@ const API_BASE =
 
 export async function POST(req: Request) {
   const body = await req.json();
+  const csrfHeader = req.headers.get("x-csrf-token") || "";
+  const cookieHeader = req.headers.get("cookie") || "";
   const api = API_BASE.replace(/\/$/, "");
 
   const upstream = await fetch(`${api}/auth/login`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      ...(csrfHeader ? { "X-CSRF-Token": csrfHeader } : {}),
+      ...(cookieHeader ? { cookie: cookieHeader } : {}),
+    },
+    credentials: "include",
     body: JSON.stringify(body),
   });
 
@@ -52,14 +60,14 @@ export async function POST(req: Request) {
   res.cookies.set("access_token", token, {
     httpOnly: true,
     secure: isProd,
-    sameSite: "lax",
+    sameSite: isProd ? "none" : "lax",
     path: "/",
     maxAge: 60 * 15, // 15 minutes (align access token)
   });
   res.cookies.set("access_token_public", token, {
     httpOnly: false,
     secure: isProd,
-    sameSite: "lax",
+    sameSite: isProd ? "none" : "lax",
     path: "/",
     maxAge: 60 * 15,
   });
@@ -69,18 +77,28 @@ export async function POST(req: Request) {
     res.cookies.set("refresh_token", refreshValue, {
       httpOnly: true,
       secure: isProd,
-      sameSite: "lax",
+      sameSite: isProd ? "none" : "lax",
       path: "/",
       maxAge: 60 * 60 * 24 * 30, // 30 days
     });
     res.cookies.set("refresh_token_public", refreshValue, {
       httpOnly: false,
       secure: isProd,
-      sameSite: "lax",
+      sameSite: isProd ? "none" : "lax",
       path: "/",
       maxAge: 60 * 60 * 24 * 30,
     });
   }
+
+  // Set a CSRF token for header-based checks (mirrors refresh lifetime)
+  const csrfToken = randomUUID();
+  res.cookies.set("csrf_token", csrfToken, {
+    httpOnly: false,
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 30,
+  });
 
   return res;
 }

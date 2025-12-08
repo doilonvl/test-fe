@@ -10,12 +10,17 @@ export async function GET(req: Request) {
   const api = API_BASE.replace(/\/$/, "");
   const cookie = req.headers.get("cookie") ?? "";
   const authorization = req.headers.get("authorization") ?? "";
+  const csrf =
+    cookie.match(/(?:^|;\s*)csrf_token=([^;]+)/)?.[1] ||
+    req.headers.get("x-csrf-token") ||
+    "";
 
   const upstream = await fetch(`${api}/auth/me`, {
     method: "GET",
     headers: {
       cookie,
       ...(authorization ? { Authorization: authorization } : {}),
+      ...(csrf ? { "X-CSRF-Token": csrf } : {}),
     },
     credentials: "include",
     cache: "no-store",

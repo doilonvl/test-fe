@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api } from "@/services/api";
+import { guardUploadFiles } from "@/services/upload.guard";
 import type { Catalog, CatalogListResp } from "@/types/content";
 
 export const adminCatalogsApi = api.injectEndpoints({
@@ -88,6 +89,11 @@ export const adminCatalogsApi = api.injectEndpoints({
       { files: File[]; folder?: string }
     >({
       query: ({ files, folder = "catalogs" }) => {
+        guardUploadFiles(files, {
+          allowedTypes: ["application/pdf"],
+          maxBytes: 25 * 1024 * 1024,
+          maxFiles: 5,
+        });
         const fd = new FormData();
         files.forEach((f) => fd.append("files", f));
         return {

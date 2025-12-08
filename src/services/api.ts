@@ -15,7 +15,72 @@ const BASE_URL =
   process.env.API_BASE_URL?.replace(/\/$/, "") ||
   process.env.API_BASE?.replace(/\/$/, "") ||
   "http://localhost:5001/api/v1";
-// Base query with credentials
+
+const ACCESS_COOKIE = "access_token_public";
+const REFRESH_COOKIE = "refresh_token_public";
+const CSRF_COOKIE = "csrf_token";
+
+const readBrowserCookie = (name: string) => {
+  if (typeof document === "undefined") return null;
+  const m = document.cookie.match(
+    new RegExp(
+      `(?:^|;\\s*)${name.replace(/[-/\\^$*+?.()|[\\]{}]/g, "\\\\$&")}=([^;]*)`
+    )
+  );
+  return m ? decodeURIComponent(m[1]) : null;
+};
+
+const setBrowserCookie = (name: string, value: string) => {
+  if (typeof document === "undefined") return;
+  try {
+    const isHttps = typeof location !== "undefined" && location.protocol === "https:";
+    const sameSite = isHttps ? "None" : "Lax";
+    const secure = isHttps ? "; Secure" : "";
+    document.cookie = `${name}=${encodeURIComponent(
+      value
+    )}; Path=/; SameSite=${sameSite}${secure}`;
+  } catch {
+    // ignore cookie set errors
+  }
+};
+
+const readWebStorage = (key: string) => {
+  if (typeof window === "undefined") return null;
+  try {
+    return localStorage.getItem(key) || sessionStorage.getItem(key);
+  } catch {
+    return null;
+  }
+};
+
+const getClientToken = (key: string) =>
+  readBrowserCookie(key) || readWebStorage(key);
+
+const ensureCsrfToken = () => {
+  const existing = getClientToken(CSRF_COOKIE);
+  if (existing) return existing;
+  let generated = "";
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    generated = crypto.randomUUID();
+  } else if (typeof crypto !== "undefined" && crypto.getRandomValues) {
+    const buf = new Uint8Array(16);
+    crypto.getRandomValues(buf);
+    generated = Array.from(buf)
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  } else {
+    generated = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  }
+  setBrowserCookie(CSRF_COOKIE, generated);
+  try {
+    localStorage.setItem(CSRF_COOKIE, generated);
+  } catch {
+    // ignore storage errors
+  }
+  return generated;
+};
+
+// Base query using Authorization header to avoid cookie-based CSRF surface
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   credentials: "include",
@@ -26,16 +91,17 @@ const rawBaseQuery = fetchBaseQuery({
       locale = htmlLang.startsWith("en") ? "en" : "vi";
 
       // Attach access token from client-readable cookie to Authorization header
-      const token = (() => {
-        const m = document.cookie.match(
-          /(?:^|;\s*)access_token_public=([^;]*)/
-        );
-        return m ? decodeURIComponent(m[1]) : null;
-      })();
+      const token = getClientToken(ACCESS_COOKIE);
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }
     }
+
+    const csrf = ensureCsrfToken();
+    if (csrf) {
+      headers.set("X-CSRF-Token", csrf);
+    }
+
     headers.set("Accept-Language", locale);
     return headers;
   },
@@ -51,11 +117,21 @@ const baseQueryWithReauth: typeof rawBaseQuery = async (
   const status = (result as any)?.error?.status as number | undefined;
 
   if (status === 401 || status === 403) {
+    const refreshToken = getClientToken(REFRESH_COOKIE);
+    const csrf = getClientToken(CSRF_COOKIE);
+    if (!refreshToken) {
+      return result as any;
+    }
+    const refreshHeaders: Record<string, string> = {};
+    if (refreshToken) refreshHeaders.Authorization = `Bearer ${refreshToken}`;
+    if (csrf) refreshHeaders["X-CSRF-Token"] = csrf;
+
     // Attempt to refresh access token via Next API (uses cookies)
     try {
       const refreshRes = await fetch("/api/auth/refresh", {
         method: "POST",
         credentials: "include",
+        headers: refreshHeaders,
       });
       if (refreshRes.ok) {
         // Retry the original request after successful refresh

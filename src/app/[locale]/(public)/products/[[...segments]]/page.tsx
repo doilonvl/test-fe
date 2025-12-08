@@ -183,6 +183,7 @@ export async function generateMetadata({
   try {
     const localeKey = normalizeLocale(await getLocale());
     const data = await fetchNodeWithChildren(currentPath, "order");
+    if (!data || !data.node) throw new Error("Missing node");
     const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
     const nodeTitle = resolveNodeTitle(data.node, crumbs, localeKey);
     const nodeDescription = pickLocalizedField(
@@ -352,6 +353,9 @@ export default async function ProductsPage({
   if (currentPath) {
     try {
       const data = await fetchNodeWithChildren(currentPath, sort);
+      if (!data || !data.node) {
+        notFound();
+      }
       const headingText = landing?.heading || t("title");
       if (data.node.type === "item") {
         const node = data.node as any;

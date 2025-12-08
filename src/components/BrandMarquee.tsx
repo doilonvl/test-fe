@@ -68,10 +68,11 @@ export default function BrandMarquee({ logos }: { logos: Logo[] }) {
               width={220}
               height={80}
               sizes="220px"
-              className="max-h-20 w-auto object-contain select-none
+              className="max-h-20 w-auto h-auto object-contain select-none
                          grayscale group-hover:grayscale-0
                          transition-transform duration-300 will-change-transform
                          group-hover:scale-110 cursor-pointer"
+              style={{ width: "auto", height: "auto" }}
               loading="lazy"
               draggable={false}
             />

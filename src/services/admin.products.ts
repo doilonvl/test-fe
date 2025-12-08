@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { api } from "@/services/api";
+import { guardUploadFiles } from "@/services/upload.guard";
 import type { ProductNode, UploadedFile, Paged } from "@/types/content";
 
 export type ProductListResp = {
@@ -169,6 +170,18 @@ export const adminProductsApi = api.injectEndpoints({
       { files: File[]; folder?: string }
     >({
       query: ({ files, folder = "products" }) => {
+        guardUploadFiles(files, {
+          allowedTypes: [
+            "image/jpeg",
+            "image/png",
+            "image/webp",
+            "image/heic",
+            "image/heif",
+            "image/avif",
+          ],
+          maxBytes: 8 * 1024 * 1024,
+          maxFiles: 12,
+        });
         const fd = new FormData();
         files.forEach((f) => fd.append("files", f));
         return {

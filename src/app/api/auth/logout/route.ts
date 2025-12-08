@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     res.cookies.set(name, "", {
       httpOnly: options.httpOnly,
       secure: isProd,
-      sameSite: "lax",
+      sameSite: isProd ? "none" : "lax",
       path: "/",
       maxAge: 0,
     });
@@ -41,6 +41,7 @@ export async function POST(req: Request) {
   clear("access_token_public");
   clear("refresh_token", { httpOnly: true });
   clear("refresh_token_public");
+  clear("csrf_token");
 
   return res;
 }

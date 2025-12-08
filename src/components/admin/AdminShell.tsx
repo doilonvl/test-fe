@@ -73,10 +73,15 @@ export default function AdminShell({
   }, [collapsed]);
 
   async function handleLogout() {
+    const csrf =
+      typeof document !== "undefined"
+        ? document.cookie.match(/(?:^|;\s*)csrf_token=([^;]*)/)?.[1]
+        : null;
     try {
       await fetch("/api/auth/logout", {
         method: "POST",
         credentials: "include",
+        headers: csrf ? { "X-CSRF-Token": csrf } : undefined,
       });
 
       router.replace(`/${locale}/login`);

@@ -14,6 +14,21 @@ export default function LoginPage() {
   const params = useParams();
   const locale = String(params?.locale || "vi");
 
+  const ensureCsrf = React.useCallback(() => {
+    if (typeof document === "undefined") return "";
+    const existing =
+      document.cookie.match(/(?:^|;\\s*)csrf_token=([^;]*)/)?.[1] || "";
+    if (existing) return existing;
+    const generated =
+      (crypto.randomUUID && crypto.randomUUID()) ||
+      `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    const isHttps = location.protocol === "https:";
+    const sameSite = isHttps ? "None" : "Lax";
+    const secure = isHttps ? "; Secure" : "";
+    document.cookie = `csrf_token=${generated}; Path=/; SameSite=${sameSite}${secure}`;
+    return generated;
+  }, []);
+
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -25,9 +40,13 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      const csrf = ensureCsrf();
       const res = await fetch("/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(csrf ? { "X-CSRF-Token": csrf } : {}),
+        },
         body: JSON.stringify({ email, password }),
       });
 

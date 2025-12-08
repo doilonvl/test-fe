@@ -13,6 +13,9 @@ const caladea = Caladea({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://hasakeplay.com.vn"
+  ),
   title: { default: "Hasake Play", template: "%s | Hasake Play" },
   description: "Giải pháp vui chơi hiện đại...",
   icons: { icon: [{ url: "/Logo/hasakelogo.png" }] },

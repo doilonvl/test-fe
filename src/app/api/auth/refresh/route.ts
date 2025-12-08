@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { randomUUID } from "crypto";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -7,11 +8,20 @@ const API_BASE =
   process.env.NEXT_PUBLIC_API_BASE ??
   "http://localhost:5001/api/v1";
 
-export async function POST() {
+export async function POST(req: Request) {
   const cookieStore = cookies();
+  const authHeader = req.headers.get("authorization") || "";
+  const headerRefresh = authHeader.startsWith("Bearer ")
+    ? authHeader.slice("Bearer ".length)
+    : "";
   const refreshToken =
+    headerRefresh ||
     (await cookieStore).get("refresh_token")?.value ||
     (await cookieStore).get("refresh_token_public")?.value;
+  const csrfToken =
+    req.headers.get("x-csrf-token") ||
+    (await cookieStore).get("csrf_token")?.value ||
+    "";
 
   if (!refreshToken) {
     return NextResponse.json(
@@ -27,8 +37,11 @@ export async function POST() {
     method: "POST",
     headers: {
       Authorization: `Bearer ${refreshToken}`,
-      // Some backends expect refresh token in cookies
-      Cookie: `refresh_token=${refreshToken}; refreshToken=${refreshToken}`,
+      ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
+      // Some backends expect refresh token in cookies (include csrf to satisfy double-submit)
+      Cookie: `refresh_token=${refreshToken}; refreshToken=${refreshToken}${
+        csrfToken ? `; csrf_token=${csrfToken}` : ""
+      }`,
     },
     credentials: "include",
   });
@@ -63,28 +76,38 @@ export async function POST() {
   res.cookies.set("access_token", access, {
     httpOnly: true,
     secure: isProd,
-    sameSite: "lax",
+    sameSite: isProd ? "none" : "lax",
     path: "/",
     maxAge: 60 * 15, // 15 minutes
   });
   res.cookies.set("access_token_public", access, {
     httpOnly: false,
     secure: isProd,
-    sameSite: "lax",
+    sameSite: isProd ? "none" : "lax",
     path: "/",
     maxAge: 60 * 15,
   });
   res.cookies.set("refresh_token", refresh, {
     httpOnly: true,
     secure: isProd,
-    sameSite: "lax",
+    sameSite: isProd ? "none" : "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 30, // 30 days
   });
   res.cookies.set("refresh_token_public", refresh, {
     httpOnly: false,
     secure: isProd,
-    sameSite: "lax",
+    sameSite: isProd ? "none" : "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 30,
+  });
+
+  // Rotate CSRF token alongside refresh
+  const newCsrfToken = randomUUID();
+  res.cookies.set("csrf_token", newCsrfToken, {
+    httpOnly: false,
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 30,
   });
