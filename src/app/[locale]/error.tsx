@@ -14,7 +14,6 @@ export default function LocaleError({
 }) {
   const params = useParams();
   const locale = String(params?.locale || "vi");
-
   const homeHref = locale === "vi" ? "/" : `/${locale}`;
 
   return (
