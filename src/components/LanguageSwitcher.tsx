@@ -9,7 +9,7 @@ import { useRouter, usePathname, pathnames } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/request";
 import { useParams, useSearchParams } from "next/navigation";
 
-import { Globe, Check } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -32,6 +32,18 @@ export default function LanguageSwitcher() {
   const locale = useLocale() as Locale;
   const params = useParams();
   const searchParams = useSearchParams();
+  const languageOptions: Array<{
+    key: Locale;
+    label: string;
+    name: string;
+    flag: string;
+  }> = [
+    { key: "vi", label: "VI", name: "Tieng Viet", flag: "/Flag/vn.png" },
+    { key: "en", label: "EN", name: "English", flag: "/Flag/usa.png" },
+  ];
+  const currentLanguage =
+    languageOptions.find((option) => option.key === locale) ??
+    languageOptions[0];
 
   const queryObject = useMemo<QueryObject | undefined>(() => {
     if (!searchParams) return undefined;
@@ -157,46 +169,52 @@ export default function LanguageSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="ghost"
-          size="icon"
+          variant="outline"
+          size="sm"
           aria-label="Change language"
-          className="cursor-pointer"
-          title={locale === "vi" ? "Tieng Viet" : "English"}
+          className="h-10 gap-2 rounded-full border-slate-200 bg-white/90 px-3 text-xs font-semibold text-slate-700 shadow-sm hover:bg-white"
+          title={`Language: ${currentLanguage.name}`}
         >
-          <Globe className="size-5" />
+          <span className="flex items-center gap-2">
+            <img
+              src={currentLanguage.flag}
+              alt={currentLanguage.name}
+              className="h-5 w-5 rounded-[4px] object-cover shadow-sm"
+            />
+            <span className="text-xs font-semibold text-slate-800">
+              {currentLanguage.label}
+            </span>
+          </span>
+          <ChevronDown className="size-4 text-slate-500" />
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-44">
-        <DropdownMenuItem
-          onClick={() => goLocale("vi")}
-          className="flex justify-between cursor-pointer"
-        >
-          <span className="flex items-center gap-2">
-            Tieng Viet
-            <img
-              src="/Flag/vn.png"
-              alt="Vietnamese"
-              className="h-6 w-6 rounded-[3px] object-cover"
-            />
-          </span>
-          {locale === "vi" ? <Check className="size-4" /> : null}
-        </DropdownMenuItem>
-
-        <DropdownMenuItem
-          onClick={() => goLocale("en")}
-          className="flex justify-between cursor-pointer"
-        >
-          <span className="flex items-center gap-6">
-            English
-            <img
-              src="/Flag/usa.png"
-              alt="English"
-              className="h-6 w-6 rounded-[3px] object-cover"
-            />
-          </span>
-          {locale === "en" ? <Check className="size-4" /> : null}
-        </DropdownMenuItem>
+      <DropdownMenuContent
+        align="end"
+        className="w-52 rounded-xl border-slate-100 bg-white/95 p-1 shadow-xl backdrop-blur"
+      >
+        {languageOptions.map((option) => (
+          <DropdownMenuItem
+            key={option.key}
+            onClick={() => goLocale(option.key)}
+            className="flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-sm cursor-pointer focus:bg-slate-50"
+          >
+            <span className="flex items-center gap-3">
+              <img
+                src={option.flag}
+                alt={option.name}
+                className="h-6 w-6 rounded-[5px] object-cover shadow-sm"
+              />
+              <span className="text-sm font-medium text-slate-700">
+                {option.name}
+              </span>
+              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                {option.label}
+              </span>
+            </span>
+            {locale === option.key ? <Check className="size-4" /> : null}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

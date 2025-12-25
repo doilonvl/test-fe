@@ -291,8 +291,8 @@ export default function SiteHeader() {
 
         {/* Bên phải */}
         <div className="ml-auto flex items-center gap-2">
-          <GetInTouchSheet />
           <LanguageSwitcher />
+          <GetInTouchSheet />
 
           {/* Mobile menu trigger (responsive only) - right corner */}
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
