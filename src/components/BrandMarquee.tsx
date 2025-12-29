@@ -62,20 +62,20 @@ export default function BrandMarquee({ logos }: { logos: Logo[] }) {
             className="group relative flex h-24 w-[220px] items-center justify-center
                        transition-opacity duration-300 opacity-90"
           >
-            <Image
-              src={l.src}
-              alt={l.alt ?? "Brand logo"}
-              width={220}
-              height={80}
-              sizes="220px"
-              className="max-h-20 w-auto h-auto object-contain select-none
-                         grayscale group-hover:grayscale-0
-                         transition-transform duration-300 will-change-transform
-                         group-hover:scale-110 cursor-pointer"
-              style={{ width: "auto", height: "auto" }}
-              loading="lazy"
-              draggable={false}
-            />
+            <div className="relative h-20 w-[220px]">
+              <Image
+                src={l.src}
+                alt={l.alt ?? "Brand logo"}
+                fill
+                sizes="220px"
+                className="object-contain select-none
+                           grayscale group-hover:grayscale-0
+                           transition-transform duration-300 will-change-transform
+                           group-hover:scale-110 cursor-pointer"
+                loading="lazy"
+                draggable={false}
+              />
+            </div>
           </div>
         ))}
       </div>

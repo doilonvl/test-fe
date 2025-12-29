@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import { useState, useId, type MouseEvent, type KeyboardEvent } from "react";
+import { useState, type MouseEvent, type KeyboardEvent } from "react";
 import { useTranslations } from "next-intl";
 import FadeIn from "../animation/FadeIn";
 type AboutUsProps = {
@@ -15,7 +15,7 @@ export default function AboutUs({
   const tabs = ["about", "season", "bowling", "water"] as const;
 
   const [active, setActive] = useState<(typeof tabs)[number]>("about");
-  const groupId = useId();
+  const groupId = "about-us-tabs";
 
   const onClickTab = (
     e: MouseEvent<HTMLButtonElement>,

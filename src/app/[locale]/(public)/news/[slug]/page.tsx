@@ -1,10 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+﻿/* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getNewsBySlug } from "../_data";
+import { getNewsBySlug, listNews } from "../_data";
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import NewsBreadcrumbs from "../_components/BreadCrumbs";
+import RelatedNews from "../_components/RelatedNews";
+import { getPathname } from "@/i18n/navigation";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -50,7 +52,7 @@ export async function generateMetadata({
   };
 }
 
-// ---- Helpers (giữ nguyên/nhẹ nhàng) ----
+// ---- Helpers (giá»¯ nguyÃªn/nháº¹ nhÃ ng) ----
 function isLikelyHTML(s: string) {
   return /<\/?[a-z][\s\S]*>/i.test(s);
 }
@@ -67,7 +69,7 @@ function toParagraphs(s: string): string[] | null {
       .filter(Boolean);
   }
 
-  const sentences = normalized.split(/(?<=[.!?])\s+(?=[A-ZÀ-Ỵ0-9])/u);
+  const sentences = normalized.split(/(?<=[.!?])\s+(?=[\p{L}\p{N}])/u);
   const paras: string[] = [];
   for (let i = 0; i < sentences.length; i += 2) {
     paras.push([sentences[i], sentences[i + 1]].filter(Boolean).join(" "));
@@ -83,6 +85,63 @@ function getReadingTime(content: string) {
   return Math.max(1, Math.round(words / 220));
 }
 
+const PRODUCT_MARKER = /\[\[product:([^\]|]+)\|([^\]]+)\]\]/g;
+
+const buildProductHref = (locale: string, slug: string) => {
+  const segments = slug
+    .split("/")
+    .filter(Boolean)
+    .map((segment) => encodeURIComponent(segment));
+  const fallbackBase = locale === "vi" ? "/san-pham" : "/en/products";
+  return segments.length
+    ? `${fallbackBase}/${segments.join("/")}`
+    : fallbackBase;
+};
+
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
+const replaceProductMarkers = (value: string, locale: string) =>
+  value.replace(PRODUCT_MARKER, (_match, slug, label) => {
+    const href = buildProductHref(locale, slug);
+    const safeHref = escapeHtml(href);
+    const safeLabel = escapeHtml(label);
+    return `<a href="${safeHref}" class="text-primary underline underline-offset-2">${safeLabel}</a>`;
+  });
+
+const renderTextWithProductLinks = (value: string, locale: string) => {
+  const nodes: React.ReactNode[] = [];
+  let lastIndex = 0;
+  for (const match of value.matchAll(PRODUCT_MARKER)) {
+    const index = match.index ?? 0;
+    if (index > lastIndex) {
+      nodes.push(value.slice(lastIndex, index));
+    }
+    const slug = match[1];
+    const label = match[2];
+    const href = buildProductHref(locale, slug);
+    nodes.push(
+      <a
+        key={`${slug}-${index}`}
+        href={href}
+        className="text-primary underline underline-offset-2"
+      >
+        {label}
+      </a>
+    );
+    lastIndex = index + match[0].length;
+  }
+  if (lastIndex < value.length) {
+    nodes.push(value.slice(lastIndex));
+  }
+  return nodes;
+};
+
 export default async function NewsDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const n = await getNewsBySlug(slug);
@@ -91,8 +150,10 @@ export default async function NewsDetailPage({ params }: PageProps) {
   const t = await getTranslations("news");
   const nav = await getTranslations("nav");
   const title = pickLocalizedField(n, localeKey, "title") || n.title;
-  const excerpt = pickLocalizedField(n, localeKey, "excerpt") || n.excerpt || "";
-  const content = pickLocalizedField(n, localeKey, "content") || n.content || "";
+  const excerpt =
+    pickLocalizedField(n, localeKey, "excerpt") || n.excerpt || "";
+  const content =
+    pickLocalizedField(n, localeKey, "content") || n.content || "";
 
   const dateStr = n.publishedAt
     ? new Date(n.publishedAt).toLocaleDateString("vi-VN", {
@@ -104,6 +165,11 @@ export default async function NewsDetailPage({ params }: PageProps) {
 
   const readingMins = getReadingTime(content);
   const paragraphs = toParagraphs(content);
+  const htmlContent = isLikelyHTML(content)
+    ? replaceProductMarkers(content, localeKey)
+    : "";
+  const { items: newsItems } = await listNews({ page: 1, limit: 12 });
+  const relatedNews = newsItems.filter((item) => item.slug !== n.slug);
 
   return (
     <main
@@ -111,27 +177,32 @@ export default async function NewsDetailPage({ params }: PageProps) {
       itemScope
       itemType="https://schema.org/NewsArticle"
     >
-      <NewsBreadcrumbs labels={{ home: nav("home"), news: nav("news") }} title={title} />
+      {" "}
+      <header className="space-y-4">
+        <NewsBreadcrumbs
+          labels={{ home: nav("home"), news: nav("news") }}
+          title={title}
+        />
+        <div className="h-1 w-full rounded-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)]" />
+        <div className="space-y-3">
+          <h1
+            className="text-3xl md:text-4xl font-bold leading-tight supports-[text-wrap:balance]:text-balance"
+            itemProp="headline"
+          >
+            {title}
+          </h1>
 
-      <header className="space-y-3">
-        <h1
-          className="text-3xl md:text-4xl font-bold leading-tight supports-[text-wrap:balance]:text-balance"
-          itemProp="headline"
-        >
-          {title}
-        </h1>
-
-        <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-          {dateStr ? (
-            <time itemProp="datePublished" dateTime={n.publishedAt}>
-              {dateStr}
-            </time>
-          ) : null}
-          {dateStr ? <span aria-hidden>•</span> : null}
-          <span>{readingMins} min read</span>
+          <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+            {dateStr ? (
+              <time itemProp="datePublished" dateTime={n.publishedAt}>
+                {dateStr}
+              </time>
+            ) : null}
+            {dateStr ? <span aria-hidden>|</span> : null}
+            <span>{readingMins} min read</span>
+          </div>
         </div>
       </header>
-
       {n.cover ? (
         <figure className="relative">
           <div className="relative aspect-video w-full overflow-hidden rounded-xl border bg-gray-50">
@@ -152,12 +223,11 @@ export default async function NewsDetailPage({ params }: PageProps) {
           <meta itemProp="image" content={n.cover} />
         </figure>
       ) : null}
-
       {/* 
-        Typography tinh chỉnh:
-        - prose-p:indent-* => lùi đầu dòng cho mỗi đoạn
-        - [&_li>p]:indent-0 và [&_blockquote>p]:indent-0 => không lùi trong list/blockquote
-        - text-wrap:pretty để ngắt dòng đẹp
+        Typography tinh chá»‰nh:
+        - prose-p:indent-* => lÃ¹i Ä‘áº§u dÃ²ng cho má»—i Ä‘oáº¡n
+        - [&_li>p]:indent-0 vÃ  [&_blockquote>p]:indent-0 => khÃ´ng lÃ¹i trong list/blockquote
+        - text-wrap:pretty Ä‘á»ƒ ngáº¯t dÃ²ng Ä‘áº¹p
       */}
       <article
         className="prose prose-neutral max-w-none
@@ -170,12 +240,21 @@ export default async function NewsDetailPage({ params }: PageProps) {
                    [text-wrap:pretty]"
       >
         {paragraphs ? (
-          paragraphs.map((p, i) => <p key={i}>{p}</p>)
+          paragraphs.map((p, i) => (
+            <p key={i}>{renderTextWithProductLinks(p, localeKey)}</p>
+          ))
         ) : content ? (
-          <div dangerouslySetInnerHTML={{ __html: content }} />
+          <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
         ) : null}
       </article>
 
+      {relatedNews.length ? (
+        <RelatedNews
+          title={t("relatedTitle")}
+          items={relatedNews}
+          localeKey={localeKey}
+        />
+      ) : null}
       <meta itemProp="url" content={`/news/${n.slug}`} />
     </main>
   );

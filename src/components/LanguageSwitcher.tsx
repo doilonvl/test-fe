@@ -135,8 +135,10 @@ export default function LanguageSwitcher() {
 
   const resolvedHref = segmentsHref ?? slugHref ?? staticHref ?? undefined;
 
+  const [mounted, setMounted] = useState(false);
   const [hash, setHash] = useState("");
   useEffect(() => {
+    setMounted(true);
     if (typeof window !== "undefined") {
       setHash(window.location.hash || "");
     }
@@ -165,29 +167,36 @@ export default function LanguageSwitcher() {
     }
   };
 
+  const triggerButton = (
+    <Button
+      type="button"
+      variant="outline"
+      size="sm"
+      aria-label="Change language"
+      className="h-10 gap-2 rounded-full border-slate-200 bg-white/90 px-3 text-xs font-semibold text-slate-700 shadow-sm hover:bg-white"
+      title={`Language: ${currentLanguage.name}`}
+    >
+      <span className="flex items-center gap-2">
+        <img
+          src={currentLanguage.flag}
+          alt={currentLanguage.name}
+          className="h-5 w-5 rounded-[4px] object-cover shadow-sm"
+        />
+        <span className="text-xs font-semibold text-slate-800">
+          {currentLanguage.label}
+        </span>
+      </span>
+      <ChevronDown className="size-4 text-slate-500" />
+    </Button>
+  );
+
+  if (!mounted) {
+    return triggerButton;
+  }
+
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          aria-label="Change language"
-          className="h-10 gap-2 rounded-full border-slate-200 bg-white/90 px-3 text-xs font-semibold text-slate-700 shadow-sm hover:bg-white"
-          title={`Language: ${currentLanguage.name}`}
-        >
-          <span className="flex items-center gap-2">
-            <img
-              src={currentLanguage.flag}
-              alt={currentLanguage.name}
-              className="h-5 w-5 rounded-[4px] object-cover shadow-sm"
-            />
-            <span className="text-xs font-semibold text-slate-800">
-              {currentLanguage.label}
-            </span>
-          </span>
-          <ChevronDown className="size-4 text-slate-500" />
-        </Button>
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>{triggerButton}</DropdownMenuTrigger>
 
       <DropdownMenuContent
         align="end"

@@ -83,6 +83,7 @@
     "searchPlaceholder": "Search by name, keyword...",
     "clear": "Clear filters",
     "all": "All",
+    "relatedTitle": "Related products",
     "sort": {
       "order": "Order \u2191",
       "-order": "Order \u2193",
@@ -349,7 +350,8 @@
     "title": "News",
     "subtitle": "Latest updates and stories from Hasake Play.",
     "breadcrumb": "Home / News",
-    "readMore": "Read more"
+    "readMore": "Read more",
+    "relatedTitle": "Related articles"
   },
   "projects": {
     "title": "Projects",
@@ -368,6 +370,7 @@
       "more": "Expand gallery",
       "less": "Collapse gallery"
     },
+    "relatedTitle": "Related projects",
     "table": {
       "project": "Project",
       "scope": "Scope",

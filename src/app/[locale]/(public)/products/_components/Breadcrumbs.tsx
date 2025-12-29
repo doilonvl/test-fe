@@ -1,7 +1,6 @@
 'use client';
 
 import { Link } from '@/i18n/navigation';
-import { ChevronRight } from 'lucide-react';
 import {
   Breadcrumb, BreadcrumbList, BreadcrumbItem,
   BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage,
@@ -31,7 +30,7 @@ export default function Breadcrumbs({
 
   return (
     <Breadcrumb>
-      <BreadcrumbList className="text-sm text-muted-foreground">
+      <BreadcrumbList>
         {/* Home */}
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
@@ -39,13 +38,13 @@ export default function Breadcrumbs({
           </BreadcrumbLink>
         </BreadcrumbItem>
 
-        <BreadcrumbSeparator><ChevronRight className="h-3.5 w-3.5" /></BreadcrumbSeparator>
+        <BreadcrumbSeparator />
 
         {/* Products & services */}
         {isRootProducts ? (
           // Ở trang gốc /products: coi Products là trang hiện tại
           <BreadcrumbItem>
-            <BreadcrumbPage className="text-foreground font-medium">
+            <BreadcrumbPage>
               {labels.products}
             </BreadcrumbPage>
           </BreadcrumbItem>
@@ -63,7 +62,7 @@ export default function Breadcrumbs({
             segs.push(a.slug);
             return (
               <span key={`${a.slug}-${i}`} className="flex items-center">
-                <BreadcrumbSeparator><ChevronRight className="h-3.5 w-3.5" /></BreadcrumbSeparator>
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>
                     <Link
@@ -81,9 +80,9 @@ export default function Breadcrumbs({
         {/* Current node */}
         {!isRootProducts && nodeTitle && (
           <>
-            <BreadcrumbSeparator><ChevronRight className="h-3.5 w-3.5" /></BreadcrumbSeparator>
+            <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-foreground font-medium truncate max-w-[220px]">
+              <BreadcrumbPage className="truncate max-w-[220px]">
                 {nodeTitle}
               </BreadcrumbPage>
             </BreadcrumbItem>

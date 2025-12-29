@@ -1,7 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type SVGProps } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+  type SVGProps,
+} from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Images, Table2 } from "lucide-react";
 import ProjectsGallery from "./Gallery";
@@ -20,6 +27,7 @@ type ExplorerProps = {
   total?: number;
   pageSize: number;
   initialPage: number;
+  breadcrumb?: ReactNode;
 };
 
 export default function ProjectsExplorer({
@@ -28,6 +36,7 @@ export default function ProjectsExplorer({
   total,
   pageSize,
   initialPage,
+  breadcrumb,
 }: ExplorerProps) {
   const tNav = useTranslations("nav");
   const tProj = useTranslations("projects");
@@ -154,6 +163,7 @@ export default function ProjectsExplorer({
   return (
     <section className="space-y-6">
       <header className="space-y-4">
+        {breadcrumb ? <div>{breadcrumb}</div> : null}
         <div className="h-1 w-full rounded-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)]" />
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>

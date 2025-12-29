@@ -9,7 +9,6 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
-import { ChevronRight } from "lucide-react";
 
 export const revalidate = 300;
 
@@ -20,22 +19,19 @@ export default async function AboutUsPage() {
     <main className="min-h-screen bg-white">
       <section className="mx-auto max-w-7xl px-4 py-10 md:py-14 space-y-6">
         <Breadcrumb>
-          <BreadcrumbList className="text-sm text-muted-foreground">
+          <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link href="/">{nav("home")}</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator>
-              <ChevronRight className="h-3.5 w-3.5" />
-            </BreadcrumbSeparator>
+            <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-foreground font-medium">
-                {nav("about")}
-              </BreadcrumbPage>
+              <BreadcrumbPage>{nav("about")}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
+        <div className="h-1 w-full rounded-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)]" />
         <AboutUs />
       </section>
     </main>

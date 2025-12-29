@@ -1,7 +1,7 @@
 // src/app/[locale]/(public)/projects/[slug]/page.tsx
 /* eslint-disable @next/next/no-img-element */
 import { notFound } from "next/navigation";
-import { fetchProjectBySlug } from "../_data";
+import { fetchProjectBySlug, fetchProjects } from "../_data";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import {
@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Calendar, Building2, Briefcase } from "lucide-react";
 import ProjectImages from "../_components/ProjectImages";
+import RelatedProjects from "../_components/RelatedProjects";
 
 export const revalidate = 60;
 
@@ -27,12 +28,11 @@ export default async function ProjectDetail({ params }: PageProps) {
 
   const tNav = await getTranslations("nav");
   const tProj = await getTranslations("projects");
+  const { items: projectItems } = await fetchProjects({ page: 1, limit: 12 });
+  const relatedProjects = projectItems.filter((item) => item._id !== p._id);
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-10 space-y-8">
-      {/* Top accent */}
-      <div className="h-1 w-full rounded-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)]" />
-
       {/* Breadcrumbs */}
       <Breadcrumb>
         <BreadcrumbList>
@@ -44,7 +44,7 @@ export default async function ProjectDetail({ params }: PageProps) {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link href="/projects">{tProj("title")}</Link>
+              <Link href="/projects">{tNav("projects")}</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
@@ -55,6 +55,9 @@ export default async function ProjectDetail({ params }: PageProps) {
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
+
+      {/* Top accent */}
+      <div className="h-1 w-full rounded-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)]" />
 
       {/* Hero / Title */}
       <header className="space-y-4">
@@ -109,6 +112,13 @@ export default async function ProjectDetail({ params }: PageProps) {
           <p className="text-muted-foreground">{tProj("detail.noImages")}</p>
         )}
       </section>
+
+      {relatedProjects.length ? (
+        <RelatedProjects
+          title={tProj("relatedTitle")}
+          items={relatedProjects}
+        />
+      ) : null}
     </main>
   );
 }

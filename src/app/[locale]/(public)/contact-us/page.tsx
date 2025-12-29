@@ -95,20 +95,21 @@ export default async function ContactPage() {
     <main className="min-h-screen bg-white">
       <section className="mx-auto max-w-7xl px-4 py-10 md:py-14 space-y-10">
         <Breadcrumb>
-          <BreadcrumbList className="text-sm text-muted-foreground">
+          <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
                 <Link href="/">{nav("home")}</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator>/</BreadcrumbSeparator>
+            <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-foreground font-medium">
+              <BreadcrumbPage>
                 {contactPage("title")}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
+        <div className="h-1 w-full rounded-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)]" />
 
         <div className="overflow-hidden rounded-3xl border bg-gradient-to-r from-[#05acfb]/10 via-white to-[#8fc542]/10 shadow-[0_16px_48px_-24px_rgba(0,0,0,0.25)]">
           <div className="grid gap-8 p-8 md:grid-cols-[1.1fr_0.9fr] md:p-12">

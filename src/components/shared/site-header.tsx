@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -48,6 +49,7 @@ export default function SiteHeader() {
   const pathname = usePathname() || "/";
   const { data, isLoading } = useGetCatalogsQuery();
   const locale = useLocale();
+  const [mounted, setMounted] = useState(false);
   const normalize = (p: string) =>
     (p || "/").replace(/^\/(vi|en)(?=\/|$)/, "") || "/";
   const current = normalize(pathname);
@@ -98,6 +100,10 @@ export default function SiteHeader() {
     return () => clearCloseTimer();
   }, []);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hideOnScroll, setHideOnScroll] = useState(false);
   const lastScrollY = useRef(0);
@@ -132,14 +138,16 @@ export default function SiteHeader() {
       <div className="grid w-full items-center min-h-16 grid-cols-[auto_1fr_auto] gap-2">
         {/* Logo */}
         <Link href="/" className="shrink-0 pl-7">
-          <Image
-            src="/Logo/hasakelogo.png"
-            alt="HasakePlay"
-            width={168}
-            height={56}
-            className="h-14 w-[168px]"
-            priority
-          />
+          <span className="relative block h-14 w-[168px]">
+            <Image
+              src="/Logo/hasakelogo.png"
+              alt="HasakePlay"
+              fill
+              sizes="168px"
+              className="object-contain"
+              priority
+            />
+          </span>
         </Link>
 
         {/* Menu trung tâm */}
@@ -295,128 +303,141 @@ export default function SiteHeader() {
           <GetInTouchSheet />
 
           {/* Mobile menu trigger (responsive only) - right corner */}
-          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-            <SheetTrigger asChild>
-              <button
-                className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border hover:bg-gray-50 cursor-pointer"
-                aria-label="Open menu"
-              >
-                <Menu className="h-5 w-5" />
-              </button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[85vw] sm:w-[360px] p-0">
-              <SheetHeader className="sr-only">
-                <SheetTitle>Navigation</SheetTitle>
-                <SheetDescription>Primary navigation links</SheetDescription>
-              </SheetHeader>
-              <div className="p-4">
-                <nav>
-                  <ul className="space-y-1 text-sm font-semibold">
-                    <li>
-                      <Link
-                        href="/products"
-                        onClick={() => setMobileOpen(false)}
-                        className="block px-3 py-2 rounded-md hover:bg-gray-50"
-                      >
-                        {t("products")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/news"
-                        onClick={() => setMobileOpen(false)}
-                        className="block px-3 py-2 rounded-md hover:bg-gray-50"
-                      >
-                        {t("news")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/projects"
-                        onClick={() => setMobileOpen(false)}
-                        className="block px-3 py-2 rounded-md hover:bg-gray-50"
-                      >
-                        {t("projects")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/about-us"
-                        onClick={() => setMobileOpen(false)}
-                        className="block px-3 py-2 rounded-md hover:bg-gray-50"
-                      >
-                        {t("about")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/privacy"
-                        onClick={() => setMobileOpen(false)}
-                        className="block px-3 py-2 rounded-md hover:bg-gray-50"
-                      >
-                        {t("privacy")}
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        href="/contact-us"
-                        onClick={() => setMobileOpen(false)}
-                        className="block px-3 py-2 rounded-md hover:bg-gray-50"
-                      >
-                        {t("contact")}
-                      </Link>
-                    </li>
-                    <li className="pt-2 mt-2 border-t">
-                      <div className="px-3 py-2 text-[11px] uppercase tracking-wide text-gray-500">
-                        Catalog
-                      </div>
-                      {isLoading ? (
-                        <div className="px-3 py-2 text-sm text-muted-foreground">
-                          Loading…
+          {mounted ? (
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <SheetTrigger asChild>
+                <button
+                  type="button"
+                  className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border hover:bg-gray-50 cursor-pointer"
+                  aria-label="Open menu"
+                >
+                  <Menu className="h-5 w-5" />
+                </button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[85vw] sm:w-[360px] p-0">
+                <SheetHeader className="sr-only">
+                  <SheetTitle>Navigation</SheetTitle>
+                  <SheetDescription>Primary navigation links</SheetDescription>
+                </SheetHeader>
+                <div className="p-4">
+                  <nav>
+                    <ul className="space-y-1 text-sm font-semibold">
+                      <li>
+                        <Link
+                          href="/products"
+                          onClick={() => setMobileOpen(false)}
+                          className="block px-3 py-2 rounded-md hover:bg-gray-50"
+                        >
+                          {t("products")}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/news"
+                          onClick={() => setMobileOpen(false)}
+                          className="block px-3 py-2 rounded-md hover:bg-gray-50"
+                        >
+                          {t("news")}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/projects"
+                          onClick={() => setMobileOpen(false)}
+                          className="block px-3 py-2 rounded-md hover:bg-gray-50"
+                        >
+                          {t("projects")}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/about-us"
+                          onClick={() => setMobileOpen(false)}
+                          className="block px-3 py-2 rounded-md hover:bg-gray-50"
+                        >
+                          {t("about")}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/privacy"
+                          onClick={() => setMobileOpen(false)}
+                          className="block px-3 py-2 rounded-md hover:bg-gray-50"
+                        >
+                          {t("privacy")}
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/contact-us"
+                          onClick={() => setMobileOpen(false)}
+                          className="block px-3 py-2 rounded-md hover:bg-gray-50"
+                        >
+                          {t("contact")}
+                        </Link>
+                      </li>
+                      <li className="pt-2 mt-2 border-t">
+                        <div className="px-3 py-2 text-[11px] uppercase tracking-wide text-gray-500">
+                          Catalog
                         </div>
-                      ) : data?.items?.length ? (
-                        <ul className="max-h-[55vh] overflow-auto py-1">
-                          {data.items.map((cat: any) => {
-                            const slug: string | undefined = cat?.slug;
-                            if (!slug) return null;
-                            const href = `/${locale}/catalogs/${encodeURIComponent(
-                              slug
-                            )}`;
-                            return (
-                              <li key={cat._id}>
-                                <a
-                                  href={href}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
-                                  onClick={() => setMobileOpen(false)}
-                                >
-                                  <FileText
-                                    size={16}
-                                    className="text-[#05acfb]"
-                                  />
-                                  <span className="truncate">{cat.title}</span>
-                                  {cat.year ? (
-                                    <span className="ml-1 text-muted-foreground">
-                                      ({cat.year})
+                        {isLoading ? (
+                          <div className="px-3 py-2 text-sm text-muted-foreground">
+                            Loading…
+                          </div>
+                        ) : data?.items?.length ? (
+                          <ul className="max-h-[55vh] overflow-auto py-1">
+                            {data.items.map((cat: any) => {
+                              const slug: string | undefined = cat?.slug;
+                              if (!slug) return null;
+                              const href = `/${locale}/catalogs/${encodeURIComponent(
+                                slug
+                              )}`;
+                              return (
+                                <li key={cat._id}>
+                                  <a
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md"
+                                    onClick={() => setMobileOpen(false)}
+                                  >
+                                    <FileText
+                                      size={16}
+                                      className="text-[#05acfb]"
+                                    />
+                                    <span className="truncate">
+                                      {cat.title}
                                     </span>
-                                  ) : null}
-                                </a>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      ) : (
-                        <div className="px-3 py-2 text-sm text-muted-foreground">
-                          No catalogs
-                        </div>
-                      )}
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </SheetContent>
-          </Sheet>
+                                    {cat.year ? (
+                                      <span className="ml-1 text-muted-foreground">
+                                        ({cat.year})
+                                      </span>
+                                    ) : null}
+                                  </a>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        ) : (
+                          <div className="px-3 py-2 text-sm text-muted-foreground">
+                            No catalogs
+                          </div>
+                        )}
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </SheetContent>
+            </Sheet>
+          ) : (
+            <button
+              type="button"
+              className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border hover:bg-gray-50 cursor-pointer"
+              aria-label="Open menu"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          )}
         </div>
       </div>
     </nav>

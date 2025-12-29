@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/error-boundaries */
 import type { Metadata } from "next";
 import { getTranslations, getLocale } from "next-intl/server";
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
+import { getPathname } from "@/i18n/navigation";
 import Breadcrumbs from "../_components/Breadcrumbs";
 import ImagesLightbox from "../_components/ImagesLightbox";
 import Filters from "../_components/Filter";
 import Grid from "../_components/Grid";
 import Pagination from "../_components/Pagination";
+import RelatedProducts from "../_components/RelatedProducts";
 import {
   fetchRootCategories,
   fetchNodeWithChildren,
@@ -26,22 +27,15 @@ const pick = <T,>(v: T | undefined, fb: T) =>
 
 const PAGE_SIZE = 50;
 
-const siteUrl = "https://hasakeplay.com.vn/products";
-
-const defaultMetadata: Metadata = {
-  title: "Products & services",
-  description:
-    "Explore Hasake Play's catalog of playground equipment, design services, and installation support.",
-  openGraph: {
-    title: "Products & services | Hasake Play",
-    description:
-      "Discover playground equipment and services for indoor and outdoor projects.",
-    url: siteUrl,
-    siteName: "Hasake Play",
-    images: [{ url: "/Logo/hasakelogo.png", width: 512, height: 512 }],
-  },
-  alternates: { canonical: siteUrl },
-};
+const SITE_BASE = (
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  process.env.NEXT_PUBLIC_APP_URL ||
+  "https://www.hasakeplay.com.vn"
+).replace(/\/$/, "");
+const DEFAULT_TITLE = "Products & services";
+const DEFAULT_DESCRIPTION =
+  "Explore Hasake Play's catalog of playground equipment, design services, and installation support.";
+const META_IMAGE = "/Logo/hasakelogo.png";
 
 const landingMetas: Record<
   string,
@@ -148,40 +142,172 @@ const enhanceImages = (images: any[], alt?: string) =>
       (alt ? `${alt}${images.length > 1 ? ` ${idx + 1}` : ""}` : undefined),
   }));
 
+const getProductsPathname = (locale: string, segments: string[]) => {
+  if (segments.length > 0) {
+    const basePath = getPathname({ href: "/products", locale }) ?? "/products";
+    return `${basePath}/${segments.join("/")}`;
+  }
+  return getPathname({ href: "/products", locale }) ?? "/products";
+};
+
+const buildAbsoluteUrl = (pathname: string) =>
+  new URL(pathname, SITE_BASE).toString();
+
+const buildAlternates = (segments: string[], locale: string) => ({
+  canonical: buildAbsoluteUrl(getProductsPathname(locale, segments)),
+  languages: {
+    en: buildAbsoluteUrl(getProductsPathname("en", segments)),
+    vi: buildAbsoluteUrl(getProductsPathname("vi", segments)),
+  },
+});
+
+const buildMetadata = ({
+  title,
+  description,
+  segments,
+  locale,
+  keywords,
+}: {
+  title?: string;
+  description?: string;
+  segments: string[];
+  locale: string;
+  keywords?: string[];
+}): Metadata => {
+  const metaTitle = title || DEFAULT_TITLE;
+  const metaDescription = description || DEFAULT_DESCRIPTION;
+  const alternates = buildAlternates(segments, locale);
+  const canonical = alternates.canonical as string;
+
+  return {
+    title: metaTitle,
+    description: metaDescription,
+    keywords,
+    alternates,
+    openGraph: {
+      title: metaTitle,
+      description: metaDescription,
+      url: canonical,
+      siteName: "Hasake Play",
+      images: [{ url: META_IMAGE, width: 512, height: 512 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: metaTitle,
+      description: metaDescription,
+      images: [META_IMAGE],
+    },
+  };
+};
+
+const toAbsoluteUrl = (url: string) =>
+  url.startsWith("http://") || url.startsWith("https://")
+    ? url
+    : new URL(url, SITE_BASE).toString();
+
+const buildBreadcrumbJsonLd = ({
+  locale,
+  homeLabel,
+  productsLabel,
+  ancestors,
+  currentTitle,
+  currentSegments,
+}: {
+  locale: string;
+  homeLabel: string;
+  productsLabel: string;
+  ancestors: { title: string; slug: string }[];
+  currentTitle: string;
+  currentSegments: string[];
+}) => {
+  const items: { name: string; item: string }[] = [];
+  const homePath = getPathname({ href: "/", locale }) ?? "/";
+  items.push({ name: homeLabel, item: buildAbsoluteUrl(homePath) });
+
+  const productsPath = getProductsPathname(locale, []);
+  items.push({ name: productsLabel, item: buildAbsoluteUrl(productsPath) });
+
+  const segments: string[] = [];
+  ancestors.forEach((crumb) => {
+    segments.push(crumb.slug);
+    const path = getProductsPathname(locale, segments);
+    items.push({ name: crumb.title, item: buildAbsoluteUrl(path) });
+  });
+
+  const currentPath = getProductsPathname(locale, currentSegments);
+  if (currentTitle) {
+    items.push({ name: currentTitle, item: buildAbsoluteUrl(currentPath) });
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((entry, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: entry.name,
+      item: entry.item,
+    })),
+  };
+};
+
+const buildParentPath = (
+  crumbs: { slug: string }[] | undefined,
+  nodeSlug: string
+) => {
+  if (!crumbs?.length) return "";
+  const slugs = crumbs.map((c) => c.slug).filter(Boolean);
+  if (slugs[slugs.length - 1] === nodeSlug) slugs.pop();
+  return slugs.join("/");
+};
+
+const fetchRelatedNodes = async ({
+  node,
+  breadcrumbs,
+  sort,
+}: {
+  node: { type: "category" | "group" | "item"; slug: string; _id?: string };
+  breadcrumbs:
+    | { title: string; slug: string; title_i18n?: Record<string, string> }[]
+    | undefined;
+  sort: "order" | "-order" | "title" | "-title" | "createdAt" | "-createdAt";
+}) => {
+  const parentPath = buildParentPath(breadcrumbs, node.slug);
+  if (node.type === "category" && !parentPath) {
+    const roots = await fetchRootCategories();
+    return roots.items ?? [];
+  }
+  if (!parentPath) return [];
+  try {
+    const parent = await fetchNodeWithChildren(parentPath, sort);
+    const siblings = Array.isArray(parent?.children) ? parent.children : [];
+    return siblings.filter((child) => child.type === node.type);
+  } catch {
+    return [];
+  }
+};
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ segments?: string[] }>;
 }): Promise<Metadata> {
   const { segments = [] } = await params;
+  const localeKey = normalizeLocale(await getLocale());
   const currentPath = segments.join("/");
   const landing = landingMetas[currentPath];
   if (landing) {
-    const url = siteUrl + "/" + currentPath;
-    return {
+    return buildMetadata({
       title: landing.title,
       description: landing.description,
+      segments,
+      locale: localeKey,
       keywords: landing.keywords,
-      alternates: { canonical: url },
-      openGraph: {
-        title: landing.title,
-        description: landing.description,
-        url,
-        siteName: "Hasake Play",
-        images: [{ url: "/Logo/hasakelogo.png", width: 512, height: 512 }],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: landing.title,
-        description: landing.description,
-        images: ["/Logo/hasakelogo.png"],
-      },
-    };
+    });
   }
 
   // Fallback: generate meta from node data so dynamic slugs (e.g. nested) get specific titles
   try {
-    const localeKey = normalizeLocale(await getLocale());
     const data = await fetchNodeWithChildren(currentPath, "order");
     if (!data || !data.node) throw new Error("Missing node");
     const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
@@ -195,27 +321,19 @@ export async function generateMetadata({
     const chainTitles = [...crumbTitles, nodeTitle].filter(Boolean);
     const titleText =
       chainTitles.length > 1 ? chainTitles.join(" | ") : nodeTitle;
-    const url = siteUrl + "/" + currentPath;
-    return {
-      title: titleText || defaultMetadata.title,
-      description: nodeDescription || defaultMetadata.description,
-      alternates: { canonical: url },
-      openGraph: {
-        title: titleText || defaultMetadata.title,
-        description: nodeDescription || defaultMetadata.description,
-        url,
-        siteName: "Hasake Play",
-        images: [{ url: "/Logo/hasakelogo.png", width: 512, height: 512 }],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: titleText || defaultMetadata.title,
-        description: nodeDescription || defaultMetadata.description,
-        images: ["/Logo/hasakelogo.png"],
-      },
-    };
+    return buildMetadata({
+      title: titleText || DEFAULT_TITLE,
+      description: nodeDescription || DEFAULT_DESCRIPTION,
+      segments,
+      locale: localeKey,
+    });
   } catch {
-    return defaultMetadata;
+    return buildMetadata({
+      title: DEFAULT_TITLE,
+      description: DEFAULT_DESCRIPTION,
+      segments,
+      locale: localeKey,
+    });
   }
 }
 
@@ -356,29 +474,77 @@ export default async function ProductsPage({
       if (!data || !data.node) {
         notFound();
       }
-      const headingText = landing?.heading || t("title");
       if (data.node.type === "item") {
         const node = data.node as any;
         const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
         const nodeTitle = resolveNodeTitle(node, crumbs, localeKey);
+        const pageHeading = nodeTitle || landing?.heading || t("title");
         const nodeDescription = pickLocalizedField(
           node,
           localeKey,
           "description"
         );
+        const relatedNodes = await fetchRelatedNodes({
+          node,
+          breadcrumbs: data.breadcrumbs as any,
+          sort,
+        });
+        const related = relatedNodes.filter((n) => n._id !== node._id);
+        const imageUrls = Array.isArray(node.images)
+          ? node.images
+              .map((img: { url?: string }) => img?.url)
+              .filter((url: string | undefined): url is string => Boolean(url))
+          : [];
+        if (imageUrls.length === 0 && node.thumbnail) {
+          imageUrls.push(node.thumbnail);
+        }
+        const productUrl = buildAbsoluteUrl(
+          getProductsPathname(localeKey, segments)
+        );
+        const productJsonLd = {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: pageHeading,
+          description: nodeDescription || undefined,
+          image: imageUrls.map((url: string) => toAbsoluteUrl(url)),
+          url: productUrl,
+          brand: {
+            "@type": "Brand",
+            name: "Hasake Play",
+          },
+        };
+        const breadcrumbJsonLd = buildBreadcrumbJsonLd({
+          locale: localeKey,
+          homeLabel: nav("home"),
+          productsLabel: nav("products"),
+          ancestors: crumbs,
+          currentTitle: nodeTitle || pageHeading,
+          currentSegments: segments,
+        });
         return (
           <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
-            <header className="space-y-2">
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify(productJsonLd),
+              }}
+            />
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify(breadcrumbJsonLd),
+              }}
+            />
+            <header className="space-y-3">
+              <Breadcrumbs
+                nodeTitle={nodeTitle}
+                ancestors={crumbs}
+                labels={{ home: nav("home"), products: nav("products") }}
+              />
               <div className="h-1 w-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)] rounded-full" />
-              <h1 className="text-2xl font-bold">{headingText}</h1>
+              <h1 className="text-2xl font-bold">{pageHeading}</h1>
               {/* <p className="text-muted-foreground">{t("subtitle")}</p> */}
             </header>
-
-            <Breadcrumbs
-              nodeTitle={nodeTitle}
-              ancestors={crumbs}
-              labels={{ home: nav("home"), products: nav("products") }}
-            />
 
             {renderLandingIntro()}
 
@@ -408,6 +574,14 @@ export default async function ProductsPage({
                 );
               return null;
             })()}
+
+            {related.length ? (
+              <RelatedProducts
+                title={t("relatedTitle")}
+                nodes={related}
+                localeKey={localeKey}
+              />
+            ) : null}
           </main>
         );
       }
@@ -433,21 +607,28 @@ export default async function ProductsPage({
       const start = (page - 1) * PAGE_SIZE;
       const pageChildren = children.slice(start, start + PAGE_SIZE);
 
+      const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
+      const nodeTitle = resolveNodeTitle(node, crumbs, localeKey);
+      const listHeading = nodeTitle || landing?.heading || t("title");
+      const relatedNodes = await fetchRelatedNodes({
+        node,
+        breadcrumbs: data.breadcrumbs as any,
+        sort,
+      });
+      const related = relatedNodes.filter((n) => n._id !== node._id);
+
       if (children.length === 0) {
-        const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
-        const nodeTitle = resolveNodeTitle(node, crumbs, localeKey);
         return (
           <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
-            <header className="space-y-2">
+            <header className="space-y-3">
+              <Breadcrumbs
+                nodeTitle={nodeTitle}
+                ancestors={crumbs}
+                labels={{ home: nav("home"), products: nav("products") }}
+              />
               <div className="h-1 w-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)] rounded-full" />
-              <h1 className="text-2xl font-bold">{headingText}</h1>
+              <h1 className="text-2xl font-bold">{listHeading}</h1>
             </header>
-
-            <Breadcrumbs
-              nodeTitle={nodeTitle}
-              ancestors={crumbs}
-              labels={{ home: nav("home"), products: nav("products") }}
-            />
 
             {renderLandingIntro()}
 
@@ -477,26 +658,30 @@ export default async function ProductsPage({
                 );
               return null;
             })()}
+
+            {related.length ? (
+              <RelatedProducts
+                title={t("relatedTitle")}
+                nodes={related}
+                localeKey={localeKey}
+              />
+            ) : null}
           </main>
         );
       }
 
-      const crumbs = localizeBreadcrumbs(data.breadcrumbs as any, localeKey);
-      const nodeTitle = resolveNodeTitle(data.node, crumbs, localeKey);
-
       return (
         <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
-          <header className="space-y-2">
+          <header className="space-y-3">
+            <Breadcrumbs
+              nodeTitle={nodeTitle}
+              ancestors={crumbs}
+              labels={{ home: nav("home"), products: nav("products") }}
+            />
             <div className="h-1 w-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)] rounded-full" />
-            <h1 className="text-2xl font-bold">{headingText}</h1>
+            <h1 className="text-2xl font-bold">{listHeading}</h1>
             {/* <p className="text-muted-foreground">{t("subtitle")}</p> */}
           </header>
-
-          <Breadcrumbs
-            nodeTitle={nodeTitle}
-            ancestors={crumbs}
-            labels={{ home: nav("home"), products: nav("products") }}
-          />
 
           {renderLandingIntro()}
 
@@ -515,6 +700,14 @@ export default async function ProductsPage({
           />
 
           <Pagination total={total} page={page} limit={PAGE_SIZE} />
+
+          {related.length ? (
+            <RelatedProducts
+              title={t("relatedTitle")}
+              nodes={related}
+              localeKey={localeKey}
+            />
+          ) : null}
         </main>
       );
     } catch {
@@ -533,14 +726,14 @@ export default async function ProductsPage({
     return (
       <main className="mx-auto max-w-7xl px-4 py-8 space-y-6">
         <header className="space-y-4">
+          <Breadcrumbs
+            labels={{ home: nav("home"), products: nav("products") }}
+            isRootProducts
+          />
           <div className="h-1 w-full rounded-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)]" />
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="space-y-2">
               <h1 className="text-2xl font-bold">{t("title")}</h1>
-              <Breadcrumbs
-                labels={{ home: nav("home"), products: nav("products") }}
-                isRootProducts
-              />
             </div>
             <Filters
               variant="inline"

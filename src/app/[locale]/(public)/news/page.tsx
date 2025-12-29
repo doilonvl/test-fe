@@ -56,20 +56,22 @@ export default async function NewsListPage({ searchParams }: PageProps) {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 space-y-8">
-      <NewsBreadcrumbs
-        labels={{ home: nav("home"), news: nav("news") }}
-        title={undefined}
-      />
+      <header className="space-y-4">
+        <NewsBreadcrumbs
+          labels={{ home: nav("home"), news: nav("news") }}
+          title={undefined}
+        />
+        <div className="h-1 w-full rounded-full bg-[linear-gradient(90deg,#ff8905,#05acfb,#8fc542)]" />
+        <div>
+          <h1 className="text-2xl font-bold">{t("title")}</h1>
+        </div>
+      </header>
 
       <section className="space-y-6">
         {/* Hàng đầu tiên: 1 lớn bên trái, 2 nhỏ bên phải */}
         {(first || second || third) && (
           <div className="grid gap-3 md:grid-cols-[2fr_1fr] items-start">
             <div className="space-y-3">
-              <section className="space-y-1">
-                <h1 className="text-2xl font-bold">{t("title")}</h1>
-                {/* <p className="text-muted-foreground">{t("subtitle")}</p> */}
-              </section>
               {first ? <NewsCard n={first} variant="large" /> : null}
             </div>
             <div className="grid gap-4">

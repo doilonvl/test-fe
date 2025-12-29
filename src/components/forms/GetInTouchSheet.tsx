@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useSendContactFormMutation } from "@/services/api";
@@ -26,9 +26,14 @@ type ErrorFields = Partial<
 export default function GetInTouchSheet() {
   const t = useTranslations("contact");
   const locale = useLocale();
+  const [mounted, setMounted] = useState(false);
   const [sendContact, { isLoading }] = useSendContactFormMutation();
   const closeRef = useRef<HTMLButtonElement>(null);
   const [errors, setErrors] = useState<ErrorFields>({});
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const clearError = (field: keyof ErrorFields) =>
     setErrors((prev) => {
@@ -112,12 +117,23 @@ export default function GetInTouchSheet() {
       ? "border-red-500 ring-1 ring-red-400"
       : "border-slate-200 focus:ring-sky-200 focus:border-sky-400";
 
+  const triggerButton = (
+    <Button
+      type="button"
+      className="bg-gradient-to-r from-[#05acfb] to-[#0fb2ff] text-white font-semibold px-5 py-2.5 rounded-full shadow-lg shadow-sky-200/60 hover:brightness-110 cursor-pointer"
+    >
+      {t("trigger")}
+    </Button>
+  );
+
+  if (!mounted) {
+    return triggerButton;
+  }
+
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button className="bg-gradient-to-r from-[#05acfb] to-[#0fb2ff] text-white font-semibold px-5 py-2.5 rounded-full shadow-lg shadow-sky-200/60 hover:brightness-110 cursor-pointer">
-          {t("trigger")}
-        </Button>
+        {triggerButton}
       </SheetTrigger>
 
       <SheetContent

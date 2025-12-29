@@ -12,7 +12,6 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { Link } from "@/i18n/navigation";
-import { ChevronRight } from "lucide-react";
 
 export const revalidate = 60;
 const PAGE_SIZE = 24;
@@ -42,33 +41,30 @@ export default async function ProjectsPage() {
     projects,
     projects.length || undefined
   );
+  const breadcrumb = (
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink asChild>
+            <Link href="/">{nav("home")}</Link>
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>{nav("projects")}</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  );
   return (
     <main className="mx-auto max-w-7xl px-4 py-8">
-      <section className="mb-4">
-        <Breadcrumb>
-          <BreadcrumbList className="text-sm text-muted-foreground">
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">{nav("home")}</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator>
-              <ChevronRight className="h-3.5 w-3.5" />
-            </BreadcrumbSeparator>
-            <BreadcrumbItem>
-              <BreadcrumbPage className="text-foreground font-medium">
-                {nav("projects")}
-              </BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </section>
       <ProjectsExplorer
         initialProjects={projects}
         initialGalleryProjects={galleryProjects}
         total={typeof res.total === "number" ? res.total : 0}
         pageSize={res.limit ?? PAGE_SIZE}
         initialPage={res.page ?? initialPage}
+        breadcrumb={breadcrumb}
       />
     </main>
   );
