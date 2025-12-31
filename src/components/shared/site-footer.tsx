@@ -78,7 +78,11 @@ export default function SiteFooter() {
   ];
 
   const quickLabel = isEn ? "Quick links" : "Liên kết nhanh";
-  const quickLinks = [
+  const quickLinks: Array<{
+    href: string;
+    label: string;
+    external?: boolean;
+  }> = [
     { href: "/", label: nav("home") },
     { href: "/about-us", label: nav("about") },
     { href: "/products", label: nav("products") },
@@ -86,6 +90,11 @@ export default function SiteFooter() {
     { href: "/news", label: nav("news") },
     { href: "/contact-us", label: nav("contact") },
     { href: "/privacy", label: nav("privacy") },
+    {
+      href: "https://dropincafe.tawk.help",
+      label: t("helpCenter"),
+      external: true,
+    },
   ];
   const maxOffices = 2;
   const mainOffices = offices.slice(0, maxOffices);
@@ -174,16 +183,29 @@ export default function SiteFooter() {
             <div className="space-y-4">
               <h4 className="text-base font-semibold">{quickLabel}</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-700">
-                {quickLinks.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href as any}
-                    className="flex items-center gap-2 rounded-md px-2 py-1 hover:bg-slate-50 hover:text-[#05acfb]"
-                  >
-                    <ArrowUpRight className="h-4 w-4 opacity-60" />
-                    <span>{item.label}</span>
-                  </Link>
-                ))}
+                {quickLinks.map((item) =>
+                  item.external ? (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 rounded-md px-2 py-1 hover:bg-slate-50 hover:text-[#05acfb]"
+                    >
+                      <ArrowUpRight className="h-4 w-4 opacity-60" />
+                      <span>{item.label}</span>
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.href}
+                      href={item.href as any}
+                      className="flex items-center gap-2 rounded-md px-2 py-1 hover:bg-slate-50 hover:text-[#05acfb]"
+                    >
+                      <ArrowUpRight className="h-4 w-4 opacity-60" />
+                      <span>{item.label}</span>
+                    </Link>
+                  )
+                )}
               </div>
             </div>
 

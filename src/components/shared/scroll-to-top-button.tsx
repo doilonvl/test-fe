@@ -40,11 +40,11 @@ export default function ScrollToTopButton() {
     <button
       type="button"
       onClick={smoothScrollToTop}
-      className="fixed bottom-6 right-6 z-[95] inline-flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-r from-[#05acfb] to-[#8fc542] text-white shadow-lg shadow-slate-400/40 transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#05acfb]"
+      className="fixed bottom-24 right-6 z-[95] inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-[#05acfb] to-[#8fc542] text-white shadow-lg shadow-slate-400/40 transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#05acfb]"
       aria-label="Back to top"
       title="Back to top"
     >
-      <ArrowUp className="h-5 w-5" />
+      <ArrowUp className="h-6 w-6" />
     </button>
   );
 }
