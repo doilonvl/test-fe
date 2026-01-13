@@ -26,6 +26,31 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  async redirects() {
+    return [
+      {
+        source: "/bowlingsystem.html",
+        destination: "/en/products/green-bowling",
+        permanent: true,
+      },
+      {
+        source: "/bowlingsystem",
+        destination: "/en/products/green-bowling",
+        permanent: true,
+      },
+      {
+        source: "/he-thong-bowling.html",
+        destination: "/san-pham/green-bowling",
+        permanent: true,
+      },
+      {
+        source: "/he-thong-bowling",
+        destination: "/san-pham/green-bowling",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);
