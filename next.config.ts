@@ -49,6 +49,16 @@ const nextConfig: NextConfig = {
         destination: "/san-pham/green-bowling",
         permanent: true,
       },
+      {
+        source: "/vietnamese/bowlingsystem.html",
+        destination: "/san-pham/green-bowling",
+        permanent: true,
+      },
+      {
+        source: "/vietnamese/bowlingsystem",
+        destination: "/san-pham/green-bowling",
+        permanent: true,
+      },
     ];
   },
 };
