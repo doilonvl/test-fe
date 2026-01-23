@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
 import NewsBreadcrumbs from "../_components/BreadCrumbs";
 import RelatedNews from "../_components/RelatedNews";
-import { getPathname } from "@/i18n/navigation";
+import { buildPageMetadata, mergeKeywords } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -38,18 +38,21 @@ export async function generateMetadata({
   const n = await getNewsBySlug(slug);
   if (!n) return {};
   const localeKey = normalizeLocale(await getLocale());
+  const seo = await getTranslations("seo");
   const title = pickLocalizedField(n, localeKey, "title") || n.title;
   const description =
     pickLocalizedField(n, localeKey, "excerpt") || n.excerpt || undefined;
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      images: n.cover ? [{ url: n.cover }] : undefined,
-    },
-  };
+  const industryKeywords = seo.raw("keywords.industry") as string[];
+  const fallbackDescription = seo("pages.newsDetail.description");
+  return buildPageMetadata({
+    title: `${title} | ${seo("pages.newsDetail.titleSuffix")}`,
+    description: description || fallbackDescription,
+    keywords: mergeKeywords(industryKeywords),
+    href: "/news/[slug]",
+    params: { slug },
+    locale: localeKey,
+    image: n.cover || undefined,
+  });
 }
 
 // ---- Helpers (giá»¯ nguyÃªn/nháº¹ nhÃ ng) ----
@@ -177,7 +180,6 @@ export default async function NewsDetailPage({ params }: PageProps) {
       itemScope
       itemType="https://schema.org/NewsArticle"
     >
-      {" "}
       <header className="space-y-4">
         <NewsBreadcrumbs
           labels={{ home: nav("home"), news: nav("news") }}

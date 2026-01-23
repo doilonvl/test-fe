@@ -2,6 +2,7 @@
 "use client";
 
 import * as React from "react";
+import { useTranslations } from "next-intl";
 
 type ImageItem = { url: string; alt?: string };
 
@@ -17,6 +18,7 @@ export default function ProjectImages({
   projectName,
   emptyText = "No images",
 }: ProjectImagesProps) {
+  const t = useTranslations("projects");
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
 
   React.useEffect(() => {
@@ -77,7 +79,7 @@ export default function ProjectImages({
                     />
                     <div className="absolute bottom-2 right-2 translate-y-3 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                       <span className="inline-flex items-center gap-1 rounded-full bg-white/85 px-2 py-1 text-[10px] font-medium text-gray-800 shadow-sm ring-1 ring-black/5 backdrop-blur-sm">
-                        Phóng to
+                        {t("galleryControls.zoomIn")}
                       </span>
                     </div>
                   </div>
@@ -106,7 +108,7 @@ export default function ProjectImages({
               type="button"
               onClick={close}
               className="absolute right-3 top-3 rounded-full bg-black/60 px-3 py-1 text-sm font-semibold text-white hover:bg-black/80"
-              aria-label="Đóng"
+              aria-label={t("galleryControls.close")}
             >
               ×
             </button>
@@ -114,7 +116,7 @@ export default function ProjectImages({
               type="button"
               onClick={prev}
               className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/60 px-3 py-2 text-white hover:bg-black/80"
-              aria-label="Ảnh trước"
+              aria-label={t("galleryControls.prev")}
             >
               ‹
             </button>
@@ -122,7 +124,7 @@ export default function ProjectImages({
               type="button"
               onClick={next}
               className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/60 px-3 py-2 text-white hover:bg-black/80"
-              aria-label="Ảnh sau"
+              aria-label={t("galleryControls.next")}
             >
               ›
             </button>
@@ -146,3 +148,5 @@ export default function ProjectImages({
     </>
   );
 }
+
+

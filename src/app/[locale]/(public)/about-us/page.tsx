@@ -1,5 +1,5 @@
 import AboutUs from "@/components/shared/AboutUs";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import {
   Breadcrumb,
@@ -9,8 +9,23 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
+import type { Metadata } from "next";
+import { buildPageMetadata, mergeKeywords } from "@/lib/seo";
 
 export const revalidate = 300;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getTranslations("seo");
+  const locale = await getLocale();
+  const industryKeywords = seo.raw("keywords.industry") as string[];
+  return buildPageMetadata({
+    title: seo("pages.about.title"),
+    description: seo("pages.about.description"),
+    keywords: mergeKeywords(industryKeywords),
+    href: "/about-us",
+    locale,
+  });
+}
 
 export default async function AboutUsPage() {
   const nav = await getTranslations("nav");

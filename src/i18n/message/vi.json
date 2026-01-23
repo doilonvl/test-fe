@@ -1,18 +1,18 @@
 {
   "nav": {
     "home": "Trang chủ",
-    "products": "Sản phẩm & Dịch vụ",
-    "projects": "Dự án",
-    "privacy": "Chính sách & Bảo mật",
+    "products": "Giải pháp vui chơi",
+    "projects": "Công trình tiêu biểu",
+    "privacy": "Chính sách bảo mật",
     "news": "Tin tức",
     "loading": "Đang tải...",
     "noCatalogs": "Không có catalog nào",
     "about": "Giới thiệu",
-    "contact": "Liên hệ"
+    "contact": "Nhận báo giá"
   },
   "home": {
-    "heroTitle": "Nhà cung cấp và sản xuất thiết bị sân chơi",
-    "heroDesc": "Hasake Play chuyên thiết kế, cung cấp và lắp đặt thiết bị sân chơi ngoài trời và trong nhà với thiết bị sân chơi trẻ em và sàn an toàn, đồng thời đảm bảo tính sáng tạo, tương tác và an toàn được kết hợp trong mọi thiết kế của chúng tôi.",
+    "heroTitle": "Kiến tạo không gian vui chơi đẳng cấp, tối ưu lợi nhuận",
+    "heroDesc": "Hasake Play đồng hành từ ý tưởng, thiết kế, 3D render đến thi công — tối ưu an toàn, trải nghiệm và dòng doanh thu.",
     "brandT": "Những Thương Hiệu",
     "brandD": "Uy tín",
     "brandS": "Có mặt tại",
@@ -23,11 +23,146 @@
     "latestError": "Không tải được sản phẩm!",
     "featuredProjectsTitle": "Các dự án nổi bật",
     "featuredProjectsSubtitle": "Những công trình tiêu biểu do Hasake triển khai.",
-    "featuredProjectsCTA": "Xem tất cả dự án"
+    "featuredProjectsCTA": "Xem tất cả dự án",
+    "heroEyebrow": "Digital showroom cho nhà đầu tư",
+    "heroPrimaryCta": "Nhận báo giá miễn phí",
+    "heroSecondaryCta": "Xem công trình tiêu biểu",
+    "heroBadgeOne": "20+ năm kinh nghiệm quốc tế",
+    "heroBadgeTwo": "Tiêu chuẩn an toàn ISO",
+    "heroBadgeThree": "Triển khai trọn gói A–Z",
+    "trust": {
+      "titleOne": "Tư vấn đến vận hành",
+      "descOne": "Khảo sát, thiết kế, lắp đặt và bảo trì.",
+      "titleTwo": "Tối ưu hiệu quả đầu tư",
+      "descTwo": "Bố cục tăng thời gian lưu trú và doanh thu.",
+      "titleThree": "Chất lượng đã kiểm chứng",
+      "descThree": "Vật liệu và tiêu chuẩn sẵn sàng nghiệm thu."
+    },
+    "leadMagnetEyebrow": "Lead magnet",
+    "leadMagnetTitle": "Tải bộ chiến lược khu vui chơi 2026",
+    "leadMagnetDesc": "Catalog + checklist + hướng dẫn đầu tư giúp bạn kiểm tra ngân sách, an toàn và concept.",
+    "leadMagnetCtaPrimary": "Tải catalog",
+    "leadMagnetCtaSecondary": "Nhận bản vẽ 3D miễn phí",
+    "futureEyebrow": "Xu hướng 2026",
+    "futureTitle": "Sân chơi hòa nhập & bền vững",
+    "futureDesc": "Tập trung vào an toàn, hòa nhập và vật liệu xanh — phù hợp trường quốc tế, resort cao cấp.",
+    "futureCards": {
+      "inclusive": {
+        "title": "Inclusive Play",
+        "desc": "Thiết kế tiếp cận cho trẻ em khuyết tật và đa dạng khả năng."
+      },
+      "green": {
+        "title": "Green Play",
+        "desc": "Ưu tiên vật liệu bền vững, giảm phát thải, thân thiện môi trường."
+      }
+    }
+  },
+  "intro": {
+    "why": "Tại sao mọi người chọn",
+    "unique": "Hệ thống triển khai đã kiểm chứng bởi",
+    "brand": "Hasake Play",
+    "middleTitle": "Quy trình triển khai",
+    "blocks": [
+      {
+        "desc": "Hiểu rõ hiện trạng mặt bằng, ngân sách và mục tiêu doanh thu.",
+        "title": "Khảo sát & Chiến lược"
+      },
+      {
+        "desc": "Trực quan hóa ý tưởng với bản vẽ 3D được phân khu tối ưu ROI.",
+        "title": "Concept 3D & Bố trí"
+      },
+      {
+        "desc": "Vật liệu chuẩn ISO, kiểm tra an toàn, bàn giao đúng tiến độ.",
+        "title": "Sản xuất & Thi công"
+      },
+      {
+        "desc": "Đào tạo nhân sự, kiểm định định kỳ và hỗ trợ trọn đời.",
+        "title": "Vận hành & Bảo trì"
+      }
+    ]
+  },
+  "aboutUs": {
+    "heading": {
+      "prefix": "Tìm hiểu",
+      "highlight": "về chúng tôi"
+    },
+    "tabs": {
+      "about": "Về Hasake",
+      "season": "Season avanue",
+      "bowling": "Green bowling",
+      "water": "Công viên nước",
+      "aboutShort": "Giới thiệu",
+      "seasonShort": "Season",
+      "bowlingShort": "Bowling",
+      "waterShort": "Nước"
+    },
+    "imageAlt": "Hasake Play - Về chúng tôi",
+    "about": {
+      "title": "Về chúng tôi",
+      "p1": "Công ty TNHH Hasake là văn phòng đại diện chính thức tại Việt Nam của Tập đoàn HKS với hơn 20 năm hình thành và phát triển. Trụ sở chính đặt tại Bangkok, Thái Lan, cùng các văn phòng đại diện và nhà máy tại Malaysia, Ấn Độ, Trung Quốc, Canada, Hàn Quốc, Ý, Mỹ, Hungary, Philippines, v.v.",
+      "p2": "Chúng tôi cung cấp và lắp đặt thiết bị sân chơi trẻ em trong nhà và ngoài trời như cầu trượt, thú nhún, nhà liên hoàn, xe điện đụng, xích đu, bập bênh, nhà bóng, vòng quay, bạt nhún... cũng như thiết bị thể dục ngoài trời, thiết bị bowling, thiết bị giải trí, công viên nước và sàn cao su an toàn.",
+      "p3": "Sản phẩm của chúng tôi được sản xuất theo tiêu chuẩn Châu Âu (chứng nhận ISO 9001), đảm bảo an toàn, không độc hại và được tin dùng tại nhiều quốc gia trên thế giới.",
+      "p4": "Chúng tôi duy trì đội ngũ chuyên nghiệp tại từng địa điểm, luôn sẵn sàng phục vụ và đáp ứng nhu cầu của khách hàng một cách tốt nhất."
+    },
+    "season": {
+      "title": "Season avanue",
+      "videoAria": "Video giới thiệu Season avanue",
+      "p1": "Season avanue là bộ sưu tập các giải pháp vui chơi theo mùa do Hasake đề xuất cho trung tâm thương mại và khu phức hợp. Mỗi khu vực được tối ưu hóa luồng di chuyển, tầm nhìn của phụ huynh và sử dụng vật liệu bền bỉ đạt chuẩn an toàn quốc tế.",
+      "p2": "Thiết kế dạng mô-đun cho phép nâng cấp chủ đề và thay thế theo mùa nhanh chóng mà không mất nhiều thời gian ngừng hoạt động. Sàn cao su, bảo vệ cạnh mềm và lớp phủ kháng khuẩn hỗ trợ vận hành an toàn, dễ vệ sinh và giảm chi phí bảo trì."
+    },
+    "bowling": {
+      "title": "Green bowling",
+      "videoAria": "Video giới thiệu Green bowling",
+      "p1": "Green bowling hướng tới không gian bowling thân thiện với gia đình, bố trí làn thông minh, rào chắn trẻ em và giao diện tính điểm trực quan. Hệ thống đèn LED tiết kiệm năng lượng và vật liệu phát thải thấp giúp giảm tiêu thụ vận hành.",
+      "p2": "Hasake cung cấp dịch vụ thiết kế và lắp đặt trọn gói: tối ưu mặt bằng, tiêu chuẩn cách âm và quy trình bảo trì định kỳ — tất cả nhằm nâng cao trải nghiệm, tăng thời gian lưu trú và tối ưu doanh thu cho mô hình FEC/retailtainment."
+    },
+    "water": {
+      "title": "Công viên nước",
+      "videoAria": "Video giới thiệu Công viên nước",
+      "p1": "Giải pháp công viên nước của Hasake bao gồm máng trượt FRP, sân chơi nước (splash pad), đài phun tương tác, xô đổ nước, cùng hệ thống tuần hoàn–lọc–khử trùng đạt chuẩn. Thiết kế ưu tiên độ an toàn của máng trượt, bề mặt chống trượt và thoát nước nhanh.",
+      "p2": "Quy trình triển khai của chúng tôi tuân thủ tiêu chuẩn từ khảo sát, thiết kế concept, bản vẽ kỹ thuật, thi công đến vận hành thử. Chúng tôi đào tạo nhân viên tại chỗ và cung cấp bảo trì để đảm bảo vận hành an toàn, ổn định quanh năm."
+    }
+  },
+  "contactPage": {
+    "title": "Liên hệ",
+    "eyebrow": "Trò chuyện với Hasake",
+    "heroTitle": "Liên hệ Hasake Play",
+    "heroSubtitle": "Chúng tôi hoạt động trên khắp Việt Nam và khu vực Châu Á - Thái Bình Dương. Hãy chọn văn phòng gần nhất hoặc gửi chi tiết dự án của bạn cho chúng tôi.",
+    "hotline": "Hotline",
+    "email": "Email",
+    "ctaTitle": "Hỗ trợ nhanh",
+    "ctaHeadline": "Chia sẻ nhu cầu của bạn",
+    "ctaDesc": "Chúng tôi sẽ phản hồi trong giờ làm việc với chuyên gia phù hợp cho yêu cầu của bạn.",
+    "miniCards": {
+      "projects": {
+        "title": "Tư vấn dự án",
+        "desc": "Bố trí mặt bằng, vật liệu, dự toán ngân sách và tuân thủ an toàn."
+      },
+      "support": {
+        "title": "Dịch vụ & Hậu mãi",
+        "desc": "Mẹo vận hành, bảo trì và hướng dẫn về linh kiện thay thế."
+      }
+    },
+    "formTitle": "Gửi tin nhắn cho chúng tôi",
+    "formSubtitle": "Chỉ cần 3 trường: tên, số điện thoại và email. Chúng tôi sẽ liên hệ lại nhanh chóng.",
+    "officesTitle": "Văn phòng",
+    "officesSubtitle": "Việt Nam & Quốc tế",
+    "officesIntro": "Gọi hoặc ghé thăm địa điểm gần nhất, hoặc sử dụng biểu mẫu để được phản hồi nhanh.",
+    "officesLabel": "Tìm chúng tôi ở đâu",
+    "officesGridTitle": "Văn phòng trên toàn cầu",
+    "officesGridSubtitle": "Chọn thành phố để liên hệ ngay với đội ngũ phụ trách.",
+    "badges": {
+      "hq": "Trụ sở chính",
+      "vietnam": "Việt Nam",
+      "asia": "Châu Á",
+      "global": "Toàn cầu"
+    }
   },
   "footer": {
     "contactCompany": "Liên hệ Công ty TNHH Hasake",
-    "hotline": { "label": "HOTLINE" },
+    "hotline": {
+      "label": "HOTLINE"
+    },
     "contactBoss": "Người đại diện pháp luật: Hari Dass Kumar Ratna Kumar (Ông)",
     "helpCenter": "Trung tâm hỗ trợ",
     "tel": "Điện thoại",
@@ -55,7 +190,9 @@
       "address": "GREENPRO INDIA CONSULTANT PVT. LTD., 416 & 417, 4TH FLOOR, SUNSHINE PLAZA, NAIGAON CROSS ROAD, DADAR (E), MUMBAI – 400 014, INDIA."
     },
     "viewMap": "Xem bản đồ",
-    "info": { "title": "Thông tin" },
+    "info": {
+      "title": "Thông tin"
+    },
     "links": {
       "privacy": "Chính sách bảo mật",
       "terms": "Điều khoản sử dụng",
@@ -76,9 +213,9 @@
     "subtitle": "Khám phá danh mục sản phẩm của Hasake Play",
     "resultCount": "{count} kết quả",
     "searchPlaceholder": "Tìm theo tên, từ khóa...",
-    "clear": "Xóa lọc",
+    "clear": "Xóa bộ lọc",
     "all": "Tất cả",
-    "relatedTitle": "Gợi ý liên quan",
+    "relatedTitle": "Sản phẩm liên quan",
     "sort": {
       "order": "Thứ tự ↑",
       "-order": "Thứ tự ↓",
@@ -88,289 +225,20 @@
       "-createdAt": "Cũ nhất"
     },
     "empty": {
-      "title": "Không có kết quả phù hợp",
-      "desc": "Hãy điều chỉnh bộ lọc hoặc từ khóa tìm kiếm."
+      "title": "Không tìm thấy kết quả",
+      "desc": "Vui lòng điều chỉnh từ khóa hoặc bộ lọc."
     },
-    "viewDetails": "Xem chi tiết"
-  },
-  "contactPage": {
-    "title": "Liên hệ",
-    "eyebrow": "Kết nối cùng Hasake",
-    "heroTitle": "Liên hệ Hasake Play",
-    "heroSubtitle": "Chúng tôi có mặt tại nhiều thành phố và khu vực. Chọn văn phòng gần bạn hoặc gửi yêu cầu trực tiếp.",
-    "hotline": "Hotline",
-    "email": "Email",
-    "ctaTitle": "Hỗ trợ nhanh",
-    "ctaHeadline": "Chia sẻ nhu cầu của bạn",
-    "ctaDesc": "Đội ngũ Hasake sẽ phản hồi trong giờ làm việc với đúng chuyên gia.",
-    "miniCards": {
-      "projects": {
-        "title": "Tư vấn dự án",
-        "desc": "Bản vẽ layout, vật liệu, ngân sách và tuân thủ an toàn."
-      },
-      "support": {
-        "title": "Dịch vụ & bảo trì",
-        "desc": "Hướng dẫn vận hành, bảo dưỡng và phụ tùng thay thế."
-      }
-    },
-    "formTitle": "Gửi thông tin liên hệ",
-    "formSubtitle": "Điền đầy đủ các trường bắt buộc để chúng tôi hỗ trợ nhanh hơn.",
-    "officesTitle": "Văn phòng",
-    "officesSubtitle": "Việt Nam & Quốc tế",
-    "officesIntro": "Gọi hoặc ghé văn phòng gần nhất, hoặc gửi form để được phản hồi sớm.",
-    "officesLabel": "Liên hệ trực tiếp",
-    "officesGridTitle": "Các văn phòng của Hasake",
-    "officesGridSubtitle": "Kết nối dễ dàng tại bất kỳ vị trí nào.",
-    "badges": {
-      "hq": "Trụ sở",
-      "vietnam": "Việt Nam",
-      "asia": "Châu Á",
-      "global": "Global"
-    }
-  },
-  "intro": {
-    "why": "Tại sao mọi người chọn",
-    "unique": "Sự độc đáo từ",
-    "brand": "Hasake Play",
-    "middleTitle": "Chúng tôi?",
-    "blocks": [
-      {
-        "title": "Triết lý của chúng tôi",
-        "desc": "Biến giấc mơ của khách hàng thành hiện thực, mang đến những sân chơi ý nghĩa cho mọi lứa tuổi."
-      },
-      {
-        "title": "Sứ mệnh của chúng tôi",
-        "desc": "Cam kết tính chuyên nghiệp và sáng tạo trong từng dự án, nâng cao trải nghiệm vui chơi cộng đồng."
-      },
-      {
-        "title": "Tầm nhìn của chúng tôi",
-        "desc": "Mang con người đến gần hơn với thiên nhiên, tạo ra không gian sống xanh và lành mạnh."
-      },
-      {
-        "title": "An toàn và chất lượng",
-        "desc": "An toàn là ưu tiên số một, chất lượng là nền tảng để xây dựng niềm tin với khách hàng."
-      }
-    ]
-  },
-  "aboutUs": {
-    "heading": {
-      "prefix": "Tìm hiểu",
-      "highlight": "về chúng tôi"
-    },
-    "tabs": {
-      "about": "Giới thiệu",
-      "season": "Season avanue",
-      "bowling": "Green bowling",
-      "water": "Công viên nước",
-      "aboutShort": "Giới thiệu",
-      "seasonShort": "Season",
-      "bowlingShort": "Bowling",
-      "waterShort": "Nước"
-    },
-    "imageAlt": "Hasake Play - Giới thiệu",
-    "about": {
-      "title": "Giới thiệu",
-      "p1": "Công Ty TNHH Há Sa Kê là văn phòng đại diện tại Việt Nam của tập đoàn HKS với hơn 20 năm thành lập và phát triển. Văn phòng chính đặt tại Bangkok, Thái Lan; ngoài ra chúng tôi còn có văn phòng đại diện và nhà máy ở nhiều nơi như: Malaysia, Ấn Độ, Trung Quốc, Canada, Hàn Quốc, Ý, Mỹ, Hungary, Philippines...",
-      "p2": "Công ty chúng tôi chuyên cung cấp và lắp đặt các loại thiết bị dành cho sân chơi trẻ em trong nhà và ngoài trời như: cầu trượt, thú nhún, nhà liên hoàn, xe điện đụng, xích đu, bập bênh, nhà banh, đu quay, vòng quay ngựa gỗ, bạt nhún,... cùng các thiết bị luyện tập thể dục ngoài trời, thiết bị bowling, thiết bị vui chơi giải trí, thiết bị công viên nước, sàn cao su an toàn...",
-      "p3": "Sản phẩm của chúng tôi được sản xuất theo tiêu chuẩn Châu Âu (chứng chỉ ISO9001), đặc biệt an toàn, không độc hại và được sử dụng ở nhiều nước trên thế giới.",
-      "p4": "Ở mỗi nơi chúng tôi đều có một đội ngũ nhân viên chuyên nghiệp, luôn sẵn sàng phục vụ và đáp ứng nhu cầu của khách hàng một cách tốt nhất."
-    },
-    "season": {
-      "title": "Season avanue",
-      "videoAria": "Video giới thiệu Season avanue",
-      "p1": "\"Season avanue\" là bộ sưu tập giải pháp vui chơi theo mùa do Hasake đề xuất cho trung tâm thương mại và khu phức hợp. Mỗi phân khu được tối ưu về lưu lượng di chuyển, khả năng quan sát của phụ huynh, cùng vật liệu bền bỉ đáp ứng tiêu chuẩn an toàn quốc tế.",
-      "p2": "Thiết kế mô-đun giúp nâng cấp – thay thế chủ đề theo mùa nhanh chóng mà không cần dừng hoạt động lâu. Hệ thống sàn cao su, bo góc mềm và lớp phủ kháng khuẩn hỗ trợ vận hành an toàn, dễ vệ sinh, giảm chi phí bảo trì cho chủ đầu tư."
-    },
-    "bowling": {
-      "title": "Green bowling",
-      "videoAria": "Video giới thiệu Green bowling",
-      "p1": "Dòng \"Green bowling\" hướng tới không gian bowling thân thiện với gia đình, bố trí đường lane thông minh, hệ thống barrier cho trẻ em và giao diện scoring trực quan. Ánh sáng LED tiết kiệm năng lượng, vật liệu ít phát thải giúp giảm tiêu hao vận hành.",
-      "p2": "Hasake hỗ trợ thiết kế – lắp đặt trọn gói: từ tối ưu mặt bằng, tiêu chuẩn âm học, cho tới quy trình bảo trì định kỳ. Mục tiêu là tăng trải nghiệm, tăng thời gian lưu trú và tối ưu doanh thu cho mô hình FEC/retailtainment."
-    },
-    "water": {
-      "title": "Công viên nước",
-      "videoAria": "Video giới thiệu Công viên nước",
-      "p1": "Giải pháp công viên nước của Hasake bao gồm máng trượt FRP, splash pad, vòi phun tương tác, xô đổ nước, cùng hệ thống tuần hoàn – lọc – khử trùng đạt chuẩn. Thiết kế ưu tiên an toàn mặt trượt, chống trơn và khả năng thoát nước nhanh.",
-      "p2": "Quy trình triển khai tuân thủ tiêu chuẩn, từ khảo sát – thiết kế concept – shopdrawing – thi công – vận hành thử. Đội ngũ hỗ trợ đào tạo nhân sự và bảo trì để công viên hoạt động ổn định, an toàn quanh năm."
-    }
-  },
-  "privacy": {
-    "meta": {
-      "title": "Chính Sách Bảo Mật - Công Ty TNHH Hasake",
-      "description": "Cách Công Ty TNHH Hasake thu thập, sử dụng và bảo vệ thông tin cá nhân của bạn khi tương tác với chúng tôi."
-    },
-    "eyebrow": "Công Ty TNHH Hasake",
-    "title": "Chính sách bảo mật",
-    "intro": "Chúng tôi trân trọng quyền riêng tư và cam kết bảo vệ thông tin cá nhân của bạn khi sử dụng trang web cũng như khi liên hệ với chúng tôi.",
-    "lastUpdated": "Cập nhật lần cuối",
-    "sections": [
-      {
-        "title": "1. Phạm vi & áp dụng",
-        "items": [
-          "Chính Sách này áp dụng cho mọi dữ liệu cá nhân Hasake thu thập khi bạn truy cập và sử dụng Trang web, hoặc khi bạn liên hệ với chúng tôi.",
-          "Bằng việc sử dụng Trang web hoặc gửi thông tin cho chúng tôi (qua form, email, điện thoại, ...), bạn đồng ý với các nội dung được nêu tại đây."
-        ]
-      },
-      {
-        "title": "2. Thông tin chúng tôi thu thập",
-        "blocks": [
-          {
-            "subtitle": "a) Thông tin bạn cung cấp",
-            "items": [
-              "Các form liên hệ / báo giá / tư vấn.",
-              "Họ tên, email, điện thoại, công ty hoặc tổ chức, chi tiết dự án (ví dụ: kích thước, loại sân chơi).",
-              "Bất kỳ thông tin nào bạn chia sẻ qua email, điện thoại hoặc kênh khác."
-            ]
-          },
-          {
-            "subtitle": "b) Thông tin tự động thu thập",
-            "items": [
-              "Địa chỉ IP, trình duyệt, hệ điều hành, thông tin thiết bị.",
-              "Trang đã xem, thời gian trên trang, trang giới thiệu/thoát, các lần nhấp/tương tác.",
-              "Cookie và công nghệ theo dõi tương tự."
-            ]
-          }
-        ]
-      },
-      {
-        "title": "3. Cách chúng tôi sử dụng thông tin",
-        "items": [
-          "Phản hồi yêu cầu, cung cấp báo giá và theo dõi các đề nghị dự án.",
-          "Cải thiện và cá nhân hóa website cùng trải nghiệm người dùng.",
-          "Phân tích mức độ sử dụng để tối ưu hiệu suất.",
-          "Gửi thông báo/cập nhật quan trọng khi cần.",
-          "Tăng cường bảo mật và ngăn ngừa lạm dụng hoặc gian lận."
-        ]
-      },
-      {
-        "title": "4. Cookie & công nghệ theo dõi",
-        "items": [
-          "Chúng tôi dùng cookie (và công nghệ tương tự) để hiểu hành vi sử dụng, ghi nhớ tùy chọn và cải thiện trải nghiệm web.",
-          "Bạn có thể tắt cookie trong trình duyệt, nhưng một số tính năng có thể bị hạn chế."
-        ]
-      },
-      {
-        "title": "5. Chia sẻ thông tin",
-        "items": [
-          "Chúng tôi không bán dữ liệu cá nhân.",
-          "Có thể chia sẻ với nhà cung cấp dịch vụ (lưu trữ, phân tích) hoặc đối tác/nhà thầu phục vụ báo giá hay triển khai dự án.",
-          "Có thể cung cấp dữ liệu cho cơ quan chức năng nếu pháp luật yêu cầu hoặc để bảo vệ quyền lợi của chúng tôi.",
-          "Các bên thứ ba được yêu cầu bảo mật và chỉ sử dụng đúng mục đích."
-        ]
-      },
-      {
-        "title": "6. Bảo mật dữ liệu",
-        "items": [
-          "Áp dụng biện pháp kỹ thuật và tổ chức phù hợp để bảo vệ dữ liệu.",
-          "Không có truyền dẫn hay lưu trữ internet nào đảm bảo 100% an toàn; chúng tôi không thể cam kết tuyệt đối."
-        ]
-      },
-      {
-        "title": "7. Thời gian lưu giữ",
-        "items": [
-          "Lưu giữ dữ liệu trong thời gian cần thiết để phục vụ mục đích (ví dụ: theo dõi báo giá hoặc dự án).",
-          "Khi có yêu cầu xóa hoặc rút lại sự đồng ý, chúng tôi sẽ xóa dữ liệu trừ khi cần giữ lại vì lý do pháp lý hoặc kinh doanh chính đáng."
-        ]
-      },
-      {
-        "title": "8. Quyền của bạn",
-        "items": [
-          "Truy cập, chỉnh sửa/cập nhật hoặc xóa dữ liệu cá nhân.",
-          "Rút lại sự đồng ý hoặc phản đối một số mục đích xử lý.",
-          "Liên hệ với chúng tôi để thực hiện các quyền này."
-        ]
-      },
-      {
-        "title": "9. Liên kết bên thứ ba",
-        "items": [
-          "Trang web có thể liên kết tới trang của đối tác/nhà cung cấp.",
-          "Chúng tôi không chịu trách nhiệm về chính sách của họ; vui lòng tham khảo riêng."
-        ]
-      },
-      {
-        "title": "10. Quyền riêng tư của trẻ em",
-        "items": [
-          "Trang web không hướng tới trẻ em dưới 13 tuổi.",
-          "Chúng tôi không cố ý thu thập dữ liệu từ trẻ dưới 13; nếu bạn cho rằng chúng tôi đã thu thập, hãy liên hệ để được xóa."
-        ]
-      },
-      {
-        "title": "11. Thay đổi của Chính Sách",
-        "items": [
-          "Chúng tôi có thể cập nhật Chính Sách theo thời gian.",
-          "Mọi thay đổi sẽ đăng tại đây kèm ngày “Cập nhật lần cuối”. Vui lòng xem lại định kỳ."
-        ]
-      }
-    ],
-    "contact": {
-      "title": "12. Liên hệ với chúng tôi",
-      "description": "Nếu bạn có câu hỏi, thắc mắc hoặc yêu cầu liên quan đến dữ liệu cá nhân hay Chính Sách Bảo Mật này, vui lòng liên hệ:",
-      "emailLabel": "Email",
-      "phoneLabel": "Điện thoại",
-      "addressLabel": "Địa chỉ",
-      "email": "info@hasakeplay.com.vn",
-      "phone": "+84 (028) 3 931 9092",
-      "address": "Tầng 5, 27K Trần Nhật Duật, Phường Tân Định, TP. Hồ Chí Minh, Việt Nam."
-    }
-  },
-  "news": {
-    "title": "Tin tức",
-    "subtitle": "Những cập nhật và câu chuyện mới nhất từ Hasake Play.",
-    "breadcrumb": "Trang chủ / Tin tức",
-    "readMore": "Xem thêm",
-    "relatedTitle": "Bài viết liên quan"
-  },
-  "projects": {
-    "title": "Dự án",
-    "filterAllYears": "Tất cả các năm",
-    "searchPlaceholder": "Tìm theo tên / phạm vi / khách hàng",
-    "table": {
-      "project": "Dự án",
-      "scope": "Phạm vi công việc",
-      "client": "Khách hàng",
-      "year": "Năm"
-    },
-    "empty": "Không có kết quả",
-    "detail": {
-      "scope": "Phạm vi",
-      "client": "Khách hàng",
-      "year": "Năm",
-      "noImages": "Dự án này chưa có hình ảnh đính kèm.",
-      "gallery": "Bộ sưu tập ảnh",
-      "galleryTitle": "Hình ảnh dự án"
-    },
-    "pagination": {
-      "showing": "Hiển thị {start}–{end} trong tổng {total}",
-      "noData": "Không có dữ liệu",
-      "perPageSuffix": "/ trang"
-    },
-    "aria": {
-      "filterByYear": "Lọc theo năm",
-      "search": "Tìm kiếm dự án",
-      "firstPage": "Trang đầu",
-      "prevPage": "Trang trước",
-      "nextPage": "Trang sau",
-      "lastPage": "Trang cuối"
-    },
-    "resultCount": "{count} dự án",
-    "clear": "Làm mới bộ lọc",
-    "galleryEmpty": "Chưa có hình ảnh dự án.",
-    "card": {
-      "label": "Dự án",
-      "cta": "Xem chi tiết"
-    },
-    "galleryToggle": {
-      "more": "Phóng to",
-      "less": "Thu gọn"
-    },
-    "relatedTitle": "Dự án liên quan",
-    "loadMore": "Tải thêm dự án",
-    "loadingMore": "Đang tải dự án..."
+    "viewDetails": "Xem chi tiết",
+    "usedProjectsEyebrow": "Minh chứng",
+    "usedProjectsTitle": "Dự án sử dụng sản phẩm này",
+    "usedProjectsDesc": "Các công trình tiêu biểu đã lắp đặt sản phẩm.",
+    "usedProjectsEmpty": "Chưa có dự án nào được liệt kê. Khám phá các dự án tiêu biểu của Hasake.",
+    "usedProjectsCta": "Xem dự án"
   },
   "contact": {
-    "trigger": "Liên hệ",
-    "title": "Liên hệ với chúng tôi",
-    "description": "Nếu bạn cần hỗ trợ, hãy điền biểu mẫu dưới đây, chúng tôi sẽ phản hồi trong thời gian sớm nhất.",
+    "trigger": "Nhận báo giá miễn phí",
+    "title": "Nhận báo giá & tư vấn dự án",
+    "description": "Chỉ cần tên, số điện thoại và email. Chúng tôi sẽ liên hệ ngay.",
     "name": "Họ và tên",
     "phone": "Số điện thoại",
     "email": "Email",
@@ -393,6 +261,274 @@
       "city": "Hà Nội",
       "address": "123 Đường, Quận X",
       "message": "Lời nhắn của bạn..."
+    },
+    "privacyNote": "Chúng tôi cam kết bảo mật thông tin của bạn theo tiêu chuẩn ISO.",
+    "optional": "Không bắt buộc"
+  },
+  "privacy": {
+    "meta": {
+      "title": "Chính sách bảo mật - Công ty TNHH Hasake",
+      "description": "Cách Công ty TNHH Hasake thu thập, sử dụng và bảo vệ thông tin cá nhân của bạn khi bạn tương tác với chúng tôi."
+    },
+    "eyebrow": "Công ty TNHH Hasake",
+    "title": "Chính sách bảo mật",
+    "intro": "Chúng tôi coi trọng sự riêng tư của bạn và cam kết bảo vệ thông tin cá nhân khi bạn sử dụng website và liên lạc với chúng tôi.",
+    "lastUpdated": "Cập nhật lần cuối",
+    "sections": [
+      {
+        "title": "1. Phạm vi & Áp dụng",
+        "items": [
+          "Chính sách này áp dụng cho mọi dữ liệu cá nhân được Hasake thu thập khi bạn truy cập trang web hoặc liên hệ với chúng tôi.",
+          "Bằng cách sử dụng trang web hoặc gửi thông tin (qua biểu mẫu, email, điện thoại...), bạn đồng ý với các thực tiễn được mô tả tại đây."
+        ]
+      },
+      {
+        "title": "2. Thông tin chúng tôi thu thập",
+        "blocks": [
+          {
+            "subtitle": "a) Thông tin bạn tự nguyện cung cấp",
+            "items": [
+              "Biểu mẫu liên hệ / báo giá / tư vấn.",
+              "Tên, email, số điện thoại, công ty/tổ chức và chi tiết dự án (ví dụ: kích thước sân chơi, loại hình).",
+              "Mọi thông tin được chia sẻ qua email, điện thoại hoặc các kênh khác."
+            ]
+          },
+          {
+            "subtitle": "b) Thông tin được thu thập tự động",
+            "items": [
+              "Địa chỉ IP, loại trình duyệt, hệ điều hành, thông tin thiết bị.",
+              "Các trang đã xem, thời gian trên trang, trang giới thiệu/thoát, các lần nhấp/tương tác.",
+              "Cookies và các công nghệ theo dõi tương tự."
+            ]
+          }
+        ]
+      },
+      {
+        "title": "3. Sử dụng thông tin của bạn",
+        "items": [
+          "Phản hồi các yêu cầu, cung cấp báo giá và theo dõi các dự án.",
+          "Cải thiện và cá nhân hóa website cũng như trải nghiệm người dùng.",
+          "Phân tích việc sử dụng trang web để tối ưu hóa hiệu suất.",
+          "Gửi các cập nhật hoặc thông báo quan trọng khi cần thiết.",
+          "Tăng cường bảo mật và bảo vệ chống lại gian lận hoặc sử dụng sai mục đích."
+        ]
+      },
+      {
+        "title": "4. Cookies & Công nghệ theo dõi",
+        "items": [
+          "Chúng tôi sử dụng cookies (và các công nghệ tương tự) để hiểu cách sử dụng, ghi nhớ tùy chọn và cải thiện trải nghiệm web.",
+          "Bạn có thể tắt cookies trong trình duyệt của mình, nhưng một số tính năng có thể bị hạn chế."
+        ]
+      },
+      {
+        "title": "5. Chia sẻ thông tin của bạn",
+        "items": [
+          "Chúng tôi không bán dữ liệu cá nhân của bạn.",
+          "Chúng tôi có thể chia sẻ với các nhà cung cấp dịch vụ (lưu trữ, phân tích) hoặc đối tác/nhà thầu khi cần thiết cho việc báo giá hoặc dịch vụ dự án.",
+          "Chúng tôi có thể tiết lộ dữ liệu cho cơ quan chức năng nếu luật pháp yêu cầu hoặc để bảo vệ quyền lợi của chúng tôi.",
+          "Tất cả các bên thứ ba được yêu cầu giữ bí mật dữ liệu và chỉ sử dụng cho mục đích đã định."
+        ]
+      },
+      {
+        "title": "6. Bảo mật dữ liệu",
+        "items": [
+          "Chúng tôi áp dụng các biện pháp kỹ thuật và tổ chức phù hợp để bảo vệ dữ liệu của bạn.",
+          "Không có việc truyền tải hoặc lưu trữ trên internet nào là an toàn 100%; không thể đảm bảo an ninh tuyệt đối."
+        ]
+      },
+      {
+        "title": "7. Lưu giữ dữ liệu",
+        "items": [
+          "Chúng tôi chỉ giữ dữ liệu của bạn trong thời gian cần thiết để hoàn thành mục đích (ví dụ: theo dõi báo giá hoặc dự án).",
+          "Khi có yêu cầu xóa hoặc rút lại sự đồng ý, chúng tôi sẽ xóa dữ liệu trừ khi có lý do pháp lý hoặc kinh doanh hợp pháp yêu cầu lưu giữ."
+        ]
+      },
+      {
+        "title": "8. Quyền của bạn",
+        "items": [
+          "Truy cập, sửa đổi/cập nhật hoặc xóa dữ liệu cá nhân của bạn.",
+          "Rút lại sự đồng ý hoặc phản đối một số hoạt động xử lý nhất định.",
+          "Liên hệ với chúng tôi để thực hiện các quyền này."
+        ]
+      },
+      {
+        "title": "9. Liên kết bên thứ ba",
+        "items": [
+          "Trang web của chúng tôi có thể liên kết đến các trang web bên ngoài (ví dụ: đối tác, nhà cung cấp).",
+          "Chúng tôi không chịu trách nhiệm về thực tiễn bảo mật của họ; vui lòng xem lại chính sách riêng của họ."
+        ]
+      },
+      {
+        "title": "10. Quyền riêng tư của trẻ em",
+        "items": [
+          "Trang web của chúng tôi nhìn chung không dành cho trẻ em dưới 13 tuổi.",
+          "Chúng tôi không cố ý thu thập dữ liệu từ trẻ em dưới 13 tuổi; nếu bạn tin rằng chúng tôi đã thu thập, hãy liên hệ để chúng tôi xóa bỏ."
+        ]
+      },
+      {
+        "title": "11. Thay đổi Chính sách này",
+        "items": [
+          "Chúng tôi có thể cập nhật Chính sách này theo thời gian.",
+          "Các thay đổi sẽ được đăng tại đây với ngày 'Cập nhật lần cuối' mới. Vui lòng xem lại định kỳ."
+        ]
+      }
+    ],
+    "contact": {
+      "title": "12. Liên hệ với chúng tôi",
+      "description": "Nếu bạn có bất kỳ câu hỏi, thắc mắc hoặc yêu cầu nào về dữ liệu cá nhân hoặc Chính sách bảo mật này, vui lòng liên hệ:",
+      "emailLabel": "Email",
+      "phoneLabel": "Điện thoại",
+      "addressLabel": "Địa chỉ",
+      "email": "info@hasakeplay.com.vn",
+      "phone": "+84 (028) 3 931 9092",
+      "address": "Tầng 5, 27K Trần Nhật Duật, Phường Tân Định, TP. Hồ Chí Minh, Việt Nam."
+    }
+  },
+  "news": {
+    "title": "Tin tức",
+    "subtitle": "Cập nhật tin tức và câu chuyện mới nhất từ Hasake Play.",
+    "breadcrumb": "Trang chủ / Tin tức",
+    "readMore": "Xem thêm",
+    "relatedTitle": "Bài viết liên quan"
+  },
+  "projects": {
+    "title": "Dự án",
+    "resultCount": "{count} dự án",
+    "clear": "Xóa lọc",
+    "filterAllYears": "Tất cả các năm",
+    "searchPlaceholder": "Tìm theo tên / phạm vi / khách hàng",
+    "galleryEmpty": "Chưa có hình ảnh dự án nào.",
+    "card": {
+      "label": "Dự án",
+      "cta": "Xem dự án"
+    },
+    "loadMore": "Xem thêm dự án",
+    "loadingMore": "Đang tải dự án...",
+    "galleryToggle": {
+      "more": "Mở rộng thư viện",
+      "less": "Thu gọn thư viện"
+    },
+    "galleryControls": {
+      "zoomIn": "Phóng to",
+      "close": "Đóng",
+      "prev": "Ảnh trước",
+      "next": "Ảnh sau"
+    },
+    "relatedTitle": "Dự án liên quan",
+    "table": {
+      "project": "Dự án",
+      "scope": "Phạm vi",
+      "client": "Khách hàng",
+      "year": "Năm"
+    },
+    "empty": "Không có kết quả",
+    "detail": {
+      "scope": "Phạm vi",
+      "client": "Khách hàng",
+      "year": "Năm",
+      "noImages": "Dự án này chưa có hình ảnh đính kèm.",
+      "gallery": "Thư viện ảnh",
+      "galleryTitle": "Hình ảnh dự án"
+    },
+    "pagination": {
+      "showing": "Hiển thị {start}–{end} trong tổng {total}",
+      "noData": "Không có dữ liệu",
+      "perPageSuffix": "/ trang"
+    },
+    "aria": {
+      "filterByYear": "Lọc theo năm",
+      "search": "Tìm kiếm dự án",
+      "firstPage": "Trang đầu",
+      "prevPage": "Trang trước",
+      "nextPage": "Trang sau",
+      "lastPage": "Trang cuối"
+    },
+    "caseStudy": {
+      "eyebrow": "Case study",
+      "title": "Tóm tắt dự án",
+      "subtitle": "Thách thức, giải pháp và kết quả triển khai.",
+      "challenge": "Thách thức",
+      "solution": "Giải pháp",
+      "result": "Kết quả",
+      "empty": "Đang cập nhật nội dung case study cho dự án này."
+    },
+    "beforeAfter": {
+      "title": "Trước / Sau",
+      "before": "Trước",
+      "after": "Sau"
+    }
+  },
+  "seo": {
+    "keywords": {
+      "industry": [
+        "Thiết kế khu vui chơi",
+        "Thi công sân chơi ngoài trời",
+        "Nhà sản xuất thiết bị sân chơi",
+        "Playground manufacturer Vietnam",
+        "Máy tập công viên",
+        "Sàn cao su EPDM"
+      ]
+    },
+    "pages": {
+      "home": {
+        "title": "Thiết kế khu vui chơi & Thi công sân chơi ngoài trời tại Việt Nam",
+        "description": "Giải pháp thiết kế khu vui chơi, thi công sân chơi ngoài trời, thiết bị sân chơi, máy tập công viên và sàn cao su EPDM cho chủ đầu tư và trường học."
+      },
+      "projects": {
+        "title": "Dự án Thiết kế khu vui chơi & Thi công sân chơi ngoài trời",
+        "description": "Portfolio dự án thiết kế khu vui chơi, thi công sân chơi ngoài trời và lắp đặt thiết bị sân chơi trên toàn quốc."
+      },
+      "projectsDetail": {
+        "titleSuffix": "Dự án khu vui chơi",
+        "description": "Thông tin chi tiết dự án thiết kế và thi công khu vui chơi."
+      },
+      "products": {
+        "title": "Thiết bị sân chơi, Sàn cao su EPDM & Máy tập công viên",
+        "description": "Danh mục thiết bị sân chơi, sàn cao su EPDM và thiết bị thể dục ngoài trời kèm dịch vụ thiết kế, lắp đặt trọn gói."
+      },
+      "news": {
+        "title": "Tin tức Thiết kế khu vui chơi & Thi công sân chơi ngoài trời",
+        "description": "Cập nhật xu hướng, tiêu chuẩn và dự án thiết kế - thi công khu vui chơi mới nhất."
+      },
+      "newsDetail": {
+        "titleSuffix": "Góc nhìn ngành",
+        "description": "Góc nhìn chuyên sâu về thiết kế, thi công và thiết bị sân chơi tại Việt Nam."
+      },
+      "about": {
+        "title": "Nhà sản xuất thiết bị sân chơi tại Việt Nam",
+        "description": "Giới thiệu năng lực thiết kế, thi công sân chơi ngoài trời và sản xuất thiết bị sân chơi chuẩn quốc tế."
+      },
+      "contact": {
+        "title": "Nhận báo giá Thiết kế khu vui chơi & Thi công sân chơi ngoài trời",
+        "description": "Liên hệ để nhận tư vấn, báo giá thiết kế khu vui chơi, máy tập công viên và sàn cao su EPDM."
+      },
+      "privacy": {
+        "title": "Chính sách bảo mật",
+        "description": "Cách Hasake bảo vệ dữ liệu khi bạn tương tác với website thiết kế - thi công khu vui chơi."
+      }
+    },
+    "nonBrand": {
+      "eyebrow": "Hiển thị non-brand",
+      "title": "Mở rộng từ khóa ngành & Tối ưu hiển thị",
+      "objectiveTitle": "Mục tiêu",
+      "objectiveText": "Top 10 Google cho các từ khóa ngành chung (không kèm chữ Hasake).",
+      "keywordsTitle": "Từ khóa mục tiêu",
+      "keywords": [
+        "Thiết kế khu vui chơi",
+        "Thi công sân chơi ngoài trời",
+        "Nhà sản xuất thiết bị sân chơi",
+        "Playground manufacturer Vietnam",
+        "Máy tập công viên",
+        "Sàn cao su EPDM"
+      ],
+      "audienceTitle": "Đối tượng trọng tâm",
+      "audiences": [
+        "Chủ đầu tư BĐS (Vingroup, Novaland...)",
+        "Hiệu trưởng trường quốc tế",
+        "Ban quản lý dự án"
+      ],
+      "note": "Đồng bộ metadata, nội dung trang và minh chứng dự án để khách hàng tìm thấy bằng từ khóa ngành."
     }
   }
 }
+

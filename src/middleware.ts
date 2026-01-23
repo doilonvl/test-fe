@@ -22,8 +22,7 @@ const intl = createMiddleware({
 });
 
 export async function middleware(req: NextRequest) {
-  // eslint-disable-next-line prefer-const
-  let intlResponse = intl(req);
+  const { pathname } = req.nextUrl;
   const ensureLocaleCookie = (res: NextResponse) => {
     if (!req.cookies.get("NEXT_LOCALE")) {
       res.cookies.set("NEXT_LOCALE", defaultLocale, {
@@ -33,6 +32,26 @@ export async function middleware(req: NextRequest) {
     }
     return res;
   };
+  const localizedFallbacks: Record<string, string> = {
+    "/san-pham": "/products",
+    "/du-an": "/projects",
+    "/lien-he": "/contact-us",
+    "/gioi-thieu": "/about-us",
+    "/tin-tuc": "/news",
+    "/bao-mat": "/privacy",
+  };
+
+  for (const [from, to] of Object.entries(localizedFallbacks)) {
+    if (pathname === from || pathname.startsWith(`${from}/`)) {
+      const suffix = pathname.slice(from.length);
+      const url = req.nextUrl.clone();
+      url.pathname = `/${defaultLocale}${to}${suffix}`;
+      return ensureLocaleCookie(NextResponse.rewrite(url));
+    }
+  }
+
+  // eslint-disable-next-line prefer-const
+  let intlResponse = intl(req);
 
   const refreshTokens = async () => {
     const refreshToken =
@@ -102,7 +121,6 @@ export async function middleware(req: NextRequest) {
     });
   };
 
-  const { pathname } = req.nextUrl;
   const match = pathname.match(/^\/(?:(vi|en)\/)?admin(\/|$)/);
   if (match) {
     const locale = (match[1] as "vi" | "en") ?? defaultLocale;

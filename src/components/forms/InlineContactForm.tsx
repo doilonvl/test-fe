@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 type ErrorFields = Partial<
-  Record<"name" | "phone" | "email" | "message", string>
+  Record<"name" | "phone" | "email", string>
 >;
 
 type InlineContactFormProps = {
@@ -61,12 +61,12 @@ export default function InlineContactForm({
     const data = {
       fullName: (formData.get("name") as string) || "",
       email: (formData.get("email") as string) || "",
-      organisation: (formData.get("organisation") as string) || "N/A",
       phone: (formData.get("phone") as string) || "",
-      message: (formData.get("message") as string) || "",
-      city: (formData.get("city") as string) || "N/A",
+      message: (formData.get("message") as string) || "N/A",
+      organisation: "N/A",
+      city: "N/A",
       country: "Vietnam",
-      address: (formData.get("address") as string) || "N/A",
+      address: "N/A",
     };
 
     const nextErrors: ErrorFields = {};
@@ -80,7 +80,6 @@ export default function InlineContactForm({
     if (!data.phone.trim() || !isValidPhone(data.phone)) {
       nextErrors.phone = errPhone;
     }
-    if (!data.message.trim()) nextErrors.message = errRequired;
 
     if (Object.keys(nextErrors).length) {
       setErrors(nextErrors);
@@ -183,53 +182,19 @@ export default function InlineContactForm({
         </div>
 
         <div className="grid gap-1">
-          <Label htmlFor="organisation">{t("organisation")}</Label>
-          <Input
-            id="organisation"
-            name="organisation"
-            placeholder={t("placeholder.organisation")}
-            className={baseFieldClass}
-          />
-        </div>
-
-        <div className="grid gap-3 md:grid-cols-2">
-          <div className="grid gap-1">
-            <Label htmlFor="city">{t("city")}</Label>
-            <Input
-              id="city"
-              name="city"
-              placeholder={t("placeholder.city")}
-              className={baseFieldClass}
-            />
-          </div>
-          <div className="grid gap-1">
-            <Label htmlFor="address">{t("address")}</Label>
-            <Input
-              id="address"
-              name="address"
-              placeholder={t("placeholder.address")}
-              className={baseFieldClass}
-            />
-          </div>
-        </div>
-
-        <div className="grid gap-1">
-          <Label htmlFor="message">{t("message")}</Label>
+          <Label htmlFor="message">
+            {t("message")} ({t("optional")})
+          </Label>
           <Textarea
             id="message"
             name="message"
-            rows={5}
+            rows={4}
             placeholder={t("placeholder.message")}
-            aria-invalid={!!errors.message}
-            className={`${baseFieldClass} ${fieldErrorClass(
-              "message"
-            )} min-h-[140px]`}
-            onChange={() => clearError("message")}
+            className={`${baseFieldClass} min-h-[120px]`}
           />
-          {errors.message ? (
-            <p className="text-xs text-red-600">{errors.message}</p>
-          ) : null}
         </div>
+
+        <p className="text-xs text-slate-500">{t("privacyNote")}</p>
 
         <div className="flex justify-end">
           <Button

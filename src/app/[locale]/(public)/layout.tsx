@@ -5,6 +5,7 @@ import SiteHeader from "@/components/shared/site-header";
 import SiteFooter from "@/components/shared/site-footer";
 import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
+import FloatingChatButtons from "@/components/shared/FloatingChatButtons";
 
 export function generateStaticParams() {
   return [{ locale: "vi" }, { locale: "en" }];
@@ -29,6 +30,7 @@ export default async function LocaleLayout({
       <SiteHeader />
       {children}
       <SiteFooter />
+      <FloatingChatButtons />
       <Toaster />
       <Script
         strategy="afterInteractive"

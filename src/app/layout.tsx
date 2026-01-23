@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "https://www.hasakeplay.com.vn"
   ),
   title: { default: "Hasake Play", template: "%s | Hasake Play" },
-  description: "Giải pháp vui chơi hiện đại...",
+  description: "Playground design, outdoor playground construction, playground equipment manufacturing, and EPDM rubber flooring solutions.",
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -52,3 +52,4 @@ export default async function RootLayout({
     </html>
   );
 }
+

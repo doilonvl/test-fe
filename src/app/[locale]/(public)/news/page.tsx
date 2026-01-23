@@ -2,11 +2,13 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { listNews } from "./_data";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import NewsCard from "./_components/NewsCard";
 // Removed paginate in favor of a slider for row 2
 import NewsCarousel from "./_components/Carousel";
 import NewsBreadcrumbs from "./_components/BreadCrumbs";
+import { buildAbsoluteUrl, buildPageMetadata, mergeKeywords } from "@/lib/seo";
+import { getPathname } from "@/i18n/navigation";
 
 type PageProps = {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
@@ -14,22 +16,18 @@ type PageProps = {
 
 export const revalidate = 60;
 
-const siteUrl = "https://hasakeplay.com.vn/news";
-
-export const metadata: Metadata = {
-  title: "Tin tức | Hasake Play",
-  description:
-    "Cập nhật tin tức, dự án mới và câu chuyện từ Hasake Play về giải pháp khu vui chơi.",
-  alternates: { canonical: siteUrl },
-  openGraph: {
-    title: "Tin tức | Hasake Play",
-    description:
-      "Tin tức và dự án mới về thiết kế, thi công khu vui chơi của Hasake Play.",
-    url: siteUrl,
-    siteName: "Hasake Play",
-    images: [{ url: "/Logo/hasakelogo.png", width: 512, height: 512 }],
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getTranslations("seo");
+  const locale = await getLocale();
+  const industryKeywords = seo.raw("keywords.industry") as string[];
+  return buildPageMetadata({
+    title: seo("pages.news.title"),
+    description: seo("pages.news.description"),
+    keywords: mergeKeywords(industryKeywords),
+    href: "/news",
+    locale,
+  });
+}
 
 export default async function NewsListPage({ searchParams }: PageProps) {
   const qs = (await searchParams) || {};
@@ -39,17 +37,21 @@ export default async function NewsListPage({ searchParams }: PageProps) {
   const { items, total } = await listNews({ page, limit });
   const t = await getTranslations("news");
   const nav = await getTranslations("nav");
+  const locale = await getLocale();
   const first = items[0];
   const second = items[1];
   const third = items[2];
   const rest = items.slice(3);
+  const basePath = getPathname({ href: "/news", locale }) ?? "/news";
   const listLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     itemListElement: items.slice(0, 6).map((n, idx) => ({
       "@type": "ListItem",
       position: idx + 1,
-      url: `${siteUrl}/${n.slug}`,
+      url: n.slug
+        ? buildAbsoluteUrl(`${basePath}/${encodeURIComponent(n.slug)}`)
+        : buildAbsoluteUrl(basePath),
       name: n.title,
     })),
   };

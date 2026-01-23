@@ -137,8 +137,8 @@ export default function SiteHeader() {
     >
       <div className="grid w-full items-center min-h-16 grid-cols-[auto_1fr_auto] gap-2">
         {/* Logo */}
-        <Link href="/" className="shrink-0 pl-7">
-          <span className="relative block h-14 w-[168px]">
+        <Link href="/" className="shrink-0 pl-3 sm:pl-7">
+          <span className="relative block h-14 w-[132px] sm:w-[168px]">
             <Image
               src="/Logo/hasakelogo.png"
               alt="HasakePlay"
@@ -272,33 +272,11 @@ export default function SiteHeader() {
                 )}
               </div>
             </li>
-            <li>
-              <Link
-                href="/privacy"
-                style={toneVars("bien")}
-                className={`${linkBase} ${linkHover} ${
-                  isAny("/privacy", "/bao-mat") ? linkActive : linkIdle
-                }`}
-              >
-                {t("privacy")}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/contact-us"
-                style={toneVars("la")}
-                className={`${linkBase} ${linkHover} ${
-                  isAny("/contact-us", "/lien-he") ? linkActive : linkIdle
-                }`}
-              >
-                {t("contact")}
-              </Link>
-            </li>
           </ul>
         </div>
 
         {/* Bên phải */}
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-1 sm:gap-2">
           <LanguageSwitcher />
           <GetInTouchSheet />
 
@@ -356,15 +334,6 @@ export default function SiteHeader() {
                           className="block px-3 py-2 rounded-md hover:bg-gray-50"
                         >
                           {t("about")}
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/privacy"
-                          onClick={() => setMobileOpen(false)}
-                          className="block px-3 py-2 rounded-md hover:bg-gray-50"
-                        >
-                          {t("privacy")}
                         </Link>
                       </li>
                       <li>

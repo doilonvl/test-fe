@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getLocale, getTranslations } from "next-intl/server";
+import { buildPageMetadata, mergeKeywords } from "@/lib/seo";
 
 type PrivacyBlock = { subtitle: string; items: string[] };
 type PrivacySection = {
@@ -25,10 +26,16 @@ const hasBlocks = (
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("privacy");
-  return {
+  const seo = await getTranslations("seo");
+  const locale = await getLocale();
+  const industryKeywords = seo.raw("keywords.industry") as string[];
+  return buildPageMetadata({
     title: t("meta.title"),
     description: t("meta.description"),
-  };
+    keywords: mergeKeywords(industryKeywords),
+    href: "/privacy",
+    locale,
+  });
 }
 
 export default async function PrivacyPolicyPage() {

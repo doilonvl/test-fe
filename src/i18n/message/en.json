@@ -1,18 +1,18 @@
 {
   "nav": {
     "home": "Home",
-    "products": "Product & Services",
-    "projects": "Projects",
-    "privacy": "Privacy & Policy",
+    "products": "Play solutions",
+    "projects": "Flagship projects",
+    "privacy": "Privacy policy",
     "news": "News",
-    "loading": "Loading…",
+    "loading": "Loading...",
     "noCatalogs": "No catalogs available",
     "about": "About us",
-    "contact": "Contact us"
+    "contact": "Get a quote"
   },
   "home": {
-    "heroTitle": "Playground Equipment Supplier and Manufacturer",
-    "heroDesc": "Hasake Play specialises in the design, supply and installation of outdoor and indoor playground equipment with children’s playground equipment and safety flooring, while ensuring creativity, interaction and safety aspects are incorporated in all our designs.",
+    "heroTitle": "Designing world-class play spaces that drive ROI",
+    "heroDesc": "We help investors turn play concepts into profitable destinations with end-to-end design, supply, and installation — optimized for safety, flow, and experience.",
     "brandT": "The Brands",
     "brandD": "Prestige",
     "brandS": "Present in",
@@ -23,166 +23,61 @@
     "latestError": "Failed to load products!",
     "featuredProjectsTitle": "Featured projects",
     "featuredProjectsSubtitle": "Signature installations across the country.",
-    "featuredProjectsCTA": "View all projects"
-  },
-  "footer": {
-    "contactCompany": "Contact Hasake Co., Ltd.",
-    "hotline": { "label": "HOTLINE" },
-    "contactBoss": "Legal Representative: Hari Dass Kumar Ratna Kumar (Mr)",
-    "helpCenter": "Help Center",
-    "tel": "Tel",
-
-    "hcm": {
-      "title": "Ho Chi Minh City Office",
-      "address": "5th Floor, 27K Tran Nhat Duat, Tan Dinh Ward, Ho Chi Minh City, Vietnam.",
-      "phoneHcm": "HCMC Office",
-      "phoneHn": "Hanoi Office",
-      "fax": "Fax"
+    "featuredProjectsCTA": "View all projects",
+    "heroEyebrow": "Digital showroom for investors",
+    "heroPrimaryCta": "Get a free quote",
+    "heroSecondaryCta": "See flagship projects",
+    "heroBadgeOne": "20+ years of global expertise",
+    "heroBadgeTwo": "ISO-aligned safety standards",
+    "heroBadgeThree": "End-to-end project delivery",
+    "trust": {
+      "titleOne": "Concept-to-completion",
+      "descOne": "Strategy, design, supply, installation, and aftercare.",
+      "titleTwo": "Investor-focused ROI",
+      "descTwo": "Layouts optimized for dwell time and revenue.",
+      "titleThree": "Verified quality",
+      "descThree": "Compliance-ready materials and safety controls."
     },
-
-    "hanoi": {
-      "title": "Hanoi Office",
-      "address": "62 Alley Yet Kieu, Cua Nam, Hoan Kiem, Hanoi"
-    },
-
-    "thailand": {
-      "title": "Thailand Office",
-      "address": "78/23, CITY SENSE VILLAGE, SOI WATCHARAPOL 2, THARANG, BANGKHEN, BANGKOK 10230 THAILAND."
-    },
-    "malaysia": {
-      "title": "Malaysia Office",
-      "address": "NO. 3, JALAN ANGGERIK MOKARA 31/64, KOTA KEMUNING, 40460 SHAH ALAM, SELANGOR, MALAYSIA."
-    },
-    "india": {
-      "title": "India Office",
-      "address": "GREENPRO INDIA CONSULTANT PVT. LTD., 416 & 417, 4TH FLOOR, SUNSHINE PLAZA, NAIGAON CROSS ROAD, DADAR (E), MUMBAI – 400 014, INDIA."
-    },
-
-    "viewMap": "View map",
-
-    "info": { "title": "Information" },
-    "links": {
-      "privacy": "Privacy Policy",
-      "terms": "Terms of Use",
-      "contact": "Contact",
-      "catalog": "Download Catalog"
-    },
-
-    "copyright": "\u00A9 {startYear}\u2013{year} Hasake Co., Ltd. All rights reserved."
-  },
-  "notFound": {
-    "title": "This page could not be found",
-    "description": "The link may be outdated or the content has moved.",
-    "ctaHome": "Back to Home",
-    "ctaContact": "Contact us",
-    "hint": "Try searching or go back"
-  },
-  "products": {
-    "title": "Products",
-    "subtitle": "Explore Hasake Play's product catalog",
-    "resultCount": "{count} results",
-    "searchPlaceholder": "Search by name, keyword...",
-    "clear": "Clear filters",
-    "all": "All",
-    "relatedTitle": "Related products",
-    "sort": {
-      "order": "Order \u2191",
-      "-order": "Order \u2193",
-      "title": "Name A \u2192 Z",
-      "-title": "Name Z \u2192 A",
-      "createdAt": "Latest",
-      "-createdAt": "Oldest"
-    },
-    "empty": {
-      "title": "No results found",
-      "desc": "Please adjust your search or keyword."
-    },
-    "viewDetails": "View details"
-  },
-  "contact": {
-    "trigger": "Get in touch",
-    "title": "Get in touch with us",
-    "description": "Need assistance? Fill in the form below and we'll get back to you shortly.",
-    "name": "Full Name",
-    "phone": "Phone",
-    "email": "Email",
-    "organisation": "Organisation / Company",
-    "city": "City",
-    "address": "Address",
-    "message": "Message",
-    "send": "Send",
-    "sending": "Sending...",
-    "close": "Close",
-    "toast": {
-      "success": "Message sent successfully! We'll contact you soon.",
-      "error": "Failed to send, please try again later."
-    },
-    "placeholder": {
-      "name": "John Doe",
-      "phone": "+84...",
-      "email": "you@company.com",
-      "organisation": "Company name",
-      "city": "Hanoi",
-      "address": "123 Street, District Y",
-      "message": "Your message..."
-    }
-  },
-  "contactPage": {
-    "title": "Contact us",
-    "eyebrow": "Talk to Hasake",
-    "heroTitle": "Contact Hasake Play",
-    "heroSubtitle": "We operate across Vietnam and Asia-Pacific. Choose the nearest office or send us your project details.",
-    "hotline": "Hotline",
-    "email": "Email",
-    "ctaTitle": "Quick support",
-    "ctaHeadline": "Share your needs",
-    "ctaDesc": "We respond within working hours with the right specialist for your request.",
-    "miniCards": {
-      "projects": {
-        "title": "Project advisory",
-        "desc": "Layouts, materials, budgeting, and safety compliance."
+    "leadMagnetEyebrow": "Lead magnet",
+    "leadMagnetTitle": "Download the 2026 Play Space Strategy Kit",
+    "leadMagnetDesc": "Catalog + checklist + investment guide to validate budgets, safety, and design concepts.",
+    "leadMagnetCtaPrimary": "Download catalog",
+    "leadMagnetCtaSecondary": "Get a 3D layout",
+    "futureEyebrow": "2026 Trends",
+    "futureTitle": "Inclusive & Sustainable Play",
+    "futureDesc": "Focusing on safety, inclusion, and green materials — suitable for international schools and high-end resorts.",
+    "futureCards": {
+      "inclusive": {
+        "title": "Inclusive Play",
+        "desc": "Accessible design for children with disabilities and diverse abilities."
       },
-      "support": {
-        "title": "Service & aftercare",
-        "desc": "Operations tips, maintenance, and spare parts guidance."
+      "green": {
+        "title": "Green Play",
+        "desc": "Prioritizing sustainable materials, low emissions, and eco-friendliness."
       }
-    },
-    "formTitle": "Send us a message",
-    "formSubtitle": "Fill all required fields so we can support you faster.",
-    "officesTitle": "Offices",
-    "officesSubtitle": "Vietnam & International",
-    "officesIntro": "Call or visit the closest location, or use the form for quick response.",
-    "officesLabel": "Where to find us",
-    "officesGridTitle": "Our offices worldwide",
-    "officesGridSubtitle": "Pick a city and reach the right team instantly.",
-    "badges": {
-      "hq": "Head office",
-      "vietnam": "Vietnam",
-      "asia": "Asia",
-      "global": "Global"
     }
   },
   "intro": {
     "why": "Why do people choose",
-    "unique": "The Uniqueness",
+    "unique": "Proven delivery system by",
     "brand": "Hasake Play",
-    "middleTitle": "Why Us?",
+    "middleTitle": "How we deliver",
     "blocks": [
       {
-        "title": "Our Philosophy",
-        "desc": "Turning our customers' dreams into reality by creating meaningful playgrounds for all ages."
+        "desc": "Understand site constraints, budget, and revenue goals.",
+        "title": "Site survey & strategy"
       },
       {
-        "title": "Our Mission",
-        "desc": "Commitment to professionalism and creativity in every project to enhance community experiences."
+        "desc": "Visualize investor-ready concepts with ROI-focused zoning.",
+        "title": "3D concept & layout"
       },
       {
-        "title": "Our Vision",
-        "desc": "Bringing people closer to nature, creating greener and healthier living spaces."
+        "desc": "ISO-aligned materials, safety checks, on-time delivery.",
+        "title": "Fabrication & installation"
       },
       {
-        "title": "Safety and Quality",
-        "desc": "Safety is our top priority, and quality is the foundation for building customer trust."
+        "desc": "Training, inspections, and lifecycle support.",
+        "title": "Operations & maintenance"
       }
     ]
   },
@@ -224,9 +119,151 @@
     "water": {
       "title": "Water park",
       "videoAria": "Water park demo video",
-      "p1": "Hasake’s water park solutions include FRP slides, splash pads, interactive fountains, tipping buckets, along with a compliant circulation–filtration–disinfection system. Designs prioritize slide safety, anti-slip surfaces, and fast drainage.",
+      "p1": "Hasake's water park solutions include FRP slides, splash pads, interactive fountains, tipping buckets, along with a compliant circulation–filtration–disinfection system. Designs prioritize slide safety, anti-slip surfaces, and fast drainage.",
       "p2": "Our delivery process follows standards from site survey, concept design, shop drawings, construction to commissioning. We train on-site staff and provide maintenance to ensure safe, stable year-round operations."
     }
+  },
+  "contactPage": {
+    "title": "Contact us",
+    "eyebrow": "Talk to Hasake",
+    "heroTitle": "Contact Hasake Play",
+    "heroSubtitle": "We operate across Vietnam and Asia-Pacific. Choose the nearest office or send us your project details.",
+    "hotline": "Hotline",
+    "email": "Email",
+    "ctaTitle": "Quick support",
+    "ctaHeadline": "Share your needs",
+    "ctaDesc": "We respond within working hours with the right specialist for your request.",
+    "miniCards": {
+      "projects": {
+        "title": "Project advisory",
+        "desc": "Layouts, materials, budgeting, and safety compliance."
+      },
+      "support": {
+        "title": "Service & aftercare",
+        "desc": "Operations tips, maintenance, and spare parts guidance."
+      }
+    },
+    "formTitle": "Send us a message",
+    "formSubtitle": "Only 3 fields: name, phone, and email. We will follow up quickly.",
+    "officesTitle": "Offices",
+    "officesSubtitle": "Vietnam & International",
+    "officesIntro": "Call or visit the closest location, or use the form for quick response.",
+    "officesLabel": "Where to find us",
+    "officesGridTitle": "Our offices worldwide",
+    "officesGridSubtitle": "Pick a city and reach the right team instantly.",
+    "badges": {
+      "hq": "Head office",
+      "vietnam": "Vietnam",
+      "asia": "Asia",
+      "global": "Global"
+    }
+  },
+  "footer": {
+    "contactCompany": "Contact Hasake Co., Ltd.",
+    "hotline": {
+      "label": "HOTLINE"
+    },
+    "contactBoss": "Legal Representative: Hari Dass Kumar Ratna Kumar (Mr)",
+    "helpCenter": "Help Center",
+    "tel": "Tel",
+    "hcm": {
+      "title": "Ho Chi Minh City Office",
+      "address": "5th Floor, 27K Tran Nhat Duat, Tan Dinh Ward, Ho Chi Minh City, Vietnam.",
+      "phoneHcm": "HCMC Office",
+      "phoneHn": "Hanoi Office",
+      "fax": "Fax"
+    },
+    "hanoi": {
+      "title": "Hanoi Office",
+      "address": "62 Alley Yet Kieu, Cua Nam, Hoan Kiem, Hanoi"
+    },
+    "thailand": {
+      "title": "Thailand Office",
+      "address": "78/23, CITY SENSE VILLAGE, SOI WATCHARAPOL 2, THARANG, BANGKHEN, BANGKOK 10230 THAILAND."
+    },
+    "malaysia": {
+      "title": "Malaysia Office",
+      "address": "NO. 3, JALAN ANGGERIK MOKARA 31/64, KOTA KEMUNING, 40460 SHAH ALAM, SELANGOR, MALAYSIA."
+    },
+    "india": {
+      "title": "India Office",
+      "address": "GREENPRO INDIA CONSULTANT PVT. LTD., 416 & 417, 4TH FLOOR, SUNSHINE PLAZA, NAIGAON CROSS ROAD, DADAR (E), MUMBAI – 400 014, INDIA."
+    },
+    "viewMap": "View map",
+    "info": {
+      "title": "Information"
+    },
+    "links": {
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "contact": "Contact",
+      "catalog": "Download Catalog"
+    },
+    "copyright": "© {startYear}–{year} Hasake Co., Ltd. All rights reserved."
+  },
+  "notFound": {
+    "title": "This page could not be found",
+    "description": "The link may be outdated or the content has moved.",
+    "ctaHome": "Back to Home",
+    "ctaContact": "Contact us",
+    "hint": "Try searching or go back"
+  },
+  "products": {
+    "title": "Products",
+    "subtitle": "Explore Hasake Play's product catalog",
+    "resultCount": "{count} results",
+    "searchPlaceholder": "Search by name, keyword...",
+    "clear": "Clear filters",
+    "all": "All",
+    "relatedTitle": "Related products",
+    "sort": {
+      "order": "Order ↑",
+      "-order": "Order ↓",
+      "title": "Name A → Z",
+      "-title": "Name Z → A",
+      "createdAt": "Latest",
+      "-createdAt": "Oldest"
+    },
+    "empty": {
+      "title": "No results found",
+      "desc": "Please adjust your search or keyword."
+    },
+    "viewDetails": "View details",
+    "usedProjectsEyebrow": "Social proof",
+    "usedProjectsTitle": "Projects using this product",
+    "usedProjectsDesc": "Selected installations that feature this product.",
+    "usedProjectsEmpty": "No projects listed yet. Explore Hasake's flagship projects.",
+    "usedProjectsCta": "View projects"
+  },
+  "contact": {
+    "trigger": "Get a free quote",
+    "title": "Get a quote for your project",
+    "description": "Share your name, phone, and email. We will contact you shortly.",
+    "name": "Full Name",
+    "phone": "Phone",
+    "email": "Email",
+    "organisation": "Organisation / Company",
+    "city": "City",
+    "address": "Address",
+    "message": "Message",
+    "send": "Send",
+    "sending": "Sending...",
+    "close": "Close",
+    "toast": {
+      "success": "Message sent successfully! We'll contact you soon.",
+      "error": "Failed to send, please try again later."
+    },
+    "placeholder": {
+      "name": "John Doe",
+      "phone": "+84...",
+      "email": "you@company.com",
+      "organisation": "Company name",
+      "city": "Hanoi",
+      "address": "123 Street, District Y",
+      "message": "Your message..."
+    },
+    "privacyNote": "We protect your information according to ISO-aligned privacy standards.",
+    "optional": "Optional"
   },
   "privacy": {
     "meta": {
@@ -322,7 +359,7 @@
         ]
       },
       {
-        "title": "10. Children’s Privacy",
+        "title": "10. Children's Privacy",
         "items": [
           "Our Site is generally not intended for children under 13.",
           "We do not knowingly collect data from children under 13; if you believe we have, contact us to remove it."
@@ -371,6 +408,12 @@
       "more": "Expand gallery",
       "less": "Collapse gallery"
     },
+    "galleryControls": {
+      "zoomIn": "Zoom in",
+      "close": "Close",
+      "prev": "Previous image",
+      "next": "Next image"
+    },
     "relatedTitle": "Related projects",
     "table": {
       "project": "Project",
@@ -399,6 +442,92 @@
       "prevPage": "Previous page",
       "nextPage": "Next page",
       "lastPage": "Last page"
+    },
+    "caseStudy": {
+      "eyebrow": "Case study",
+      "title": "Project summary",
+      "subtitle": "Challenge, solution, and outcome.",
+      "challenge": "Challenge",
+      "solution": "Solution",
+      "result": "Outcome",
+      "empty": "Case study content is being updated."
+    },
+    "beforeAfter": {
+      "title": "Before / After",
+      "before": "Before",
+      "after": "After"
+    }
+  },
+  "seo": {
+    "keywords": {
+      "industry": [
+        "Playground design",
+        "Outdoor playground construction",
+        "Playground equipment manufacturer",
+        "Playground manufacturer Vietnam",
+        "Park fitness equipment",
+        "EPDM rubber flooring"
+      ]
+    },
+    "pages": {
+      "home": {
+        "title": "Playground Design & Outdoor Playground Construction in Vietnam",
+        "description": "Playground design, outdoor playground construction, playground equipment manufacturing, park fitness equipment, and EPDM rubber flooring for investors and schools."
+      },
+      "projects": {
+        "title": "Playground Design & Build Projects",
+        "description": "Project portfolio covering playground design, outdoor playground construction, and installed equipment across Vietnam."
+      },
+      "projectsDetail": {
+        "titleSuffix": "Playground Project",
+        "description": "Project details for playground design and outdoor playground construction."
+      },
+      "products": {
+        "title": "Playground Equipment, EPDM Flooring & Park Fitness",
+        "description": "Explore playground equipment, EPDM rubber flooring, and outdoor fitness solutions with design and installation support."
+      },
+      "news": {
+        "title": "Playground Design & Construction News",
+        "description": "Updates on playground design, outdoor playground construction, and equipment solutions."
+      },
+      "newsDetail": {
+        "titleSuffix": "Industry Insight",
+        "description": "Insights on playground design, construction, and equipment trends in Vietnam."
+      },
+      "about": {
+        "title": "Playground Equipment Manufacturer in Vietnam",
+        "description": "Learn about our experience in playground design, outdoor playground construction, and manufacturing of playground equipment."
+      },
+      "contact": {
+        "title": "Get a Quote for Playground Design & Construction",
+        "description": "Talk to our team about playground design, outdoor playground construction, park fitness equipment, and EPDM rubber flooring."
+      },
+      "privacy": {
+        "title": "Privacy Policy",
+        "description": "How we protect your data when you browse our playground design and construction website."
+      }
+    },
+    "nonBrand": {
+      "eyebrow": "Non-brand visibility",
+      "title": "Industry keyword expansion & display optimization",
+      "objectiveTitle": "Objective",
+      "objectiveText": "Rank Top 10 on Google for core industry keywords without requiring the brand name.",
+      "keywordsTitle": "Target industry keywords",
+      "keywords": [
+        "Playground design",
+        "Outdoor playground construction",
+        "Playground equipment manufacturer",
+        "Playground manufacturer Vietnam",
+        "Park fitness equipment",
+        "EPDM rubber flooring"
+      ],
+      "audienceTitle": "Primary audiences",
+      "audiences": [
+        "Real estate developers (Vingroup, Novaland, etc.)",
+        "International school principals",
+        "Project management teams"
+      ],
+      "note": "We align metadata, on-page copy, and proof from delivered projects so decision makers can find us via industry terms."
     }
   }
 }

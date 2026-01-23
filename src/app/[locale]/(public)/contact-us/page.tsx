@@ -1,5 +1,5 @@
 import InlineContactForm from "@/components/forms/InlineContactForm";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import {
   Breadcrumb,
@@ -10,6 +10,8 @@ import {
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import { Mail, MapPin, Phone, ArrowUpRight, Building2 } from "lucide-react";
+import type { Metadata } from "next";
+import { buildPageMetadata, mergeKeywords } from "@/lib/seo";
 
 export const revalidate = 300;
 
@@ -23,6 +25,19 @@ type Office = {
   badge?: string;
   mapLabel?: string;
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getTranslations("seo");
+  const locale = await getLocale();
+  const industryKeywords = seo.raw("keywords.industry") as string[];
+  return buildPageMetadata({
+    title: seo("pages.contact.title"),
+    description: seo("pages.contact.description"),
+    keywords: mergeKeywords(industryKeywords),
+    href: "/contact-us",
+    locale,
+  });
+}
 
 export default async function ContactPage() {
   const nav = await getTranslations("nav");
